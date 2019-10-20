@@ -10,7 +10,8 @@
 ├── 前端
 
 ## 后端项目目录
-
+v1版本：  
+> 此版本使用的是`my-batis`作为orm
 <pre><code>.
 ├──README.MD  
 ├── document                      <=一些遇见的问题的归档 
@@ -27,3 +28,26 @@
 │ │ │ ├──BaseServiceImpl.java     <= 供 .management/ 中的实现类继承的抽象方法
 │ │ ├── BaseService.java          <= 抽象接口（泛型） 
 </code></pre>
+
+v2版本：
+>此版本使用`Hibernate`并通过`jpa`作为ORM
+后端结构如下：
+<pre><code>
+├──README.MD  
+├── document                      <=一些遇见的问题的归档 
+├── src/main/java/com/nmefc/neargoos  <=项目源代码  
+│ ├── common                      <= 公共的一些组件
+│ ├── controller                  <= 控制器均放置至此    
+│ ├── entity                      <= 由JPA根据db映射的entity放置于此 
+│ │ ├── management                <= management
+│ │ ├── data                      <= data
+│ │ ├── document                  <= document document
+│ │ ├── product                   <= product 产品
+│ ├── middleModel                 <= 中间model
+│ ├── repository                  <= 所有的Repository放置于此
+│ ├── service 
+│ │ ├── impl                      <= 实现 
+│ │ ├── inte                      <= 接口
+</code></pre>
+`repository`中的实现类均继承自`JpaSpecificationExecutor`与`JpaRepository`
+`service/impl`中通过调用指定的`Repository`调用查询方法
