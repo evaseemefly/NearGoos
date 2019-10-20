@@ -9,6 +9,9 @@
 [evaseemefly](https://github.com/evaseemefly)
 ├── 前端
 
+进度参考:
+[进度](/document/schedule/README.md)
+
 ## 后端项目目录
 v1版本：  
 > 此版本使用的是`my-batis`作为orm
@@ -51,3 +54,4 @@ v2版本：
 </code></pre>
 `repository`中的实现类均继承自`JpaSpecificationExecutor`与`JpaRepository`
 `service/impl`中通过调用指定的`Repository`调用查询方法
+
