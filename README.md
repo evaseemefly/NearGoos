@@ -3,18 +3,17 @@
 ## 项目主要参与人员
 
 主要参与人员：  
-[QuYuan891211](https://github.com/QuYuan891211)
-├── 后端
-
-[evaseemefly](https://github.com/evaseemefly)
-├── 前端
+[evaseemefly](https://github.com/evaseemefly) and [QuYuan891211](https://github.com/QuYuan891211)
 
 进度参考:
 [进度](/document/schedule/README.md)
 
 ## 后端项目目录
-v1版本：  
-> 此版本使用的是`my-batis`作为orm
+
+v1 版本：
+
+> 此版本使用的是`my-batis`作为 orm
+
 <pre><code>.
 ├──README.MD  
 ├── document                      <=一些遇见的问题的归档 
@@ -32,9 +31,11 @@ v1版本：
 │ │ ├── BaseService.java          <= 抽象接口（泛型） 
 </code></pre>
 
-v2版本：
->此版本使用`Hibernate`并通过`jpa`作为ORM
-后端结构如下：
+v2 版本：
+
+> 此版本使用`Hibernate`并通过`jpa`作为 ORM
+> 后端结构如下：
+
 <pre><code>
 ├──README.MD  
 ├── document                      <=一些遇见的问题的归档 
@@ -52,6 +53,6 @@ v2版本：
 │ │ ├── impl                      <= 实现 
 │ │ ├── inte                      <= 接口
 </code></pre>
+
 `repository`中的实现类均继承自`JpaSpecificationExecutor`与`JpaRepository`
 `service/impl`中通过调用指定的`Repository`调用查询方法
-
