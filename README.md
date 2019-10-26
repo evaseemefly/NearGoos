@@ -62,4 +62,4 @@ v2 版本：
 数据读取分工如下：  
 [观测数据](background/byQY/README.txt)
 
-[预报产品](background/byCasablanca/README.txt)
+[预报产品](background/byCasablanca/README.md)
