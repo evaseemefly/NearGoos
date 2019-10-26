@@ -56,3 +56,10 @@ v2 版本：
 
 `repository`中的实现类均继承自`JpaSpecificationExecutor`与`JpaRepository`
 `service/impl`中通过调用指定的`Repository`调用查询方法
+
+---
+
+数据读取分工如下：  
+[观测数据](background/byQY/README.txt)
+
+[预报产品](background/byCasablanca/README.txt)
