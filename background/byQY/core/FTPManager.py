@@ -26,16 +26,22 @@ class FTPManager:
         self.ftp.login(username, password)
 
     # 显示ftp指定目录下的文件,详细信息 ------- ftp.cat_dir()
-    def cat_dir(self, filepath):
-        cat = self.ftp.dir(filepath)
-        print(cat)
-        return cat
+    def get_file_info_list(self, filepath):
+        self.ftp.cwd(filepath)
+        file_list = self.ftp.retrlines('RETR')
+        print(file_list)
+        return file_list
 
     # 获取配置文件信息
     def get_config(self):
         config = configparser.ConfigParser()
         config.read(self.config_path)
         return config
+
+    # 关闭连接
+    def close_connect(self):
+        self.ftp.close()
+
 
     # # 获取指定间隔内的文件更新
     # def check_update(self, section):
