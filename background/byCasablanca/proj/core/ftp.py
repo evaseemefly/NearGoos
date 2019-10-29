@@ -35,13 +35,24 @@ class Ftp():
         '''
         self._copy_list(list)
 
-    def download_file(self,remote_path:str,local_path:str):
+    def download_file(self, remote_path: str, local_path: str):
         '''
             将ftp目录下的指定文件下载至本地的指定目录下
         :param remote_path:
         :param local_path:
         :return:
         '''
+        cache_size = 1024
+        fp = open(local_path, 'wb')
+        # 读取指定文件并写入本地文件
+        msg = self.ftp.retrbinary('RETR' + remote_path, fp.write, cache_size)
+        # 判断ftp返回的状态
+        if msg.find('226') != -1:
+            print("下载完毕")
+            # todo:[*] 19-10-29 以后需要改造为写入数据库操作
+        self.ftp.set_debuglevel(0)
+        fp.close()
+
         pass
 
     def _copy_list(self, list: []):
@@ -62,6 +73,7 @@ class Ftp():
                     # -4 清除ftp上的相应的文件
                     for file_temp in list_match_files:
                         print(file_temp)
+                        self.download_file(file_temp, product.root)
 
         # pass
 

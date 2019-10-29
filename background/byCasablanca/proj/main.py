@@ -29,7 +29,8 @@ def init_type() -> []:
     list = []
     list.append(ProductMidModel(ProductType.WAVE,
                                 [AreaNameMidModel(Area.CHINASEA, 'coast*.png'),
-                                 AreaNameMidModel(Area.NORTHWEST, 'xb*.png')]))
+                                 AreaNameMidModel(Area.NORTHWEST, 'xb*.png')],
+                                os.path.join(setting._ROOT_DIR,'wave')))
     return list
 
 
