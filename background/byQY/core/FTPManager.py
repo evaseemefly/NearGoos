@@ -7,6 +7,8 @@
 # @Site    : 
 # @File    : FTPManager.py
 # @Software: PyCharm
+import os
+
 import ftputil
 import configparser
 import time
@@ -19,42 +21,126 @@ class FTPManager:
         self.config_path = config_path
         self.ftp = FTP()
         self.section = section
+        # 重新设置下编码方式
+        self.ftp.encoding = 'UTF-8'
 
-    # 连接FTP
     def ftp_connect(self, host, username, password):
+        """
+        连接FTP
+        :param host: 主机地址
+        :param username: 用户名
+        :param password: 密码
+        :return:
+        """
         self.ftp.connect(host)
         self.ftp.login(username, password)
 
-    # 显示ftp指定目录下的文件,详细信息 ------- ftp.cat_dir()
     def get_file_info_list(self, filepath):
+        """
+        以文本的方式获得文件信息列表
+        :param filepath: 文件目录
+        :return:
+        """
         self.ftp.cwd(filepath)
-        file_list = self.ftp.retrlines('RETR')
-        print(file_list)
+        file_list = self.ftp.retrlines('MLSD')
+        # file_list = self.ftp.nlst()
+        # print(file_list)
         return file_list
 
-    # 获取配置文件信息
     def get_config(self):
+        """
+        获取配置文件信息
+        :return: 配置文件类
+        """
         config = configparser.ConfigParser()
         config.read(self.config_path)
         return config
 
-    # 关闭连接
     def close_connect(self):
+        """
+        关闭FTP链接
+        :return:
+        """
         self.ftp.close()
 
+    def get_filename(self, file_need, filepath):
+        """
+        返回指定文件名的文件目录
+        :param file_need: 需被匹配的文件名
+        :param filepath: 文件目录
+        :return: 文件名数组
+        """
+        self.ftp.cwd(filepath)
+        files = [filename for filename in self.ftp.nlst() if file_need in filename]
+        return files
 
-    # # 获取指定间隔内的文件更新
-    # def check_update(self, section):
-    #     currenttime = time.time()
-    #     print("current new time is", time.strftime('%Y-%m-%d_%H-%M-%S', time.localtime()))
-    #
-    #     host = config.get(section, 'host')
-    #     username = config.get(section, 'username')
-    #     password = config.get(section, 'password')
-    #     # 连接数据库
-    #     self.ftp_connect(host, username, password)
-    #     self.cat_dir(config.get(section, 'target'))
+    # # 存储
+    # def upload(self, target_path, old_path):
+    #     fp = open(old_path, "rb")
+    #     buf_size = 1024
+    #     self.storbinary("STOR {}".format(target_path), fp, buf_size)
+    #     fp.close()
 
+    def is_same_size(self, local_file, remote_file):
+        """
+        判断远程文件和本地文件大小是否一致
+        :param local_file: 本地文件
+        :param remote_file: 远程文件
+        :return: 是否一致的布尔值
+        """
+        try:
+            remote_file_size = self.ftp.size(remote_file)
+        except Exception as err:
+            # self.debug_print("is_same_size() 错误描述为：%s" % err)
+            remote_file_size = -1
+        try:
+            local_file_size = os.path.getsize(local_file)
+        except Exception as err:
+            # self.debug_print("is_same_size() 错误描述为：%s" % err)
+            local_file_size = -1
+        self.debug_print('local_file_size:%d  , remote_file_size:%d' % (local_file_size, remote_file_size))
+        if remote_file_size == local_file_size:
+            return 1
+        else:
+            return 0
 
-# test = FTPManager(r'E:\projects\pycharm\NearGoos\background\byQY\config\ftpConfig.ini')
-# test.check_update('neargoos')
+    def download_file(self, local_file, remote_file):
+        """
+        下载远程文件至本地
+        :param local_file:本地文件
+        :param remote_file:远程文件
+        :return:
+        """
+        if self.is_same_size(local_file, remote_file):
+            self.debug_print('%s 文件大小相同，无需下载' % local_file)
+            return
+        else:
+            try:
+                self.debug_print('>>>>>>>>>>>>下载文件 %s ... ...' % local_file)
+                buf_size = 1024
+                file_handler = open(local_file, 'wb')
+                self.ftp.retrbinary('RETR %s' % remote_file, file_handler.write, buf_size)
+                file_handler.close()
+            except Exception as err:
+                self.debug_print('下载文件出错，出现异常：%s ' % err)
+                return
+
+    def upload_file(self, local_file, remote_file):
+        """
+        从本地上传文件至FTP
+        :param local_path:
+        :param remote_path:
+        :return:
+        """
+        if not os.path.isfile(local_file):
+            self.debug_print('%s 不存在' % local_file)
+            return
+        if self.is_same_size(local_file, remote_file):
+            self.debug_print('%s 文件大小相同，无需上传' % local_file)
+            return
+
+        buff_size = 1024
+        file_handler = open(local_file, 'rb')
+        self.ftp.storbinary('STOR %s' % remote_file, file_handler, buff_size)
+        file_handler.close()
+        self.debug_print('上传: %s' % local_file + "成功!")
