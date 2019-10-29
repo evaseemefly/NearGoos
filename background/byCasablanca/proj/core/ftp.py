@@ -1,5 +1,6 @@
 from ftplib import FTP, FTP_TLS
 import re
+import os
 from fnmatch import fnmatch, fnmatchcase
 
 from model.middlemodel import ProductMidModel, AreaNameMidModel
@@ -45,7 +46,8 @@ class Ftp():
         cache_size = 1024
         fp = open(local_path, 'wb')
         # 读取指定文件并写入本地文件
-        msg = self.ftp.retrbinary('RETR' + remote_path, fp.write, cache_size)
+        # 错误1:ftplib.error_perm: 500 Syntax error, command unrecognized.
+        msg = self.ftp.retrbinary('RETR ' + remote_path, fp.write, cache_size)
         # 判断ftp返回的状态
         if msg.find('226') != -1:
             print("下载完毕")
@@ -73,7 +75,7 @@ class Ftp():
                     # -4 清除ftp上的相应的文件
                     for file_temp in list_match_files:
                         print(file_temp)
-                        self.download_file(file_temp, product.root)
+                        self.download_file(file_temp, os.path.join(product.root,file_temp))
 
         # pass
 

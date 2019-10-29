@@ -4,4 +4,4 @@ _FTP_USER = 'cur'
 _FTP_PASSWORD = 'cur123'
 
 # 转存的路径
-_ROOT_DIR=r''
+_ROOT_DIR = r'E:\01data\ftpdownload'
