@@ -5,7 +5,7 @@ import os
 from common.enum import Area, ProductType
 from conf import setting
 from model.middlemodel import ProductMidModel, AreaNameMidModel
-from core.ftp import Ftp
+from core.ftp import Ftp, ProductFile
 
 cur_path = os.path.abspath(os.path.dirname(__file__))
 root_path = os.path.split(cur_path)[0]
@@ -15,9 +15,10 @@ sys.path.append(root_path)
 def main():
     list_products = init_type()
     ftp = Ftp(setting._FTP_HOST, setting._FTP_USER, setting._FTP_PASSWORD)
-    ftp.init_ftp()
+    # ftp.init_ftp()
     # ftp.copy_list(list_products)
-    ftp.run(list_products)
+    product = ProductFile(ftp)
+    product.run(list_products)
     pass
 
 
@@ -30,7 +31,24 @@ def init_type() -> []:
     list.append(ProductMidModel(ProductType.WAVE,
                                 [AreaNameMidModel(Area.CHINASEA, 'coast*.png'),
                                  AreaNameMidModel(Area.NORTHWEST, 'xb*.png')],
-                                os.path.join(setting._ROOT_DIR,'wave')))
+                                os.path.join(setting._ROOT_DIR, 'wave')))
+    list.append(ProductMidModel(ProductType.CURRENT,
+                                [AreaNameMidModel(Area.EASTCHINASEA, 'sped-top*.jpg'),
+                                 AreaNameMidModel(Area.NORTHWEST, '048_UV*.png'),
+                                 AreaNameMidModel(Area.FAREAST, 'cur_NMEFC_near_goos_*.png')],
+                                os.path.join(setting._ROOT_DIR, 'current')))
+    # todo:[*] 19-10-30 注意海冰的命名方式有一些特殊，注意
+    list.append(ProductMidModel(ProductType.ICE,
+                                [AreaNameMidModel(Area.BOHAI, '19*.jpg')],
+                                os.path.join(setting._ROOT_DIR, 'ice')))
+
+    list.append(ProductMidModel(ProductType.SST,
+                                [AreaNameMidModel(Area.EASTCHINASEA, 'temp-top-*.jpg'),
+                                 AreaNameMidModel(Area.NORTHWEST, '024_T_*.png')],
+                                os.path.join(setting._ROOT_DIR, 'SST')))
+    list.append(ProductMidModel(ProductType.SSH,
+                                [AreaNameMidModel(Area.FAREAST, 'ssh_NMEFC_near_goos_*.png')],
+                                os.path.join(setting._ROOT_DIR, 'SSH')))
     return list
 
 

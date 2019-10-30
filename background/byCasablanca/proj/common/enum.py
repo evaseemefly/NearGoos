@@ -50,3 +50,7 @@ class Area(Enum):
         深远海
     '''
     FAREAST=3
+    '''
+        渤海
+    '''
+    BOHAI=4
