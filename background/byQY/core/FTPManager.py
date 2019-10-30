@@ -98,13 +98,14 @@ class FTPManager:
         except Exception as err:
             # self.debug_print("is_same_size() 错误描述为：%s" % err)
             local_file_size = -1
-        self.debug_print('local_file_size:%d  , remote_file_size:%d' % (local_file_size, remote_file_size))
+        # self.debug_print('local_file_size:%d  , remote_file_size:%d' % (local_file_size, remote_file_size))
         if remote_file_size == local_file_size:
             return 1
         else:
             return 0
 
-    def download_file(self, local_file, remote_file):
+    # [to-do] 此处可增加为批量下载
+    def download_file(self, local_file, remote_file, local_file_dir):
         """
         下载远程文件至本地
         :param local_file:本地文件
@@ -112,18 +113,18 @@ class FTPManager:
         :return:
         """
         if self.is_same_size(local_file, remote_file):
-            self.debug_print('%s 文件大小相同，无需下载' % local_file)
+            # self.debug_print('%s 文件大小相同，无需下载' % local_file)
+            print('大小相同无需下载')
             return
         else:
-            try:
-                self.debug_print('>>>>>>>>>>>>下载文件 %s ... ...' % local_file)
-                buf_size = 1024
-                file_handler = open(local_file, 'wb')
-                self.ftp.retrbinary('RETR %s' % remote_file, file_handler.write, buf_size)
-                file_handler.close()
-            except Exception as err:
-                self.debug_print('下载文件出错，出现异常：%s ' % err)
-                return
+            if not os.path.exists(local_file_dir):
+                os.makedirs(local_file_dir)
+            # self.debug_print('>>>>>>>>>>>>下载文件 %s ... ...' % local_file)
+            buf_size = 1024
+            file_handler = open(local_file, 'wb')
+            self.ftp.retrbinary('RETR %s' % remote_file, file_handler.write, buf_size)
+            file_handler.close()
+            return
 
     def upload_file(self, local_file, remote_file):
         """
@@ -133,14 +134,18 @@ class FTPManager:
         :return:
         """
         if not os.path.isfile(local_file):
-            self.debug_print('%s 不存在' % local_file)
+            # self.debug_print('%s 不存在' % local_file)
+            print('不存在')
             return
         if self.is_same_size(local_file, remote_file):
-            self.debug_print('%s 文件大小相同，无需上传' % local_file)
+            # self.debug_print('%s 文件大小相同，无需上传' % local_file)
+            print('大小相同无需上传')
             return
 
         buff_size = 1024
+
         file_handler = open(local_file, 'rb')
         self.ftp.storbinary('STOR %s' % remote_file, file_handler, buff_size)
         file_handler.close()
-        self.debug_print('上传: %s' % local_file + "成功!")
+        # self.debug_print('上传: %s' % local_file + "成功!")
+        print('上传成功')
