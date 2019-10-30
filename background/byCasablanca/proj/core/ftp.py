@@ -3,12 +3,14 @@ from ftplib import error_perm
 import os
 from fnmatch import fnmatch, fnmatchcase
 import socket
-from datetime import date
+from datetime import date, datetime
 
 # 中间mid model
 from model.middlemodel import ProductMidModel, AreaNameMidModel
+from model.models import ProductInfoModel
 # 自定义工具
 from common import tools
+from core.db import DBFactory
 
 
 class Ftp:
@@ -80,6 +82,16 @@ class Ftp:
 
         pass
 
+    def delete_file(self, file_name: str, remote_path: ''):
+        '''
+            删除远端的file
+        :param file_name:
+        :param remote_path:
+        :return:
+        '''
+        if remote_path == '':
+            self.ftp.delete_file(file_name)
+
     #
     # todo:[*] 19-10-30 放在product file中
     # def _copy_list(self, list: []):
@@ -110,6 +122,8 @@ class Ftp:
 
 # def get_match_list()
 class ProductFile:
+    session = None
+
     def __init__(self, ftp: Ftp):
         self.ftp = ftp
 
@@ -118,6 +132,11 @@ class ProductFile:
         self.copy_list(list)
 
     def copy_list(self, list: []):
+        '''
+            根据产品种类找到符合条件的文件并复制到本地指定目录
+        :param list:
+        :return:
+        '''
         for product in list:
             if isinstance(product, ProductMidModel):
                 for area_temp in product.areanames:
@@ -127,15 +146,25 @@ class ProductFile:
                     # -1 [-] 获取要存储的目录
                     # -2 [-] 下载并存储至指定目录
                     # -3 [*] 记录最终的目录并写入数据库
-                    # -4 [*] 清除ftp上的相应的文件
+                    # -4 [-] 清除ftp上的相应的文件
+                    db = DBFactory()
                     for file_temp in list_match_files:
                         print(file_temp)
                         # todo:[*] 19-10-30 此处的下载的地址，需要加入时间（只根据product的type进行分类:wave|current|ice/ssh/sst，不再产品中再对区域进行细分了）
                         # 此处加一个时间的目录结构
                         now_date = date.today()
-                        final_path = os.path.join(product.root, str(now_date.year), str(now_date.month), str(now_date.day))
+                        final_path = os.path.join(product.root, str(now_date.year), str(now_date.month),
+                                                  str(now_date.day))
                         self.ftp.download_file(file_temp, final_path)
+                        # todo:[*] 19-10-30 加入写入数据库的操作，此处暂时先这样实现，需要改为工厂模式
+                        # db = DBFactory()
 
+                        db.insert_to_db(name=file_temp, area=area_temp.area, interval=0, image_url=final_path,
+                                        target_date=datetime.utcnow(), type=product.producttype)
+
+                        # todo:[*] 19-10-30 暂时不执行ftp删除操作，暂时注释掉
+                        # self.ftp.delete_file(file_temp)
+                    # db.commit()
         # pass
         pass
 
@@ -148,3 +177,9 @@ class ProductFile:
         list_names = self.ftp.get_all_list()
         list_match = [name for name in list_names if fnmatch(name, re_str)]
         return list_match
+
+    def _insert_to_db(self, **kwargs):
+        product = ProductInfoModel(name=kwargs.get('name'), area=kwargs.get('area'),
+                                   interval=int(kwargs.get('interval')), image_url=kwargs.get('image_url'),
+                                   target_date=kwargs.get('target_date'), gmt_create=kwargs.get('create'),
+                                   gmt_modified=kwargs.get('modified'), type=kwargs.get('type'))
