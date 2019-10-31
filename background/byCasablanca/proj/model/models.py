@@ -23,3 +23,7 @@ class ProductInfoModel(Base):
     gmt_create = Column(DateTime, default=datetime.datetime.utcnow())
     gmt_modified = Column(DateTime, default=datetime.datetime.utcnow())
     type = Column(Integer)
+    relative_path = Column(String)
+    root_path = Column(String)
+    file_name = Column(String)
+    ext = Column(String)

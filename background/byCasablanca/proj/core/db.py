@@ -32,12 +32,21 @@ class DBFactory:
         if self.session is None:
             self._init_session()
         session = self.session()
-        product = ProductInfoModel(name=kwargs.get('name'), area=kwargs.get('area').value,
-                                   interval=int(kwargs.get('interval')), image_url=kwargs.get('image_url'),
-                                   target_date=kwargs.get('target_date'), gmt_create=kwargs.get('create'),
-                                   gmt_modified=kwargs.get('modified'), type=kwargs.get('type').value)
-        # todo:[*] 19-10-30 错误：
+        product = ProductInfoModel(name=kwargs.get('name'),
+                                   area=kwargs.get('area').value,
+                                   interval=int(kwargs.get('interval')),
+                                   image_url=kwargs.get('image_url'),
+                                   target_date=kwargs.get('target_date'),
+                                   gmt_create=kwargs.get('create'),
+                                   gmt_modified=kwargs.get('modified'),
+                                   type=kwargs.get('type').value,
+                                   file_name=kwargs.get('file_name'),
+                                   relative_path=kwargs.get('relative_path'),
+                                   root_path=kwargs.get('root_path'),
+                                   ext=kwargs.get('ext'))
+        # todo:[-] 19-10-30 错误：
         # 'sessionmaker' object has no attribute 'add'
+        # 注意sessionmaker创建的，需要实例化！
         session.add(product)
         session.commit()
 
