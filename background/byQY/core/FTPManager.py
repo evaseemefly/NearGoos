@@ -8,6 +8,7 @@
 # @File    : FTPManager.py
 # @Software: PyCharm
 import os
+import socket
 
 import ftputil
 import configparser
@@ -32,8 +33,11 @@ class FTPManager:
         :param password: 密码
         :return:
         """
+        # socket.setdefaulttimeout(3600)
+        # self.ftp.set_pasv(False)
         self.ftp.connect(host)
         self.ftp.login(username, password)
+
 
     def get_file_info_list(self, filepath):
         """
