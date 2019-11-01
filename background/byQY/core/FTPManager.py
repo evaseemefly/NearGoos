@@ -34,7 +34,7 @@ class FTPManager:
         :return:
         """
         # socket.setdefaulttimeout(3600)
-        # self.ftp.set_pasv(False)
+
         self.ftp.connect(host)
         self.ftp.login(username, password)
 
@@ -119,7 +119,7 @@ class FTPManager:
         if self.is_same_size(local_file, remote_file):
             # self.debug_print('%s 文件大小相同，无需下载' % local_file)
             print('大小相同无需下载')
-            return
+            return 0
         else:
             if not os.path.exists(local_file_dir):
                 os.makedirs(local_file_dir)
@@ -128,7 +128,7 @@ class FTPManager:
             file_handler = open(local_file, 'wb')
             self.ftp.retrbinary('RETR %s' % remote_file, file_handler.write, buf_size)
             file_handler.close()
-            return
+            return 1
 
     def upload_file(self, local_file, remote_file):
         """

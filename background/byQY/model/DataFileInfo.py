@@ -7,7 +7,7 @@
 # @Site    : 
 # @File    : DataFileInfo.py
 # @Software: PyCharm
-#实体中间件
+# 实体中间件
 class DataFileInfo:
     def __init__(self, name, extensions, date, size, location, url):
         self.name = name

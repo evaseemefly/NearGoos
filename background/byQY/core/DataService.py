@@ -13,6 +13,7 @@ import os
 
 from background.byQY.core.FTPManager import FTPManager
 from background.byQY.core.TimeUtil import TimeUtil
+from background.byQY.model.DataFileInfo import DataFileInfo
 
 
 class DataService:
@@ -53,7 +54,6 @@ class DataService:
         """
         转存文件到指定目录，且将文件信息存入数据库的DataInfo表中
         [to-do]] 后续可将重复代码优化
-        :param ftp_Manager:
         :param file_infos: 数据信息列表
         :return:
         """
@@ -61,6 +61,7 @@ class DataService:
         print(file_infos)
         i = 0
         for file_info in file_infos:
+            # 1. 解析目录名
             extension = file_info[-3:]
             # 一级目录文件名
             folder_level1 = DataService.switch_category(extension)
@@ -71,18 +72,8 @@ class DataService:
                 folder_level2 = file_info[0:4]
                 folder_level3 = file_info[4:6]
                 folder_level4 = file_info[6:8]
-                # print(folder_level2 + folder_level3 + folder_level4)
-                # print(file_info)
-                # print('------------------')
-                # 1.先将文件下载到本地
-                # [to-do] linux下需修改
-                local_path_dir = os.path.join('E:', r'\temp', folder_level1, folder_level2, folder_level3,
-                                              folder_level4, "")
-                remote_path_dir = '/'
-                self.ftp_Manager.download_file(local_path_dir + file_info, remote_path_dir + file_info, local_path_dir)
-                print('下载浮标成功')
-                # self.ftp_Manager.upload_file(local_path_dir+file_info, remote_newpath_dir + file_info)
-                # print('上传成功')
+                # [to-do] 暂时只有一个浮标，以后增加时需要修改
+                extension = 'QD'
             elif folder_level1 == 'STATION':
                 folder_level2 = str(datetime.datetime.now().year)
                 folder_level3 = file_info[0:2]
@@ -91,33 +82,57 @@ class DataService:
                 # UTC时间和系统时间调整
                 if folder_level3 == '12' and folder_level4 == '31' and time > 16:
                     folder_level2 = str(int(folder_level2) + 1)
-                # 1.先将文件下载到本地
-                # [to-do] Linux下需修改
-                local_path_dir = os.path.join('E:', r'\temp', folder_level1, extension, folder_level2, folder_level3, folder_level4, "")
-                remote_path_dir = '/'
-                self.ftp_Manager.download_file(local_path_dir + file_info, remote_path_dir + file_info, local_path_dir)
-                print(local_path_dir)
-                print('下载台站数据成功')
+
             elif folder_level1 == 'SHIP':
                 folder_level2 = str(datetime.datetime.now().year)
                 folder_level3 = file_info[2:4]
                 folder_level4 = file_info[4:6]
                 hour = file_info[6:8]
+                # [to-do] 暂时只有一个志愿船，以后增加时需要修改
+                extension = 'default'
                 # UTC时间和系统时间调整
                 if folder_level3 == '12' and folder_level4 == '31' and int(hour) > 16:
                     folder_level2 = str(int(folder_level2) + 1)
-                # 1.先将文件下载到本地
-                # [to-do] Linux下需修改
-                local_path_dir = os.path.join('E:', r'\temp', folder_level1, folder_level2, folder_level3,
-                                              folder_level4, "")
-                remote_path_dir = '/'
-                self.ftp_Manager.download_file(local_path_dir + file_info, remote_path_dir + file_info, local_path_dir)
-                print('下载支援船数据成功')
+
+            # 2.先将文件下载到本地
+            # [to-do] Linux下需修改
+            local_path_dir = os.path.join('E:', r'\temp', folder_level1, extension, folder_level2, folder_level3,
+                                          folder_level4, "")
+            remote_path_dir = '/'
+            is_success = self.ftp_Manager.download_file(local_path_dir + file_info, remote_path_dir + file_info,
+                                                        local_path_dir)
+            if is_success:
+                print('下载台站数据成功')
+                location = extension
+                date_str = folder_level2 + '-' + folder_level3 + '-' + folder_level4
+                url = os.path.join(folder_level1, extension, folder_level2, folder_level3,
+                                   folder_level4, "")
+            # 3.封装实体
+            #     self.insert_data_info(self, file_info, extension, date_str, location, url)
+
         self.ftp_Manager.close_connect()
+
+    def insert_data_info(self, file_info, extension, date_str, location, url):
+        """
+        封装实体
+        :param file_info:
+        :param extension:
+        :param date_str:
+        :param location:
+        :param url:
+        :return:
+        """
+        size = self.ftp_Manager.size(file_info)
+        date = datetime.datetime.strptime(date_str, '%Y-%m-%d').time()
+        info = DataFileInfo(file_info, extension, date, size, location, url)
+
 
 config_path = r'E:\projects\pycharm\NearGoos\background\byQY\config\ftpConfig.ini'
 section = 'neargoos'
 data_service = DataService(config_path, section)
 fileinfo = data_service.get_file_info()
 data_service.save_files(fileinfo)
-
+# p = 'aaa'
+# c='sdsd'
+# d = 'sd'
+# print(os.path.join(p,c,d,""))
