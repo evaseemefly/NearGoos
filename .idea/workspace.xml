@@ -3,12 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="e38bd76d-159a-4c07-9879-24c9f869ace4" name="Default Changelist" comment="">
       <change afterPath="$PROJECT_DIR$/background/byQY/config/Config.ini" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/background/byQY/core/DataDao.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/NearGoos.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/NearGoos.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/background/byQY/core/DataService.py" beforeDir="false" afterPath="$PROJECT_DIR$/background/byQY/core/DataService.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/background/byQY/core/FTPManager.py" beforeDir="false" afterPath="$PROJECT_DIR$/background/byQY/core/FTPManager.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/background/byQY/model/DataModel.py" beforeDir="false" afterPath="$PROJECT_DIR$/background/byQY/model/DataModel.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -48,8 +44,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/background/byQY/core/DataService.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="90">
-              <caret line="143" column="68" selection-start-line="143" selection-start-column="68" selection-end-line="143" selection-end-column="68" />
+            <state relative-caret-position="332">
+              <caret line="163" column="74" selection-start-line="163" selection-start-column="74" selection-end-line="163" selection-end-column="74" />
               <folding>
                 <element signature="e#159#174#0" expanded="true" />
               </folding>
@@ -81,8 +77,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/background/byQY/model/DataModel.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="400">
-              <caret line="49" column="13" selection-start-line="49" selection-start-column="4" selection-end-line="49" selection-end-column="13" />
+            <state relative-caret-position="275">
+              <caret line="23" column="76" selection-start-line="23" selection-start-column="76" selection-end-line="23" selection-end-column="76" />
             </state>
           </provider>
         </entry>
@@ -109,6 +105,7 @@
         <option value="$PROJECT_DIR$/background/byQY/core/DataDao.py" />
         <option value="$PROJECT_DIR$/background/byQY/config/ftpConfig.ini" />
         <option value="$PROJECT_DIR$/background/byQY/config/Config.ini" />
+        <option value="$PROJECT_DIR$/background/byQY/model/DataModel.py" />
         <option value="$PROJECT_DIR$/background/byQY/core/DataService.py" />
       </list>
     </option>
@@ -284,13 +281,14 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.24920969" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.329718" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.4088937" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.47830802" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -344,13 +342,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/background/byQY/model/DataModel.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="400">
-          <caret line="49" column="13" selection-start-line="49" selection-start-column="4" selection-end-line="49" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/background/byQY/config/Config.ini">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="150">
@@ -358,10 +349,17 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/background/byQY/model/DataModel.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="275">
+          <caret line="23" column="76" selection-start-line="23" selection-start-column="76" selection-end-line="23" selection-end-column="76" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/background/byQY/core/DataService.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="143" column="68" selection-start-line="143" selection-start-column="68" selection-end-line="143" selection-end-column="68" />
+        <state relative-caret-position="332">
+          <caret line="163" column="74" selection-start-line="163" selection-start-column="74" selection-end-line="163" selection-end-column="74" />
           <folding>
             <element signature="e#159#174#0" expanded="true" />
           </folding>

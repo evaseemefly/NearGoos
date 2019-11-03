@@ -21,7 +21,7 @@ class DataArea(Base):
 class DataCategory(Base):
     __tablename__ = 'data_category'
 
-    id = Column(BIGINT(20), primary_key=True, index=True)
+    id = Column(BIGINT(20), primary_key=True, index=True, autoincrement=True)
     gmt_create = Column(DateTime, nullable=False)
     gmt_modified = Column(DateTime, nullable=False)
     is_delete = Column(TINYINT(4), nullable=False, server_default=text("'0'"))

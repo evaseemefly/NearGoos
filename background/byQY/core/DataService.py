@@ -157,6 +157,10 @@ engine = create_engine("mysql+pymysql://" + config.get(section, 'username') + ":
 
 Session = sessionmaker(bind=engine)
 session = Session()
+
+dataCategory = DataCategory(name='test111', gmt_create=datetime.datetime.now(), gmt_modified=datetime.datetime.now())
+session.add(dataCategory)
+session.commit()
 ret = session.query(DataCategory).filter(DataCategory.is_delete < 1).all()
 for item in ret:
     print(item.name)
