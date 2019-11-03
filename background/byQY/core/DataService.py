@@ -11,14 +11,21 @@
 import datetime
 import os
 
+from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker
+
 from background.byQY.core.FTPManager import FTPManager
 from background.byQY.core.TimeUtil import TimeUtil
 from background.byQY.model.DataFileInfo import DataFileInfo
+# import pymysql
+from background.byQY.model.DataModel import DataArea, DataDataInfo, DataCategory
 
 
 class DataService:
     def __init__(self, config_path, section):
         self.ftp_Manager = FTPManager(config_path, section)
+        self.username = ""
+        self.password = ""
 
     @staticmethod
     def switch_category(value):
@@ -42,10 +49,10 @@ class DataService:
         # 获取配置文件信息
         config = self.ftp_Manager.get_config()
         host = config.get(section, 'host')
-        username = config.get(section, 'username')
-        password = config.get(section, 'password')
+        self.username = config.get(section, 'username')
+        self.password = config.get(section, 'password')
         target = config.get(section, 'target')
-        self.ftp_Manager.ftp_connect(host, username, password)
+        self.ftp_Manager.ftp_connect(host, self.username, self.password)
         file_infos = self.ftp_Manager.get_filename("", target)
 
         return file_infos
@@ -57,7 +64,11 @@ class DataService:
         :param file_infos: 数据信息列表
         :return:
         """
+        engine = create_engine("mysql+pymysql://" + self.username + ":" + self.password + "@localhost:3306/neargoos",
+                               max_overflow=5, echo=True)
 
+        Session = sessionmaker(bind=engine)
+        session = Session()
         print(file_infos)
         i = 0
         for file_info in file_infos:
@@ -108,7 +119,10 @@ class DataService:
                 url = os.path.join(folder_level1, extension, folder_level2, folder_level3,
                                    folder_level4, "")
             # 3.封装实体
-            #     self.insert_data_info(self, file_info, extension, date_str, location, url)
+
+            # # 增,插入单行
+            #  datainfo = DataArea(hostname='zs',ip_addr='333',port=22)
+            #  session.add(u)
 
         self.ftp_Manager.close_connect()
 
@@ -127,12 +141,22 @@ class DataService:
         info = DataFileInfo(file_info, extension, date, size, location, url)
 
 
-config_path = r'E:\projects\pycharm\NearGoos\background\byQY\config\ftpConfig.ini'
-section = 'neargoos'
+config_path = r'E:\projects\pycharm\NearGoos\background\byQY\config\Config.ini'
+section = 'mysql'
 data_service = DataService(config_path, section)
-fileinfo = data_service.get_file_info()
-data_service.save_files(fileinfo)
-# p = 'aaa'
-# c='sdsd'
-# d = 'sd'
-# print(os.path.join(p,c,d,""))
+# fileinfo = data_service.get_file_info()
+# data_service.save_files(fileinfo)
+
+
+
+
+# -----------------测试ORM-------------------
+config = data_service.ftp_Manager.get_config()
+engine = create_engine("mysql+pymysql://" + config.get(section, 'username') + ":" + config.get(section, 'password') + "@localhost:3306/neargoos",
+                        echo=True)
+
+Session = sessionmaker(bind=engine)
+session = Session()
+ret = session.query(DataCategory).filter(DataCategory.is_delete < 1).all()
+for item in ret:
+    print(item.name)
