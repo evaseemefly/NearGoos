@@ -14,7 +14,7 @@ class AreaNameMidModel():
 class ProductMidModel():
     '''
         产品与区域以及对应的名称re 的中间model
-        todo:[*] 19-10-29 存储路径放置此处
+        todo:[-] 19-10-29 存储路径放置此处
     '''
 
     def __init__(self, type: ProductType, areanames: [], root: str):

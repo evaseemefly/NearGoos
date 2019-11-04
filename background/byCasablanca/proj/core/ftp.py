@@ -50,7 +50,7 @@ class Ftp:
                     print(f"其他未知错误{e}")
                     self.ftp = None
 
-    # todo:[*] 19-10-30 放在product file中
+    # todo:[-] 19-10-30 放在product file中
     # def run(self, list):
     #     '''
     #         ftp的执行方法(入口方法)
@@ -66,7 +66,7 @@ class Ftp:
         :return:
         '''
         cache_size = 1024
-        # todo:[*] 19-10-29 此处需要判断本地路径是否存在
+        # todo:[-] 19-10-29 此处需要判断本地路径是否存在
         # 将此方法统一放在common.tools中
         tools.check_path_exist(local_path)
         fp = open(os.path.join(local_path, file_name), 'wb')
@@ -76,7 +76,7 @@ class Ftp:
         # 判断ftp返回的状态
         if msg.find('226') != -1:
             print("下载完毕")
-            # todo:[*] 19-10-29 以后需要改造为写入数据库操作
+            # todo:[-] 19-10-29 以后需要改造为写入数据库操作:放在下载之后，已完成
         self.ftp.set_debuglevel(0)
         fp.close()
 
@@ -93,7 +93,7 @@ class Ftp:
             self.ftp.delete_file(file_name)
 
     #
-    # todo:[*] 19-10-30 放在product file中
+    # todo:[-] 19-10-30 放在product file中
     # def _copy_list(self, list: []):
     #     '''
     #
@@ -150,17 +150,26 @@ class ProductFile:
                     db = DBFactory()
                     for file_temp in list_match_files:
                         print(file_temp)
-                        # todo:[*] 19-10-30 此处的下载的地址，需要加入时间（只根据product的type进行分类:wave|current|ice/ssh/sst，不再产品中再对区域进行细分了）
+                        # todo:[-] 19-10-30 此处的下载的地址，需要加入时间（只根据product的type进行分类:wave|current|ice/ssh/sst，不再产品中再对区域进行细分了）
                         # 此处加一个时间的目录结构
                         now_date = date.today()
-                        final_path = os.path.join(product.root, str(now_date.year), str(now_date.month),
-                                                  str(now_date.day))
+                        root_path = product.root
+                        relative_path = os.path.join(str(now_date.year), str(now_date.month),
+                                                     str(now_date.day))
+                        final_path = os.path.join(root_path, relative_path)
                         self.ftp.download_file(file_temp, final_path)
                         # todo:[*] 19-10-30 加入写入数据库的操作，此处暂时先这样实现，需要改为工厂模式
                         # db = DBFactory()
-
-                        db.insert_to_db(name=file_temp, area=area_temp.area, interval=0, image_url=final_path,
-                                        target_date=datetime.utcnow(), type=product.producttype)
+                        # todo:[*] 19-10-31 此处的interval未完成——此处可以暂时不写间隔
+                        db.insert_to_db(name=file_temp,
+                                        area=area_temp.area,
+                                        interval=0,
+                                        image_url=final_path,
+                                        target_date=datetime.utcnow(),
+                                        type=product.producttype,
+                                        root_path=root_path,
+                                        relative_path=relative_path,
+                                        file_name=file_temp)
 
                         # todo:[*] 19-10-30 暂时不执行ftp删除操作，暂时注释掉
                         # self.ftp.delete_file(file_temp)

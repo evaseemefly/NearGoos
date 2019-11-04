@@ -1,11 +1,13 @@
 import sys
 import os
-
+from apscheduler.schedulers.background import BackgroundScheduler,BlockingScheduler
 # 自己的package
 from common.enum import Area, ProductType
 from conf import setting
 from model.middlemodel import ProductMidModel, AreaNameMidModel
 from core.ftp import Ftp, ProductFile
+# 引入自定义的job
+from job.jobDownload import tick,start
 
 cur_path = os.path.abspath(os.path.dirname(__file__))
 root_path = os.path.split(cur_path)[0]
@@ -13,12 +15,20 @@ sys.path.append(root_path)
 
 
 def main():
-    list_products = init_type()
-    ftp = Ftp(setting._FTP_HOST, setting._FTP_USER, setting._FTP_PASSWORD)
-    # ftp.init_ftp()
-    # ftp.copy_list(list_products)
-    product = ProductFile(ftp)
-    product.run(list_products)
+    # todo:[*] 19-10-31 引入定时任务 以下暂时注释掉
+    # list_products = init_type()
+    # ftp = Ftp(setting._FTP_HOST, setting._FTP_USER, setting._FTP_PASSWORD)
+    # product = ProductFile(ftp)
+    # product.run(list_products)
+
+    # 方式1：
+    # scheduler = BlockingScheduler()
+    # scheduler.add_job(tick, 'interval', seconds=3)
+    # scheduler.start()
+    start()
+    # 方式2：
+
+    print('定时任务启动')
     pass
 
 
@@ -37,7 +47,7 @@ def init_type() -> []:
                                  AreaNameMidModel(Area.NORTHWEST, '048_UV*.png'),
                                  AreaNameMidModel(Area.FAREAST, 'cur_NMEFC_near_goos_*.png')],
                                 os.path.join(setting._ROOT_DIR, 'current')))
-    # todo:[*] 19-10-30 注意海冰的命名方式有一些特殊，注意
+    # todo:[-] 19-10-30 注意海冰的命名方式有一些特殊，注意
     list.append(ProductMidModel(ProductType.ICE,
                                 [AreaNameMidModel(Area.BOHAI, '19*.jpg')],
                                 os.path.join(setting._ROOT_DIR, 'ice')))
