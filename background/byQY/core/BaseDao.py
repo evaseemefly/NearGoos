@@ -18,24 +18,24 @@ class BaseDao:
     def __init__(self, config_path, section):
         self.config_path = config_path
         self.section = section
-
-
-    def get_session(self):
-        """
-        获取Session
-        :return:
-        """
-        ftp_manager = FTPManager(self.config_path, self.section)
-        config = ftp_manager.get_config()
-        engine = create_engine(
-            "mysql+pymysql://" + config.get(self.section, 'username') + ":" + config.get(self.section,
-                                                                                              'password') + "@" + config.get(
-                self.section, 'host') + config.get(self.section, 'dbName'),
+        self.ftp_manager = FTPManager(config_path, section)
+        self.config = self.ftp_manager.get_config()
+        self.engine = create_engine(
+            "mysql+pymysql://" + self.config.get(self.section, 'username') + ":" + self.config.get(self.section,
+                                                                                         'password') + "@" + self.config.get(
+                self.section, 'host') + self.config.get(self.section, 'dbName'),
             echo=True)
 
-        Session = sessionmaker(bind=engine)
-        session = Session()
-        return session
+        self.Session = sessionmaker(bind=self.engine)
+        self.session = self.Session()
+
+    # def get_session(self):
+    #     """
+    #     获取Session
+    #     :return:
+    #     """
+    #
+    #     return session
 
     def find_all(self, model):
         """
@@ -43,8 +43,8 @@ class BaseDao:
         :param model: 数据的实体
         :return: 结果集
         """
-        session = self.get_session()
-        result = session.query(model).filter(model.is_delete < 1).all()
+
+        result = self.session.query(model).filter(model.is_delete < 1).all()
         return result
 
     def find_by_name(self, model, name):
@@ -54,8 +54,8 @@ class BaseDao:
         :param name: 匹配的名称
         :return: 结果集
         """
-        session = self.get_session()
-        result = session.query(model).filter_by(name=name).first()
+
+        result = self.session.query(model).filter_by(name=name).first()
         return result
 
     def find_by_url(self, model, url):
@@ -65,8 +65,8 @@ class BaseDao:
         :param name: 匹配的名称
         :return: 结果集
         """
-        session = self.get_session()
-        result = session.query(model).filter_by(url=url).first()
+
+        result = self.session.query(model).filter_by(url=url).first()
         return result
 
     def insert_one(self, model):
@@ -75,6 +75,6 @@ class BaseDao:
         :param model: 封装后的数据实体
         :return:
         """
-        session = self.get_session()
-        session.add(model)
-        session.commit()
+
+        self.session.add(model)
+        self.session.commit()
