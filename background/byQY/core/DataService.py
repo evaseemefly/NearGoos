@@ -116,6 +116,7 @@ class DataService:
                 if folder_level3 == '12' and folder_level4 == '31' and int(hour) > 16:
                     folder_level2 = str(int(folder_level2) + 1)
             elif folder_level1 == 'IGNORE_DATA':
+                print("FUB后缀文件不下载")
                 continue
             # 3.先将文件下载到本地
             # [to-do] Linux下需修改
