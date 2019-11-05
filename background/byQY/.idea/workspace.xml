@@ -1,0 +1,338 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="6b0323e1-a46f-40b8-9436-1b2a1cb3bc1e" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/../../.idea/NearGoos.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/BaseDao.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/DataCategoryDao.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/DataService.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/DataSourceDao.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/FTPManager.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/TimeUtil.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/model/DataFileInfo.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/model/DataModel.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/model/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../venv/Lib/site-packages/PyMySQL-0.9.3.dist-info/INSTALLER" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../venv/Lib/site-packages/PyMySQL-0.9.3.dist-info/LICENSE" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../venv/Lib/site-packages/PyMySQL-0.9.3.dist-info/METADATA" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../venv/Lib/site-packages/PyMySQL-0.9.3.dist-info/RECORD" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../venv/Lib/site-packages/PyMySQL-0.9.3.dist-info/WHEEL" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../venv/Lib/site-packages/PyMySQL-0.9.3.dist-info/pbr.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../venv/Lib/site-packages/PyMySQL-0.9.3.dist-info/top_level.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../venv/Lib/site-packages/ftputil-3.4-py3.7.egg-info/PKG-INFO" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../venv/Lib/site-packages/ftputil-3.4-py3.7.egg-info/SOURCES.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../venv/Lib/site-packages/ftputil-3.4-py3.7.egg-info/dependency_links.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../venv/Lib/site-packages/ftputil-3.4-py3.7.egg-info/installed-files.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../venv/Lib/site-packages/ftputil-3.4-py3.7.egg-info/top_level.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../venv/Lib/site-packages/ftputil/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../venv/Lib/site-packages/ftputil/compat.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../venv/Lib/site-packages/ftputil/error.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../venv/Lib/site-packages/ftputil/file.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../venv/Lib/site-packages/ftputil/file_transfer.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../venv/Lib/site-packages/ftputil/host.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../venv/Lib/site-packages/ftputil/lrucache.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../venv/Lib/site-packages/ftputil/path.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../venv/Lib/site-packages/ftputil/session.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../venv/Lib/site-packages/ftputil/session_adapter.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../venv/Lib/site-packages/ftputil/socket_file_adapter.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../venv/Lib/site-packages/ftputil/stat.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../venv/Lib/site-packages/ftputil/stat_cache.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../venv/Lib/site-packages/ftputil/sync.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../venv/Lib/site-packages/ftputil/tool.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../venv/Lib/site-packages/ftputil/version.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../venv/Lib/site-packages/pymysql/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../venv/Lib/site-packages/pymysql/_auth.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../venv/Lib/site-packages/pymysql/_compat.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../venv/Lib/site-packages/pymysql/_socketio.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../venv/Lib/site-packages/pymysql/charset.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../venv/Lib/site-packages/pymysql/connections.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../venv/Lib/site-packages/pymysql/constants/CLIENT.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../venv/Lib/site-packages/pymysql/constants/COMMAND.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../venv/Lib/site-packages/pymysql/constants/CR.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../venv/Lib/site-packages/pymysql/constants/ER.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../venv/Lib/site-packages/pymysql/constants/FIELD_TYPE.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../venv/Lib/site-packages/pymysql/constants/FLAG.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../venv/Lib/site-packages/pymysql/constants/SERVER_STATUS.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../venv/Lib/site-packages/pymysql/constants/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../venv/Lib/site-packages/pymysql/converters.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../venv/Lib/site-packages/pymysql/cursors.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../venv/Lib/site-packages/pymysql/err.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../venv/Lib/site-packages/pymysql/optionfile.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../venv/Lib/site-packages/pymysql/protocol.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../venv/Lib/site-packages/pymysql/times.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../venv/Lib/site-packages/pymysql/util.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../venv/Scripts/Activate.ps1" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../venv/Scripts/activate" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../venv/Scripts/activate.bat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../venv/Scripts/deactivate.bat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../venv/Scripts/python.exe" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../venv/Scripts/pythonw.exe" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../venv/doc/ftputil/README.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../venv/doc/ftputil/ftputil.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../venv/doc/ftputil/ftputil.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../venv/doc/ftputil/whats_new_in_ftputil_3.0.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../venv/doc/ftputil/whats_new_in_ftputil_3.0.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../venv/pyvenv.cfg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/../../.gitignore" afterDir="false" />
+    </list>
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileEditorManager">
+    <leaf>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/model/DataModel.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-217" />
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/core/DataCategoryDao.py">
+          <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/core/BaseDao.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-120">
+              <caret line="15" column="6" selection-start-line="15" selection-start-column="6" selection-end-line="15" selection-end-column="6" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/core/DataService.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="640">
+              <caret line="179" column="33" lean-forward="true" selection-start-line="179" selection-start-column="33" selection-end-line="179" selection-end-column="33" />
+              <folding>
+                <element signature="e#159#174#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
+  </component>
+  <component name="ProjectConfigurationFiles">
+    <option name="files">
+      <list>
+        <option value="$PROJECT_DIR$/.idea/byQY.iml" />
+        <option value="$PROJECT_DIR$/.idea/vcs.xml" />
+        <option value="$PROJECT_DIR$/.idea/misc.xml" />
+        <option value="$PROJECT_DIR$/.idea/modules.xml" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectFrameBounds">
+    <option name="x" value="321" />
+    <option name="y" value="139" />
+    <option name="width" value="1183" />
+    <option name="height" value="1083" />
+  </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectView">
+    <navigator proportions="" version="1">
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="Scope" />
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="byQY" type="b2602c69:ProjectViewProjectNode" />
+              <item name="byQY" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="byQY" type="b2602c69:ProjectViewProjectNode" />
+              <item name="byQY" type="462c0819:PsiDirectoryNode" />
+              <item name="core" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="byQY" type="b2602c69:ProjectViewProjectNode" />
+              <item name="byQY" type="462c0819:PsiDirectoryNode" />
+              <item name="core" type="462c0819:PsiDirectoryNode" />
+              <item name="BaseDao.py" type="8704e2dd:PyFileNode" />
+            </path>
+            <path>
+              <item name="byQY" type="b2602c69:ProjectViewProjectNode" />
+              <item name="byQY" type="462c0819:PsiDirectoryNode" />
+              <item name="core" type="462c0819:PsiDirectoryNode" />
+              <item name="BaseDao.py" type="8704e2dd:PyFileNode" />
+              <item name="BaseDao" type="dd8bbb05:PyElementNode" />
+            </path>
+            <path>
+              <item name="byQY" type="b2602c69:ProjectViewProjectNode" />
+              <item name="byQY" type="462c0819:PsiDirectoryNode" />
+              <item name="core" type="462c0819:PsiDirectoryNode" />
+              <item name="DataService.py" type="8704e2dd:PyFileNode" />
+            </path>
+            <path>
+              <item name="byQY" type="b2602c69:ProjectViewProjectNode" />
+              <item name="byQY" type="462c0819:PsiDirectoryNode" />
+              <item name="core" type="462c0819:PsiDirectoryNode" />
+              <item name="DataService.py" type="8704e2dd:PyFileNode" />
+              <item name="DataService" type="dd8bbb05:PyElementNode" />
+            </path>
+            <path>
+              <item name="byQY" type="b2602c69:ProjectViewProjectNode" />
+              <item name="byQY" type="462c0819:PsiDirectoryNode" />
+              <item name="core" type="462c0819:PsiDirectoryNode" />
+              <item name="FTPManager.py" type="8704e2dd:PyFileNode" />
+            </path>
+            <path>
+              <item name="byQY" type="b2602c69:ProjectViewProjectNode" />
+              <item name="byQY" type="462c0819:PsiDirectoryNode" />
+              <item name="core" type="462c0819:PsiDirectoryNode" />
+              <item name="FTPManager.py" type="8704e2dd:PyFileNode" />
+              <item name="FTPManager" type="dd8bbb05:PyElementNode" />
+            </path>
+            <path>
+              <item name="byQY" type="b2602c69:ProjectViewProjectNode" />
+              <item name="byQY" type="462c0819:PsiDirectoryNode" />
+              <item name="core" type="462c0819:PsiDirectoryNode" />
+              <item name="TimeUtil.py" type="8704e2dd:PyFileNode" />
+            </path>
+            <path>
+              <item name="byQY" type="b2602c69:ProjectViewProjectNode" />
+              <item name="byQY" type="462c0819:PsiDirectoryNode" />
+              <item name="core" type="462c0819:PsiDirectoryNode" />
+              <item name="TimeUtil.py" type="8704e2dd:PyFileNode" />
+              <item name="TimeUtil" type="dd8bbb05:PyElementNode" />
+            </path>
+            <path>
+              <item name="byQY" type="b2602c69:ProjectViewProjectNode" />
+              <item name="byQY" type="462c0819:PsiDirectoryNode" />
+              <item name="model" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="byQY" type="b2602c69:ProjectViewProjectNode" />
+              <item name="byQY" type="462c0819:PsiDirectoryNode" />
+              <item name="model" type="462c0819:PsiDirectoryNode" />
+              <item name="DataFileInfo.py" type="8704e2dd:PyFileNode" />
+            </path>
+            <path>
+              <item name="byQY" type="b2602c69:ProjectViewProjectNode" />
+              <item name="byQY" type="462c0819:PsiDirectoryNode" />
+              <item name="model" type="462c0819:PsiDirectoryNode" />
+              <item name="DataFileInfo.py" type="8704e2dd:PyFileNode" />
+              <item name="DataFileInfo" type="dd8bbb05:PyElementNode" />
+            </path>
+            <path>
+              <item name="byQY" type="b2602c69:ProjectViewProjectNode" />
+              <item name="byQY" type="462c0819:PsiDirectoryNode" />
+              <item name="model" type="462c0819:PsiDirectoryNode" />
+              <item name="DataModel.py" type="8704e2dd:PyFileNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
+    <property name="nodejs_npm_path_reset_for_default_project" value="true" />
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="6b0323e1-a46f-40b8-9436-1b2a1cb3bc1e" name="Default Changelist" comment="" />
+      <created>1572954297341</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1572954297341</updated>
+      <workItem from="1572954305433" duration="92000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TimeTrackingManager">
+    <option name="totallyTimeSpent" value="92000" />
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="321" y="139" width="1183" height="1083" extended-state="0" />
+    <editor active="true" />
+    <layout>
+      <window_info id="Favorites" side_tool="true" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.26892254" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info anchor="bottom" id="Docker" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Database Changes" />
+      <window_info anchor="bottom" id="Version Control" />
+      <window_info anchor="bottom" id="Python Console" />
+      <window_info anchor="bottom" id="Terminal" />
+      <window_info anchor="bottom" id="Event Log" side_tool="true" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Find" order="1" />
+      <window_info anchor="bottom" id="Run" order="2" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="right" id="SciView" />
+      <window_info anchor="right" id="Database" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+    </layout>
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/model/DataModel.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-217" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/DataCategoryDao.py">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/BaseDao.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-120">
+          <caret line="15" column="6" selection-start-line="15" selection-start-column="6" selection-end-line="15" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/DataService.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="640">
+          <caret line="179" column="33" lean-forward="true" selection-start-line="179" selection-start-column="33" selection-end-line="179" selection-end-column="33" />
+          <folding>
+            <element signature="e#159#174#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+  </component>
+</project>
