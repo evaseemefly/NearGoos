@@ -78,6 +78,10 @@ class FTPManager:
         files = [filename for filename in self.ftp.nlst() if file_need in filename]
         return files
 
+
+    def get_file_size(self, file_need, filepath):
+        self.ftp.cwd(filepath)
+        files = [filename for filename in self.ftp.nlst() if file_need in filename]
     # # 存储
     # def upload(self, target_path, old_path):
     #     fp = open(old_path, "rb")
@@ -153,3 +157,4 @@ class FTPManager:
         file_handler.close()
         # self.debug_print('上传: %s' % local_file + "成功!")
         print('上传成功')
+

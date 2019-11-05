@@ -16,8 +16,9 @@ from background.byQY.core.FTPManager import FTPManager
 class BaseDao:
 
     def __init__(self, config_path, section):
-        self.config = config_path
+        self.config_path = config_path
         self.section = section
+
 
     def get_session(self):
         """
@@ -27,12 +28,12 @@ class BaseDao:
         ftp_manager = FTPManager(self.config_path, self.section)
         config = ftp_manager.get_config()
         engine = create_engine(
-            "mysql+pymysql://" + self.config.get(self.section, 'username') + ":" + self.config.get(self.section,
-                                                                                              'password') + "@" + self.config.get(
-                self.section, 'host') + self.config.get(self.section, 'dbName'),
+            "mysql+pymysql://" + config.get(self.section, 'username') + ":" + config.get(self.section,
+                                                                                              'password') + "@" + config.get(
+                self.section, 'host') + config.get(self.section, 'dbName'),
             echo=True)
 
-        Session = sessionmaker(bind=self.engine)
+        Session = sessionmaker(bind=engine)
         session = Session()
         return session
 
@@ -43,7 +44,7 @@ class BaseDao:
         :return: 结果集
         """
         session = self.get_session()
-        result = self.session.query(model).filter(model.is_delete < 1).all()
+        result = session.query(model).filter(model.is_delete < 1).all()
         return result
 
     def find_by_name(self, model, name):
@@ -54,7 +55,18 @@ class BaseDao:
         :return: 结果集
         """
         session = self.get_session()
-        result = self.session.query(model).filter_by(name=name).first()
+        result = session.query(model).filter_by(name=name).first()
+        return result
+
+    def find_by_url(self, model, url):
+        """
+        获取url相同的对象
+        :param model: 数据的实体
+        :param name: 匹配的名称
+        :return: 结果集
+        """
+        session = self.get_session()
+        result = session.query(model).filter_by(url=url).first()
         return result
 
     def insert_one(self, model):
@@ -64,5 +76,5 @@ class BaseDao:
         :return:
         """
         session = self.get_session()
-        self.session.add(model)
-        self.session.commit()
+        session.add(model)
+        session.commit()

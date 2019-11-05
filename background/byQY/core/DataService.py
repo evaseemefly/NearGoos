@@ -62,7 +62,17 @@ class DataService:
         :param file_infos: 数据信息列表
         :return:
         """
-        # 1. 创建数据库连接
+        # 1. 在遍历文件列表前先查出海区，类型，数据源对应ID
+        # [to-do]暂时只要类型
+        # 1.1 [to-do]得到对应的海区ID（暂时均为默认海区）
+        area_result = self.dao.find_by_name(DataArea, 'default')
+        # 1.2 [to-do]得到数据源的ID（暂时均为中国）
+        source_result = self.dao.find_by_name(DataSource, 'China')
+        # 1.3 [to-do]得到数据类型的ID
+        category_result = self.dao.find_all(DataCategory)
+        dict_category = dict()
+        for obj in category_result:
+            dict_category[obj.name] = obj.id
 
         # 2.遍历文件名称列表
         print(file_infos)
@@ -82,15 +92,16 @@ class DataService:
                 folder_level3 = file_info[4:6]
                 # 2.4 五级目录文件名（日）
                 folder_level4 = file_info[6:8]
+                hour = file_info[8:10]
                 # [to-do] 暂时只有一个浮标，以后增加时需要修改
                 extension = 'QD'
             elif folder_level1 == 'STATION':
                 folder_level2 = str(datetime.datetime.now().year)
                 folder_level3 = file_info[0:2]
                 folder_level4 = file_info[2:4]
-                time = file_info[4:6]
+                hour = file_info[4:6]
                 # UTC时间和系统时间调整
-                if folder_level3 == '12' and folder_level4 == '31' and time > 16:
+                if folder_level3 == '12' and folder_level4 == '31' and hour > 16:
                     folder_level2 = str(int(folder_level2) + 1)
 
             elif folder_level1 == 'SHIP':
@@ -113,14 +124,17 @@ class DataService:
                                                         local_path_dir)
             if is_success:
                 print('下载数据成功')
-                date_str = folder_level2 + '-' + folder_level3 + '-' + folder_level4
+                date_str = folder_level2 + '-' + folder_level3 + '-' + folder_level4 + ' ' + hour + ':' + '00' + ':' + '00'
                 url = os.path.join(folder_level1, extension, folder_level2, folder_level3,
-                                   folder_level4, "")
+                                   folder_level4, file_info)
                 # 4.封装实体
-                self.insert_data_info(file_info, folder_level1, extension, date_str, url)
+                if self.dao.find_by_url(DataDataInfo, file_info) is None:
+                    self.insert_data_info(file_info, folder_level1, extension, date_str, url, area_result, dict_category, source_result)
+                else:
+                    print('该文件信息已在数据库中存在')
         self.ftp_Manager.close_connect()
 
-    def insert_data_info(self, file_info, folder_level1, extension, date_str, url):
+    def insert_data_info(self, file_info, folder_level1, extension, date_str, url, area_result, dict_category, source_result):
         """
         封装实体
         :param file_info:
@@ -130,26 +144,28 @@ class DataService:
         :param url:
         :return:
         """
-        # 4.1 [to-do]得到对应的海区ID（暂时均为默认海区）
-        area_result = self.dao.find_by_name(DataArea, 'default')
-        # 4.2 [to-do]得到数据源的ID（暂时均为中国）
-        source_result = self.dao.find_by_name(DataSource, 'China')
-        # 4.3 [to-do]得到数据类型的ID（暂时均为中国）
-        category_result = self.dao.find_by_name(DataCategory, folder_level1)
+        # # 4.1 [to-do]得到对应的海区ID（暂时均为默认海区）
+        # area_result = self.dao.find_by_name(DataArea, 'default')
+        # # 4.2 [to-do]得到数据源的ID（暂时均为中国）
+        # source_result = self.dao.find_by_name(DataSource, 'China')
+        # # 4.3 [to-do]得到数据类型的ID（暂时均为中国）
+        # category_result = self.dao.find_by_name(DataCategory, folder_level1)
         datainfoModel = DataDataInfo()
         info = DataDataInfo()
+        info.is_delete = 0
         info.gmt_create = datetime.datetime.now()
         info.gmt_modified = datetime.datetime.now()
         info.name = file_info
         info.extensions = extension
         # [to-do]暂时没有备注
-        info.date = datetime.datetime.strptime(date_str, '%Y-%m-%d').time()
+        # 使用date类型传入MySQL数据库
+        info.date = datetime.datetime.strptime(date_str, '%Y-%m-%d %H:%M:%S')
         info.area_id = area_result.id
-        info.category_id = category_result.id
+        info.category_id = dict_category.get(folder_level1)
         info.source_id = source_result.id
         info.url = url
         # [to-do]暂时没有FTP文件的最新修改日期
-        info.size = self.ftp_Manager.size(file_info)
+        info.size = self.ftp_Manager.ftp.size(file_info)
         info.location = extension
         self.dao.insert_one(info)
 
@@ -159,4 +175,9 @@ section_mysql = 'mysql'
 data_service = DataService(config_path, section_neargoos, section_mysql)
 fileinfo = data_service.get_file_info()
 data_service.save_files(fileinfo)
+
+# ----------测试时间转换
+# date_str = '2019-2-2'
+# date = datetime.datetime.strptime(date_str, '%Y-%m-%d').date()
+# print(date, type(date))
 
