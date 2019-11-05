@@ -34,7 +34,8 @@ class DataService:
         """
         switcher = {
             "xml": "FUB",
-            "bbx": "SHIP"
+            "bbx": "SHIP",
+            "FUB": "IGNORE_DATA"
         }
         return switcher.get(value, 'STATION')
 
@@ -114,7 +115,8 @@ class DataService:
                 # UTC时间和系统时间调整
                 if folder_level3 == '12' and folder_level4 == '31' and int(hour) > 16:
                     folder_level2 = str(int(folder_level2) + 1)
-
+            elif folder_level1 == 'IGNORE_DATA':
+                continue
             # 3.先将文件下载到本地
             # [to-do] Linux下需修改
             local_path_dir = os.path.join('E:', r'\temp', folder_level1, extension, folder_level2, folder_level3,
