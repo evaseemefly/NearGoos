@@ -63,3 +63,18 @@ v2 版本：
 [观测数据](background/byQY/README.txt)
 
 [预报产品](background/byCasablanca/README.md)
+
+---
+
+加入了静态页面(主要为定大体样式使用)
+
+整体的目录结构如下
+
+```
+├──README.MD
+│ ├── background            <= 后端调试及定做作业
+│ ├── data                  <= 分布样例数据——现为空
+│ ├── document              <= 进度以及部分供readme使用的img
+│ ├── webclient             <= 工程化的前端项目
+│ ├── webpage               <= 前台样例静态页面
+```

@@ -23,7 +23,7 @@
 
 - 19-10-21
 - [x] 1. 完成了根据 base 获取对应的 image(`getImageByBase(Long id)`)
-19-10-29
+     19-10-29
 
 - [x] 修改了处理流程  
        采取了定时根据种类字典（不用根据种类-区域）获取对应产品的文件匹配规则  
@@ -39,17 +39,27 @@
 ---
 
 19-10-30
-- [x] 考虑将ftp类中的`_copy_list`与`_get_match_list`抽稀出来
+
+- [x] 考虑将 ftp 类中的`_copy_list`与`_get_match_list`抽稀出来
 - [x] 实现`wave` `current` `ice` `sst` `ssh`几种产品种类的分类存储
-  * 分类存储目录结构如下
-  ![alt 分类存储目录结构](./img/readme/TIM20191030105035.png)
+  - 分类存储目录结构如下
+    ![alt 分类存储目录结构](./img/readme/TIM20191030105035.png)
 - [ ] 暂未实现写入数据库的操作——此处流程可能再做修改？
-- [ ] ftp删除操作暂未实现（等测试通过后实现）
+- [ ] ftp 删除操作暂未实现（等测试通过后实现）
 
 ---
 
-19-10-31 
+19-10-31
+
 - [x] 加入定时任务 by [APScheduler](https://apscheduler.readthedocs.io/en/latest/userguide.html#)
-- [x] 加入持久保存功能(使用mongo)
-![alt scheduler持久化保存](./img/readme/TIM20191031163308.png)
-- [x] 部分汇总在onenote中
+- [x] 加入持久保存功能(使用 mongo)
+      ![alt scheduler持久化保存](./img/readme/TIM20191031163308.png)
+- [x] 部分汇总在 onenote 中
+
+---
+
+19-11-09
+前面有部分进度放在 todo 中了，以后只记录几个关键节点的进度
+
+- [x] 1. 完成 home_1 的样例  
+     ![alt home_1](./img/readme/20191109165552.png)
