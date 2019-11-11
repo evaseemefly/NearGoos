@@ -64,7 +64,33 @@ footer {
     }
   }
 }
-
+//footer的父类
+.footer() {
+  background: url("image/home_1_2.jpg");
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  .db-select {
+    display: flex;
+  }
+  .members {
+    display: flex;
+    flex-direction: column;
+    h4 {
+      color: white;
+    }
+    img {
+      margin-right: 0.25em;
+    }
+  }
+  .copyright {
+    display: flex;
+    flex-direction: column;
+    h4 {
+      color: white;
+    }
+  }
+}
 // 含图片的背景
 .basecontent() {
   height: 600px;
@@ -76,7 +102,11 @@ footer {
 .desfont() {
   line-height: 1.8;
 }
-
+// 定义的 白色的描述性字体
+.deswhite() {
+  color: aliceblue;
+  font-size: 600;
+}
 header {
   .header();
 }
@@ -107,6 +137,35 @@ header {
       font-size: 600;
       width: 50%;
       .desfont();
+    }
+  }
+}
+// 具体的介绍含导航栏
+.content-introduce {
+  .basecontent();
+  // display: flex;
+  background: url("image/home_1_9.jpg");
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  // width: 80%;
+  ul {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    align-items: flex-end;
+    .desfont();
+    .deswhite();
+    // justify-content: flex-start;
+  }
+  .right-content {
+    display: flex;
+    flex: 2;
+    // margin-left: 50px;
+    h4 {
+      padding: 100px;
+      .desfont();
+      .deswhite();
     }
   }
 }
@@ -195,6 +254,10 @@ header {
       }
     }
   }
+}
+
+footer {
+  .footer();
 }
 .content-1-title span {
   display: flex;

@@ -67,7 +67,8 @@ v2 版本：
 ---
 
 加入了静态页面(主要为定大体样式使用)
-
+大体效果如下
+![alt home_overview_v2](/document/schedule/img/readme/20191111155617.png)
 整体的目录结构如下
 
 ```

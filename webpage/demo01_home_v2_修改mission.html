@@ -8,7 +8,11 @@
 
     <link href="css/bootstrap.css" rel="stylesheet" />
     <link href="css/bootstrap-theme.css" rel="stylesheet" />
-    <link rel="stylesheet/less" type="text/css" href="demo01_home_v2_修改mission.less" />
+    <link
+      rel="stylesheet/less"
+      type="text/css"
+      href="demo01_home_v2_修改mission.less"
+    />
     <script>
       less = { env: "development" };
     </script>
@@ -45,7 +49,9 @@
       <div class="main-title">
         <!-- header 加几个logo -->
         <div class="logo">
-          <img src="static/nf-logo.png">
+          <!-- <img src="static/nf-logo.png"> -->
+          <img src="static/nmefclog.png" />
+          <img src="static/ioclog.png" />
         </div>
         <ul>
           <li>Home</li>
@@ -68,6 +74,42 @@
       <div class="content-1">
         <div class="content-1-title">
           <h1>NEAR-GOOS China</h1>
+          <h4>
+            NEAR (North-East Asian Regional)-GOOS is a regional pilot project of
+            GOOS in the North-East Asian Region, implemented by China, Japan,
+            the Republic of Korea and the Russian Federation as one activity of
+            IOC Sub-Commission for the Western Pacific (WESTPAC). NEAR-GOOS was
+            conceived and initiated upon the formal adoption of the NEAR-GOOS
+            Implementation Plan and Operational Manual the Intergovernmental
+            Oceanographic Commission following a recommendation from the WESTPAC
+            Regional Sub commission of IOC earlier in the year. It became one of
+            the first regional pilot projects of GOOS. The primary aim of
+            NEAR-GOOS in its first phase was to facilitate the sharing of
+            oceanographic data gathered by agencies of the partner countries
+            using the internet, to support the daily mapping of conditions in
+            the marginal seas bordered by the partner countries. Although it was
+            anticipated that this should eventually lead to improvement in the
+            availability of information and ocean services for all kinds of
+            beneficial purposes, it is important to note that these flow-on
+            outcomes were not specific goals for the first phase.
+          </h4>
+        </div>
+      </div>
+      <div class="content-introduce">
+        <!-- 左侧导航栏 -->
+        <ul>
+          <li>About NEAR-GOOS</li>
+          <li>First Phase Success</li>
+          <li>Objectives Basis</li>
+          <li>Activities</li>
+          <li>Scientific Basis</li>
+          <li>Principles</li>
+          <li>Data</li>
+        </ul>
+        <!-- <div class='left-bar'>
+        </div> -->
+        <!-- 右侧具体内容 -->
+        <div class="right-content">
           <h4>
             NEAR (North-East Asian Regional)-GOOS is a regional pilot project of
             GOOS in the North-East Asian Region, implemented by China, Japan,
@@ -119,7 +161,6 @@
               other global observing initiatives.
             </h4>
           </div>
-
         </div>
       </div>
       <div class="content-4">
@@ -137,6 +178,47 @@
         </div>
       </div>
     </div>
-    <footer>footer</footer>
+    <footer>
+      <!-- 选择成员国的友情链接 -->
+      <div class="db-select">
+        <div class="dropdown">
+          <button
+            class="btn btn-default dropdown-toggle"
+            type="button"
+            id="db"
+            data-toggle="dropdown"
+            aria-haspopup="true"
+            aria-expanded="true"
+          >
+            Database
+            <span class="caret"></span>
+          </button>
+          <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+            <li><a href="#">China</a></li>
+            <li><a href="#">Japan</a></li>
+            <li><a href="#">Korea</a></li>
+            <li><a href="#">Russia</a></li>
+          </ul>
+        </div>
+      </div>
+      <!-- 成员国 -->
+      <div class="members">
+        <h4>NEAR-GOOS Members Countries</h4>
+        <div>
+          <img src="static/chn.jpg" />
+          <img src="static/jap.jpg" />
+          <img src="static/korea.jpg" />
+          <img src="static/rus.jpg" />
+        </div>
+      </div>
+      <!-- 版权 -->
+      <div class="copyright">
+        <h4>
+          Copyright ©right;
+        </h4>
+        <h4>2013 National Marine Environment Forecasting Center(NMEFC)</h4>
+        <h4>All Rights Reserved</h4>
+      </div>
+    </footer>
   </body>
 </html>

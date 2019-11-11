@@ -68,5 +68,6 @@
 19-11-11
 - [x] 1. 按照样例页面实现了overview
      ![alt home_overview](./img/readme/20191111104259.png)
-- [ ] 2. 相关介绍（可切换组件）
-- [ ] 3. footer
+- [x] 2. 相关介绍（可切换组件）
+- [x] 3. footer
+     ![alt home_overview_v2](./img/readme/20191111155617.png)
