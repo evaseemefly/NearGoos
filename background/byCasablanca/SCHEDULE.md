@@ -27,5 +27,10 @@
 19-10-31 
 - [x] 加入定时任务 by [APScheduler](https://apscheduler.readthedocs.io/en/latest/userguide.html#)
 - [x] 加入持久保存功能(使用mongo)
-![alt scheduler持久化保存](../../document/img/readme/TIM截图20191031163308.png)
+![alt scheduler持久化保存](../../document/img/readme/TIM20191031163308.png)
 - [x] 部分汇总在onenote中
+
+---
+
+19-11-04
+- [ ] 完成other的整合
