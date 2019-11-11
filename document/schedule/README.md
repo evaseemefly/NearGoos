@@ -63,3 +63,10 @@
 
 - [x] 1. 完成 home_1 的样例  
      ![alt home_1](./img/readme/20191109165552.png)
+
+---
+19-11-11
+- [x] 1. 按照样例页面实现了overview
+     ![alt home_overview](./img/readme/20191111104259.png)
+- [ ] 2. 相关介绍（可切换组件）
+- [ ] 3. footer
