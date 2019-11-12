@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title></title>
+    <script src="js/jquery-3.2.1.js"></script>
+
+    <link href="css/bootstrap.css" rel="stylesheet" />
+    <link href="css/bootstrap-theme.css" rel="stylesheet" />
+    <link rel="stylesheet/less" type="text/css" href="demo02.less" />
+    <script>
+      less = { env: "development" };
+    </script>
+    <script src="js/less.min.js"></script>
+    <script>
+      less.watch();
+    </script>
+    <script>
+      less = {
+        env: "development",
+        async: false,
+        fileAsync: false,
+        poll: 1000,
+        functions: {},
+        dumpLineNumbers: "comments",
+        relativeUrls: false,
+        rootpath: ":/a.com/"
+      };
+    </script>
+    <style type="text/css"></style>
+  </head>
+
+  <body class="my-root">
+    <header>
+      <div class="main-title">
+        <!-- header 加几个logo -->
+        <div class="logo">
+          <!-- <img src="static/nf-logo.png"> -->
+          <img src="static/nmefclog.png" />
+          <img src="static/ioclog.png" />
+        </div>
+        <ul>
+          <li>Home</li>
+          <li>OverView</li>
+          <li>Data</li>
+          <li>Product</li>
+        </ul>
+      </div>
+    </header>
+    <div class="my-content">
+      <div class="minor-title">
+        <h2>NEAR-GOOS China RTDB</h2>
+        <h4>
+          North-East Asian Regional Global Ocean Observing System (NEAR-GOOS),
+          China Real-Time Data Base, run by National Marine Environmental
+          Forecasting Center (NMEFC)
+        </h4>
+        <button class="btn btn-default">Download Data</button>
+      </div>
+    </div>
+    <footer>
+      <!-- 选择成员国的友情链接 -->
+      <div class="db-select">
+        <div class="dropdown">
+          <button
+            class="btn btn-default dropdown-toggle"
+            type="button"
+            id="db"
+            data-toggle="dropdown"
+            aria-haspopup="true"
+            aria-expanded="true"
+          >
+            Database
+            <span class="caret"></span>
+          </button>
+          <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+            <li><a href="#">China</a></li>
+            <li><a href="#">Japan</a></li>
+            <li><a href="#">Korea</a></li>
+            <li><a href="#">Russia</a></li>
+          </ul>
+        </div>
+      </div>
+      <!-- 成员国 -->
+      <div class="members">
+        <h4>NEAR-GOOS Members Countries</h4>
+        <div class='members-img'>
+          <img src="static/chn.jpg" />
+          <img src="static/jap.jpg" />
+          <img src="static/korea.jpg" />
+          <img src="static/rus.jpg" />
+        </div>
+      </div>
+      <!-- 版权 -->
+      <div class="copyright">
+        <h4>
+          Copyright ©right;
+        </h4>
+        <h4>2013 National Marine Environment Forecasting Center(NMEFC)</h4>
+        <h4>All Rights Reserved</h4>
+      </div>
+    </footer>
+  </body>
+</html>
