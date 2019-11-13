@@ -80,3 +80,9 @@
 
 - [x] 1. 实现了 home 页
      ![alt home_overview](./img/readme/20191112104048.png)
+
+---
+
+19-11-13
+
+- [x] 1. 简单完成了 `product` 页

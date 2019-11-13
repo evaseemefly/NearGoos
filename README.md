@@ -6,7 +6,7 @@
 [evaseemefly](https://github.com/evaseemefly) and [QuYuan891211](https://github.com/QuYuan891211)
 
 进度参考:
-[进度](/document/schedule/README.md)
+[进度及部分效果预览](/document/schedule/README.md)
 
 ## 后端项目目录
 
