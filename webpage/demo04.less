@@ -1,4 +1,11 @@
 @import "./base.less";
+
+.my-root {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
 .flex-container {
   height: 1000px;
   display: flex;
@@ -6,30 +13,34 @@
   flex-direction: column;
   margin-top: 4em;
   margin-bottom: 10em;
+
   /* width:100%; */
   .header {
     display: flex;
     flex: 1;
   }
+
   .footer {
     flex: 1;
   }
 }
 
 header {
-  //   @header();
   // 下面一个button
   background: url("image/home_1_2.jpg");
   // height: 100px;
   display: flex;
+  // flex: 1;
   flex-direction: column;
   //底部增加一个内padding
-  padding-bottom: 50px;
+  // padding-bottom: 50px;
+
   .logo {
     img {
       height: 100px;
     }
   }
+
   .main-title {
     display: flex;
     flex-direction: row;
@@ -38,6 +49,7 @@ header {
     font-weight: 700;
     font-size: 30px;
     align-items: center;
+
     ul {
       display: flex;
       flex-direction: row;
@@ -49,6 +61,7 @@ header {
       }
     }
   }
+
   .minor-title {
     display: flex;
     color: whitesmoke;
@@ -62,6 +75,7 @@ header {
     h4 {
       width: 50%;
     }
+
     button {
       background: rgba(212, 132, 28, 0.815);
       color: white;
@@ -70,149 +84,164 @@ header {
   }
 }
 
+// 中间的区域
 .center {
   flex: 1;
   display: flex;
+  flex-direction: column;
+
+  // 横向排列，显示三个说明
+  .center-header {
+    display: flex;
+    flex: 1;
+    background: rgb(59, 126, 51);
+
+    // div {
+    //   margin: 2em;
+    // }
+
+    .center-header-left {
+      display: flex;
+      flex: 1;
+      background: rgb(76, 230, 115);
+
+      .thumbnail {
+        @margindefault();
+      }
+    }
+
+    .center-header-mid {
+      display: flex;
+      flex: 1;
+      background: rgb(104, 212, 185);
+
+      .thumbnail {
+        @margindefault();
+      }
+    }
+
+    .center-header-right {
+      display: flex;
+      flex: 1;
+      background: rgb(68, 102, 131);
+
+      .thumbnail {
+        @margindefault();
+      }
+    }
+  }
+
+  // 中间部分
+  // 横向排列
+  .center-center {
+    display: flex;
+    flex: 1;
+    background: rgb(145, 172, 73);
+
+    // 中间部分的统计信息（station|fub|ship）的一些有序列表
+    .center-center-left {
+      display: flex;
+      flex: 3;
+      background: rgb(14, 179, 102);
+      flex-direction: column;
+      @margindefault();
+
+      .statistics-title {
+        color: yellow;
+        font-size: 200%;
+      }
+
+      .statistics-form {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+
+        .card-form {
+          display: flex;
+          flex: 1;
+          flex-direction: column;
+          // 注意此处为副轴方向
+          align-items: center;
+
+
+          .title {
+            font-size: 2.5em;
+            color: white;
+          }
+
+          .body {
+            ul {
+              li {
+                line-height: 3em;
+                color: white;
+
+              }
+            }
+          }
+        }
+
+        // 非最后一个都加入右侧的边框（白色）
+        .card-form:not(:last-of-type) {
+          // 加入右侧的边框
+          border-right: 1px solid white;
+        }
+      }
+    }
+
+    .center-center-right {
+      display: flex;
+      flex: 1;
+      background: rgb(15, 177, 163);
+      @margindefault();
+    }
+
+  }
+
+  .center-footer {
+    display: flex;
+    flex: 2;
+    background: rgb(42, 134, 146);
+    flex-direction: column;
+    @margindefault();
+
+    .center-footer-card-header {}
+
+    .center-footer-card-body {
+      background: white;
+    }
+  }
 }
 
 footer {
   background: url("image/home_1_2.jpg");
   display: flex;
+  // flex: 1;
   justify-content: space-around;
   align-items: center;
+
   .db-select {
     display: flex;
   }
+
   .members {
     display: flex;
     flex-direction: column;
+
     h4 {
       color: white;
     }
+
     img {
       margin-right: 0.25em;
     }
   }
+
   .copyright {
     display: flex;
     flex-direction: column;
+
     h4 {
       color: white;
     }
   }
-}
-
-.bordered {
-  border-style: solid;
-  border-width: 1px;
-}
-
-.header-left {
-  flex: 1;
-  display: flex;
-  margin-top: 2em;
-}
-
-.header-center {
-  flex: 1;
-  display: flex;
-  margin-top: 2em;
-}
-
-.header-right {
-  flex: 1;
-  display: flex;
-  margin-top: 2em;
-}
-
-.center-left {
-  flex: 2;
-  display: flex;
-  flex-direction: column;
-}
-
-.center-right {
-  flex: 1;
-  padding-left: 2em;
-  margin: 1em;
-}
-
-.detail-card {
-  display: flex;
-  flex-direction: column;
-  margin: 1em;
-}
-
-.detail-card-icon {
-  flex: 5;
-}
-
-.detail-card-body {
-  flex: 5;
-}
-
-.center-left-card-head {
-  flex: 1;
-}
-
-.center-left {
-  display: flex;
-  flex-direction: column;
-  margin: 1em;
-}
-
-.center-left-card-head {
-  flex: 1;
-}
-
-.center-left-card-body {
-  flex: 6;
-  display: flex;
-  flex-direction: row;
-}
-
-.center-left-card-form {
-  flex: 1;
-  border-right: 1px solid white;
-  padding-left: 1em;
-}
-
-.center-left-card-body:last-child {
-  border-left: 0px none black;
-}
-
-.footer {
-  display: flex;
-  flex-direction: column;
-  margin: 1em;
-}
-
-.footer-card-header {
-  flex: 1;
-}
-
-.footer-card-body {
-  flex: 6;
-  text-align: right;
-  display: flex;
-  justify-content: center;
-}
-
-.footer-card-body table {
-  width: 90%;
-  background: white;
-  margin-bottom: 2em;
-}
-
-.blue-green-bg {
-  color: white;
-  background: rgb(51, 204, 204);
-}
-
-// .default-bg {
-//     background: rgba(227, 227, 227);
-// }
-
-.detail-card-icon {
-  overflow: hidden;
 }
