@@ -92,3 +92,8 @@
 19-16-17
 - [x] 1. 周末简单完成了`data`页的布局和初始样式（剩下的美化的周一再说了）
       ![alt home_data](./img/readme/TIM20191117161848.png)
+---
+
+19-16-18
+- [x] 1. `data`页面demo的美化
+      ![alt home_data](./img/readme/TIM20191118145503.png)

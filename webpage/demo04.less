@@ -1,5 +1,26 @@
 @import "./base.less";
 
+@bluebackground: {
+  // background: rgba(39, 216, 216, 0.897);
+  background: linear-gradient(40deg, #45cafc, #303f9f);
+};
+// 统一白色form中的font样式
+@whitefont: {
+  font-family: Arial, Helvetica, sans-serif;
+  text-shadow: 2px 2px 10px #000;
+  color: white;
+};
+// 为二级标题加了一个左+上的间距
+@minortitle: {
+  // 统计title加一个左+上的间距
+  margin-left: 1.5em;
+  margin-top: 1em;
+  font-size: 200%;
+  color: white;
+  font-family: Arial, Helvetica, sans-serif;
+  text-shadow: 2px 2px 10px #000;
+};
+
 .my-root {
   display: flex;
   min-height: 100vh;
@@ -94,40 +115,45 @@ header {
   .center-header {
     display: flex;
     flex: 1;
-    background: rgb(59, 126, 51);
+    // background: rgb(59, 126, 51);
 
-    // div {
-    //   margin: 2em;
-    // }
-
-    .center-header-left {
+    // 三种data的缩略图card样式父样式
+    .card-form {
       display: flex;
       flex: 1;
-      background: rgb(76, 230, 115);
-
-      .thumbnail {
-        @margindefault();
+      // background: rgb(76, 230, 115);
+      .detail-card {
+        display: flex;
+        justify-content: center;
+        .thumbnail {
+          img {
+          }
+          h3 {
+            text-align: center;
+            font-weight: bolder;
+            color: #2196f3;
+            // font-family: "Roboto",sans-serif;
+          }
+          p {
+            font-size: 0.9rem;
+            font-weight: 400;
+            color: #747373;
+          }
+          width: 60%;
+          @margindefault();
+        }
       }
+    }
+    .center-header-left {
+      // background: rgb(76, 230, 115);
     }
 
     .center-header-mid {
-      display: flex;
-      flex: 1;
-      background: rgb(104, 212, 185);
-
-      .thumbnail {
-        @margindefault();
-      }
+      // background: rgb(104, 212, 185);
     }
 
     .center-header-right {
-      display: flex;
-      flex: 1;
-      background: rgb(68, 102, 131);
-
-      .thumbnail {
-        @margindefault();
-      }
+      // background: rgb(68, 102, 131);
     }
   }
 
@@ -136,19 +162,22 @@ header {
   .center-center {
     display: flex;
     flex: 1;
-    background: rgb(145, 172, 73);
+    // background: rgb(145, 172, 73);
 
     // 中间部分的统计信息（station|fub|ship）的一些有序列表
     .center-center-left {
       display: flex;
       flex: 3;
-      background: rgb(14, 179, 102);
+      // background: rgba(39, 216, 216, 0.897);
+      @bluebackground();
       flex-direction: column;
       @margindefault();
-
+      @borderradius();
       .statistics-title {
-        color: yellow;
-        font-size: 200%;
+        // color: yellow;
+        // font-family: Arial, Helvetica, sans-serif;
+        // text-shadow: 2px 2px 10px #000;
+        @minortitle();
       }
 
       .statistics-form {
@@ -162,8 +191,8 @@ header {
           flex-direction: column;
           // 注意此处为副轴方向
           align-items: center;
-
-
+          font-family: Arial, Helvetica, sans-serif;
+          text-shadow: 2px 2px 10px #000;
           .title {
             font-size: 2.5em;
             color: white;
@@ -174,7 +203,6 @@ header {
               li {
                 line-height: 3em;
                 color: white;
-
               }
             }
           }
@@ -191,20 +219,50 @@ header {
     .center-center-right {
       display: flex;
       flex: 1;
-      background: rgb(15, 177, 163);
+      flex-direction: column;
+      // background: rgb(15, 177, 163);
+      @bluebackground();
       @margindefault();
-    }
+      @borderradius();
+      .statistics-title {
+        @minortitle();
+        // font-size: ;
+      }
+      form {
+        display: flex;
+        flex-direction: column;
 
+        .form-group {
+          display: flex;
+          justify-content: space-around;
+          label {
+            @whitefont();
+          }
+        }
+        .btn {
+          display: flex;
+          justify-content: center;
+          button {
+            color: #fff;
+            // 暂时对提交按钮 先不上色了
+            // background-color: #2bbbad !important;
+          }
+        }
+      }
+    }
   }
 
   .center-footer {
     display: flex;
     flex: 2;
-    background: rgb(42, 134, 146);
+    // background: rgb(42, 134, 146);
+    @bluebackground();
     flex-direction: column;
     @margindefault();
-
-    .center-footer-card-header {}
+    @borderradius();
+    .center-footer-card-header {
+      @minortitle();
+    }
 
     .center-footer-card-body {
       background: white;

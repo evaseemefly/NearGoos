@@ -63,20 +63,23 @@
     </header>
     <div class="center">
         <div class="center-header ">
-            <div class="center-header-left">
-                <div class="thumbnail">
-                    <img src="./static/station.png" alt="...">
-                    <div class="caption">
-                        <h3>Station</h3>
-                        <p>14 stations hourly data in cluding elements:station name with longtude and latitude;year,
-                            month,date,hour(utc);whind direction,wind speed;sea level air pressure,sea level air
-                            temperature
-                            ;wave parlod,algnlflcant wave height,maximum wave lheight;
-                            swell direction ,swell perlod,awell height;sea burface temperature;data fileformat .cav</p>
+            <div class="card-form center-header-left">
+                <div class="detail-card">
+                    <div class="thumbnail">
+                        <img src="./static/station.png" alt="...">
+                        <div class="caption">
+                            <h3>Station</h3>
+                            <p>14 stations hourly data in cluding elements:station name with longtude and latitude;year,
+                                month,date,hour(utc);whind direction,wind speed;sea level air pressure,sea level air
+                                temperature
+                                ;wave parlod,algnlflcant wave height,maximum wave lheight;
+                                swell direction ,swell perlod,awell height;sea burface temperature;data fileformat .cav
+                            </p>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="center-header-mid">
+            <div class="card-form center-header-mid">
                 <div class="detail-card">
                     <div class="thumbnail">
                         <img src="./static/fub.png" alt="...">
@@ -92,7 +95,7 @@
                     </div>
                 </div>
             </div>
-            <div class="center-header-right">
+            <div class="card-form center-header-right">
                 <div class="detail-card">
                     <div class="thumbnail">
                         <img src="./static/ship.png" alt="...">
@@ -112,7 +115,7 @@
         <div class="center-center ">
             <div class="center-center-left blue-green-bg">
                 <!-- 统计的title -->
-                <div class="statistics-title">统计信息</div>
+                <div class="statistics-title">STATISTICS</div>
                 <!-- 下面的具体内容 -->
                 <div class="statistics-form">
                     <!-- station -->
@@ -154,11 +157,16 @@
                 </div>
             </div>
             <div class="center-center-right default-bg">
+                <div class="statistics-title">
+                    SEARCH
+                </div>
                 <!-- 搜索条件form -->
                 <form>
                     <div class="form-group">
                         <label for="">Category</label>
-                        <option value="volvo">All Area</option>
+                        <select>
+                            <option value="volvo">All Area</option>
+                        </select>
                     </div>
                     <div class="form-group">
                         <label for="">Area</label>
@@ -184,7 +192,9 @@
                             <option value="volvo">All Area</option>
                         </select>
                     </div>
-                    <button type="submit" class="btn btn-default">Submit</button>
+                    <div class="btn">
+                        <button type="submit" class="btn btn-primary col-md-6">搜索</button>
+                    </div>
                 </form>
             </div>
         </div>
