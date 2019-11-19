@@ -6,7 +6,7 @@
 [evaseemefly](https://github.com/evaseemefly) and [QuYuan891211](https://github.com/QuYuan891211)
 
 进度参考:
-[进度](/document/schedule/README.md)
+[进度及部分效果预览](/document/schedule/README.md)
 
 ## 后端项目目录
 
@@ -56,3 +56,34 @@ v2 版本：
 
 `repository`中的实现类均继承自`JpaSpecificationExecutor`与`JpaRepository`
 `service/impl`中通过调用指定的`Repository`调用查询方法
+
+---
+
+数据读取分工如下：  
+[观测数据](background/byQY/README.txt)
+
+[预报产品](background/byCasablanca/README.md)
+
+---
+
+加入了静态页面(主要为定大体样式使用)
+大体效果如下  
+ 1. home_overview页  
+
+![alt home_overview_v2](/document/schedule/img/readme/20191111155617.png)  
+
+home 页    
+
+![alt home_overview_v2](/document/schedule/img/readme/20191112104048.png)
+---
+整体的目录结构如下
+
+
+```
+├──README.MD
+│ ├── background            <= 后端调试及定做作业
+│ ├── data                  <= 分布样例数据——现为空
+│ ├── document              <= 进度以及部分供readme使用的img
+│ ├── webclient             <= 工程化的前端项目
+│ ├── webpage               <= 前台样例静态页面
+```

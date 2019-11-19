@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>TestDemo</title>
+    <script src="js/jquery-3.2.1.js"></script>
+
+    <link href="css/bootstrap.css" rel="stylesheet" />
+    <link href="css/bootstrap-theme.css" rel="stylesheet" />
+    <link rel="stylesheet/less" type="text/css" href="demo04.less" />
+    <script>
+        less = {
+            env: "development"
+        };
+    </script>
+    <script src="js/less.min.js"></script>
+    <script>
+        less.watch();
+    </script>
+    <script>
+        less = {
+            env: "development",
+            async: false,
+            fileAsync: false,
+            poll: 1000,
+            functions: {},
+            dumpLineNumbers: "comments",
+            relativeUrls: false,
+            rootpath: ":/a.com/"
+        };
+    </script>
+
+</head>
+
+<body class="my-root">
+    <header>
+        <div class="main-title">
+            <!-- header 加几个logo -->
+            <div class="logo">
+                <!-- <img src="static/nf-logo.png"> -->
+                <img src="static/nmefclog.png" />
+                <img src="static/ioclog.png" />
+            </div>
+            <ul>
+                <li>Home</li>
+                <li>OverView</li>
+                <li>Data</li>
+                <li>Product</li>
+            </ul>
+        </div>
+        <div class="minor-title">
+            <h2>NEAR-GOOS China RTDB</h2>
+            <h4>
+                North-East Asian Regional Global Ocean Observing System (NEAR-GOOS),
+                China Real-Time Data Base, run by National Marine Environmental
+                Forecasting Center (NMEFC)
+            </h4>
+            <button class="btn btn-default">Download Data</button>
+        </div>
+    </header>
+    <div class="center">
+        <div class="center-header ">
+            <div class="card-form center-header-left">
+                <div class="detail-card">
+                    <div class="thumbnail">
+                        <img src="./static/station.png" alt="...">
+                        <div class="caption">
+                            <h3>Station</h3>
+                            <p>14 stations hourly data in cluding elements:station name with longtude and latitude;year,
+                                month,date,hour(utc);whind direction,wind speed;sea level air pressure,sea level air
+                                temperature
+                                ;wave parlod,algnlflcant wave height,maximum wave lheight;
+                                swell direction ,swell perlod,awell height;sea burface temperature;data fileformat .cav
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-form center-header-mid">
+                <div class="detail-card">
+                    <div class="thumbnail">
+                        <img src="./static/fub.png" alt="...">
+                        <div class="caption">
+                            <h3>fub</h3>
+                            <p>14 stations hourly data in cluding elements:station name with longtude and latitude;year,
+                                month,date,hour(utc);whind direction,wind speed;sea level air pressure,sea level air
+                                temperature
+                                ;wave parlod,algnlflcant wave height,maximum wave lheight;
+                                swell direction ,swell perlod,awell height;sea burface temperature;data fileformat .cav
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-form center-header-right">
+                <div class="detail-card">
+                    <div class="thumbnail">
+                        <img src="./static/ship.png" alt="...">
+                        <div class="caption">
+                            <h3>ship</h3>
+                            <p>14 stations hourly data in cluding elements:station name with longtude and latitude;year,
+                                month,date,hour(utc);whind direction,wind speed;sea level air pressure,sea level air
+                                temperature
+                                ;wave parlod,algnlflcant wave height,maximum wave lheight;
+                                swell direction ,swell perlod,awell height;sea burface temperature;data fileformat .cav
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="center-center ">
+            <div class="center-center-left blue-green-bg">
+                <!-- 统计的title -->
+                <div class="statistics-title">STATISTICS</div>
+                <!-- 下面的具体内容 -->
+                <div class="statistics-form">
+                    <!-- station -->
+                    <div class="card-form">
+                        <div class="title">station</div>
+                        <div class="body">
+                            <ul>
+                                <li>file numbers:1897</li>
+                                <li>total size(KB):2334</li>
+                                <li>time range:xxx-xxx</li>
+                                <li>format: xml</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- fub -->
+                    <div class="card-form">
+                        <div class="title">fub</div>
+                        <div class="body">
+                            <ul>
+                                <li>file numbers:1897</li>
+                                <li>total size(KB):2334</li>
+                                <li>time range:xxx-xxx</li>
+                                <li>format: xml</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- ship -->
+                    <div class="card-form">
+                        <div class="title">ship</div>
+                        <div class="body">
+                            <ul>
+                                <li>file numbers:1897</li>
+                                <li>total size(KB):2334</li>
+                                <li>time range:xxx-xxx</li>
+                                <li>format: xml</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="center-center-right default-bg">
+                <div class="statistics-title">
+                    SEARCH
+                </div>
+                <!-- 搜索条件form -->
+                <form>
+                    <div class="form-group">
+                        <label for="">Category</label>
+                        <select>
+                            <option value="volvo">All Area</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="">Area</label>
+                        <select>
+                            <option value="volvo">All Area</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="">Source</label>
+                        <select>
+                            <option value="volvo">All Area</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="">start date</label>
+                        <select>
+                            <option value="volvo">All Area</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="">end date</label>
+                        <select>
+                            <option value="volvo">All Area</option>
+                        </select>
+                    </div>
+                    <div class="btn">
+                        <button type="submit" class="btn btn-primary col-md-6">搜索</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="center-footer">
+            <div class="center-footer-card-header">
+                res
+            </div>
+            <div class="center-footer-card-body">
+                <table class="table table-striped table-bordered">
+                    <thead>
+                        <th>
+                        <td>header1</td>
+                        <td>header2</td>
+                        <td>header3</td>
+                        <td>header4</td>
+                        <td>header5</td>
+                        <td>header6</td>
+                        </th>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>a</td>
+                            <td>b</td>
+                            <td>c</td>
+                            <td>d</td>
+                            <td>e</td>
+                            <td>f</td>
+                        </tr>
+                        <tr>
+                            <td>1</td>
+                            <td>a</td>
+                            <td>b</td>
+                            <td>c</td>
+                            <td>d</td>
+                            <td>e</td>
+                            <td>f</td>
+                        </tr>
+                        <tr>
+                            <td>1</td>
+                            <td>a</td>
+                            <td>b</td>
+                            <td>c</td>
+                            <td>d</td>
+                            <td>e</td>
+                            <td>f</td>
+                        </tr>
+                        <tr>
+                            <td>1</td>
+                            <td>a</td>
+                            <td>b</td>
+                            <td>c</td>
+                            <td>d</td>
+                            <td>e</td>
+                            <td>f</td>
+                        </tr>
+                        <tr>
+                            <td>1</td>
+                            <td>a</td>
+                            <td>b</td>
+                            <td>c</td>
+                            <td>d</td>
+                            <td>e</td>
+                            <td>f</td>
+                        </tr>
+                        <tr>
+                            <td>1</td>
+                            <td>a</td>
+                            <td>b</td>
+                            <td>c</td>
+                            <td>d</td>
+                            <td>e</td>
+                            <td>f</td>
+                        </tr>
+                        <tr>
+                            <td>1</td>
+                            <td>a</td>
+                            <td>b</td>
+                            <td>c</td>
+                            <td>d</td>
+                            <td>e</td>
+                            <td>f</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <footer>
+        <!-- 选择成员国的友情链接 -->
+        <div class="db-select">
+            <div class="dropdown">
+                <button class="btn btn-default dropdown-toggle" type="button" id="db" data-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="true">
+                    Database
+                    <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                    <li><a href="#">China</a></li>
+                    <li><a href="#">Japan</a></li>
+                    <li><a href="#">Korea</a></li>
+                    <li><a href="#">Russia</a></li>
+                </ul>
+            </div>
+        </div>
+        <!-- 成员国 -->
+        <div class="members">
+            <h4>NEAR-GOOS Members Countries</h4>
+            <div>
+                <img src="static/chn.jpg" />
+                <img src="static/jap.jpg" />
+                <img src="static/korea.jpg" />
+                <img src="static/rus.jpg" />
+            </div>
+        </div>
+        <!-- 版权 -->
+        <div class="copyright">
+            <h4>
+                Copyright ©right;
+            </h4>
+            <h4>2013 National Marine Environment Forecasting Center(NMEFC)</h4>
+            <h4>All Rights Reserved</h4>
+        </div>
+    </footer>
+</body>
+
+</html>

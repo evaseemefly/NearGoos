@@ -1,2 +1,22 @@
+/background/byCasablanca/proj/.idea/encodings.xml
+/background/byCasablanca/proj/.idea/misc.xml
+/background/byCasablanca/proj/.idea/modules.xml
+/background/byCasablanca/proj/.idea/proj.iml
+/background/byCasablanca/proj/.idea/vcs.xml
+/background/byCasablanca/proj/.idea/workspace.xml
+/background/byCasablanca/proj/.idea/inspectionProfiles
 /background/byQY/config/ftpConfig.ini
-/background/byQY/config
+/background/byQY/config<<<<<<< .mine
+
+
+
+
+
+=======
+/.idea
+/background/byCasablanca/proj/.idea
+/background/byQY/.idea
+/background/byQY/core/__pycache__
+/background/byQY/model/__pycache__
+>>>>>>> .theirs
+/venv
