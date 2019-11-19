@@ -64,6 +64,94 @@ footer {
     }
   }
 }
+
+
+// 中间的区域
+.center {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+
+  //产品展示区域,横向排列
+  .center-header {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    justify-content: space-between;
+    .center-header-left {
+      //菜单栏
+      display: flex;
+      flex: 1;
+      flex-direction: column;
+    }
+    .center-header-right {
+      //产品
+      display: flex;
+      flex: 1;
+      flex-direction: column;
+    }
+  }
+
+  // 中间部分
+  // 横向排列
+  .center-center {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    @bluebackground();
+    @margindefault();
+    @borderradius();
+    .title {
+        @minortitle();
+        // font-size: ;
+      }
+      form {
+        display: flex;
+        flex-direction: row;
+        .form-group {
+          display: flex;
+          justify-content: space-around;
+          label {
+            @whitefont();
+          }
+        }
+        .btn {
+          display: flex;
+          justify-content: center;
+          button {
+            color: #fff;
+            // 暂时对提交按钮 先不上色了
+            // background-color: #2bbbad !important;
+          }
+        }
+      }
+    
+  }
+
+  .center-footer {
+    display: flex;
+    flex: 2;
+    // background: rgb(42, 134, 146);
+    @bluebackground();
+    flex-direction: column;
+    @margindefault();
+    @borderradius();
+    .center-footer-card-header {
+      @minortitle();
+    }
+
+    .center-footer-card-body {
+      background: white;
+    }
+  }
+}
+
+
+
+
+
+
+
 //footer的父类
 .footer() {
   background: url("image/home_1_2.jpg");
