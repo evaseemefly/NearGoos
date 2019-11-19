@@ -1,5 +1,28 @@
+@import "./base.less";
+
+@bluebackground: {
+  // background: rgba(39, 216, 216, 0.897);
+  background: #33CCCC;
+};
+// 统一白色form中的font样式
+@whitefont: {
+  font-family: Arial, Helvetica, sans-serif;
+  text-shadow: 2px 2px 10px #000;
+  color: white;
+};
+// 为二级标题加了一个左+上的间距
+@minortitle: {
+  // 统计title加一个左+上的间距
+  margin-left: 1.5em;
+  margin-top: 1em;
+  font-size: 200%;
+  color: white;
+  font-family: Arial, Helvetica, sans-serif;
+  text-shadow: 2px 2px 10px #000;
+};
+
 .my-root {
-  background: rgb(138, 128, 114);
+  background: rgb(255, 255, 255);
 }
 
 footer {
@@ -76,19 +99,56 @@ footer {
   .center-header {
     display: flex;
     flex: 1;
-    flex-direction: column;
-    justify-content: space-between;
+    flex-direction: row;
+    justify-content: space-around;
+    
     .center-header-left {
       //菜单栏
       display: flex;
       flex: 1;
-      flex-direction: column;
+      flex-direction: row;
+      justify-content: flex-start;
+      .elements-ul{
+        width:700px;
+        height:50px;
+        list-style: none;
+        margin:0;
+        padding:0 20px;
+        font-size: 30px;
+        line-height:50px;
+        background: #33CCCC;
+        color: white;
+    }
+
+}
     }
     .center-header-right {
       //产品
       display: flex;
       flex: 1;
-      flex-direction: column;
+      flex-direction: row;
+      justify-content: flex-end;
+      .title{
+        font-size: 36px;
+        line-height:50px;
+        background: #33CCCC;
+        color: white;
+      }
+      .interval-ul{
+        width:700px;
+        height:50px;
+        list-style: none;
+        margin:0;
+        padding:0 20px;
+        font-size: 30px;
+        line-height:50px;
+        background: #33CCCC;
+        color: white;
+    }
+      .interval-ul li{
+        width:70px;
+        margin:0 10px;
+        float: left;
     }
   }
 
@@ -108,9 +168,10 @@ footer {
       form {
         display: flex;
         flex-direction: row;
+        justify-content: space-around;
         .form-group {
           display: flex;
-          justify-content: space-around;
+          justify-content: center;
           label {
             @whitefont();
           }
