@@ -1,29 +1,33 @@
-# webclient
+# neargoos 前端工程
 
-## Project setup
+## 安装
 ```
 npm install
 ```
 
-### Compiles and hot-reloads for development
+### 启动
 ```
 npm run serve
 ```
 
-### Compiles and minifies for production
-```
-npm run build
-```
+## 项目目录说明
 
-### Run your tests
-```
-npm run test
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+<pre><code>
+├──./                             <=vue前端项目工程
+├──README.MD  
+├── document                      <=一些遇见的问题的归档 
+├── src                           <=项目源代码  
+│ ├── content                     <= 内容页面 ，我习惯将所有的view跳转到的主要的view视图页面放置于此 
+│ ├── footer                      <= footer 放置于此处
+│ ├── header                      <= header 放置于此处
+│ ├── x member x                  <= 我之前是将全局的组件放置在members中，本项目不再使用此种方式
+├── components                     <= 将全局的组件放在此处
+│ ├── xx_a                         <= xx_a 视图组件
+│ │ ├── base                       <= xx_a 的基础组件
+│ │ ├── bar                        <= xx_a 的bar组件
+│ ├── common                       <= 一些公共的组件
+├── router                         <= vue的router文件在此
+├── store                          <= vuex 的所在路径
+├── App.vue                        <= vue的起始视图页面，在 main.ts文件中引用 
+├── main.ts                        <= vue的入口文件，我们使用了ts，所以为.ts 
+</code></pre>
