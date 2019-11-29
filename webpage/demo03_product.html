@@ -1,305 +1,298 @@
 <!DOCTYPE html>
 
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
-  <head>
-    <meta charset="utf-8" />
-    <title></title>
-    <script src="js/jquery-3.2.1.js"></script>
 
-    <link href="css/bootstrap.css" rel="stylesheet" />
-    <link href="css/bootstrap-theme.css" rel="stylesheet" />
-    <link
-      rel="stylesheet/less"
-      type="text/css"
-      href="demo03.less"
-    />
-    <script>
-      less = { env: "development" };
-    </script>
-    <script src="js/less.min.js"></script>
-    <script>
-      less.watch();
-    </script>
-    <script>
-      less = {
-        env: "development",
-        async: false,
-        fileAsync: false,
-        poll: 1000,
-        functions: {},
-        dumpLineNumbers: "comments",
-        relativeUrls: false,
-        rootpath: ":/a.com/"
-      };
-    </script>
-    <style type="text/css">
-      /* .my-root {
+<head>
+  <meta charset="utf-8" />
+  <title></title>
+  <script src="js/jquery-3.2.1.js"></script>
+
+  <link href="css/bootstrap.css" rel="stylesheet" />
+  <link href="css/bootstrap-theme.css" rel="stylesheet" />
+  <link rel="stylesheet/less" type="text/css" href="demo03.less" />
+  <script>
+    less = { env: "development" };
+  </script>
+  <script src="js/less.min.js"></script>
+  <script>
+    less.watch();
+  </script>
+  <script>
+    less = {
+      env: "development",
+      async: false,
+      fileAsync: false,
+      poll: 1000,
+      functions: {},
+      dumpLineNumbers: "comments",
+      relativeUrls: false,
+      rootpath: ":/a.com/"
+    };
+  </script>
+  <style type="text/css">
+    /* .my-root {
         background: rgb(138, 128, 114);
       } */
-      /* header,
+    /* header,
       footer {
         height: 100px;
         background: darkcyan;
       } */
-    </style>
-  </head>
+  </style>
+</head>
 
-  <body class="my-root">
-    <header>
-      <div class="main-title">
-        <!-- header 加几个logo -->
-        <div class="logo">
-          <!-- <img src="static/nf-logo.png"> -->
-          <img src="static/nmefclog.png" />
-          <img src="static/ioclog.png" />
-        </div>
-        <ul>
-          <li>Home</li>
-          <li>OverView</li>
-          <li>Data</li>
-          <li>Product</li>
-        </ul>
+<body class="my-root">
+  <header>
+    <div class="main-title">
+      <!-- header 加几个logo -->
+      <div class="logo">
+        <!-- <img src="static/nf-logo.png"> -->
+        <img src="static/nmefclog.png" />
+        <img src="static/ioclog.png" />
       </div>
-      <div class="minor-title">
-        <h2>NEAR-GOOS China RTDB</h2>
-        <h4>
-          North-East Asian Regional Global Ocean Observing System (NEAR-GOOS),
-          China Real-Time Data Base, run by National Marine Environmental
-          Forecasting Center (NMEFC)
-        </h4>
-        <button class="btn btn-default">Download Data</button>
-      </div>
-    </header>
-    <!-- 中间区域 -->
-    <div class="center">
-      
-      <!-- 主要内容 -->
+      <ul>
+        <li>Home</li>
+        <li>OverView</li>
+        <li>Data</li>
+        <li>Product</li>
+      </ul>
+    </div>
+    <div class="minor-title">
+      <h2>NEAR-GOOS China RTDB</h2>
+      <h4>
+        North-East Asian Regional Global Ocean Observing System (NEAR-GOOS),
+        China Real-Time Data Base, run by National Marine Environmental
+        Forecasting Center (NMEFC)
+      </h4>
+      <button class="btn btn-default">Download Data</button>
+    </div>
+  </header>
+  <!-- 中间区域 -->
+  <div class="center">
+
+    <!-- 主要内容 -->
     <div class="my-content">
       <!-- 中间上部区域 -->
-        <div class="center-header">
-      <!-- 产品内容 -->
-      <div class="product-show">
-        <!-- 中间上部左侧区域 -->
-        <div class="center-header-left">
-          <!-- 菜单栏 -->
-        <div class="product-menu">
-            <ul class="elements-ul">
+      <div class="center-header">
+        <!-- 产品内容 -->
+        <div class="product-show">
+          <!-- 中间上部左侧区域 -->
+          <div class="center-header-left">
+            <!-- 菜单栏 -->
+            <div class="product-menu">
+              <ul class="elements-ul">
                 <li>Wave</li>
                 <li>Sea Surface Temperature</li>
                 <li>Current</li>
                 <li>Sea Ice</li>
                 <li>Far East</li>
               </ul>
-        </div>
-      </div>
-      <!-- 中间上部右侧区域 -->
-      <div class="center-header-right">
-        <!-- 产品展示 -->
-        <div class="product-exhibition">
-          <!-- 标题 -->
-          <div class="product-title">
-              <div class="title">China Sea XXX Numeric Forecast</div>
-              <!-- 预报时效选择框 -->
-              <div class="interval-form">
-                <ul class="interval-ul">
+            </div>
+          </div>
+          <!-- 中间上部右侧区域 -->
+          <div class="center-header-right">
+            <!-- 产品展示 -->
+            <div class="product-exhibition">
+              <!-- 标题 -->
+              <div class="product-title">
+                <div class="title">China Sea XXX Numeric Forecast</div>
+                <!-- 预报时效选择框 -->
+                <div class="interval-form">
+                  <ul class="interval-ul">
                     <li>24h</li>
                     <li>48h</li>
                     <li>72h</li>
                     <li>96h</li>
                     <li>120h</li>
-                </ul>
+                  </ul>
+                </div>
               </div>
-          </div>
-          <!-- 产品图片 -->
-          <div class="product-img">
-              <img src="image/Product_img.jpg" width="70%" height="70%">
+              <!-- 产品图片 -->
+              <div class="product-img">
+                <img src="image/Product_img.jpg" width="70%" height="70%">
+              </div>
+            </div>
           </div>
         </div>
-      </div>
-      </div>
       </div>
       <!-- 中间区域-->
       <div class="product-data">
         <div class="product-search">
-                    <!-- 搜索部分 -->
-                    <div class="center-center">
-                        <div class="search-form">
-                            <div class="title">SEARCH</div>
-                            <!-- 搜索条件form -->
-                            <form>
-                                <div class="form-group">
-                                    <label for="">Category</label>
-                                    <select>
-                                        <option value="volvo">All Area</option>
-                                    </select>
-                                </div>
-                                <div class="form-group">
-                                    <label for="">Area</label>
-                                    <select>
-                                        <option value="volvo">All Area</option>
-                                    </select>
-                                </div>
-                                <div class="form-group">
-                                    <label for="">Elements</label>
-                                    <select>
-                                        <option value="volvo">All Area</option>
-                                    </select>
-                                </div>
-                                <div class="form-group">
-                                    <label for="">Period</label>
-                                    <select>
-                                        <option value="volvo">All Area</option>
-                                    </select>
-                                </div>
-                                <div class="form-group">
-                                    <label for="">start date</label>
-                                    <select>
-                                        <option value="volvo">All Area</option>
-                                    </select>
-                                </div>
-                                <div class="form-group">
-                                    <label for="">end date</label>
-                                    <select>
-                                        <option value="volvo">All Area</option>
-                                    </select>
-                                </div>
-                                <div class="btn">
-                                    <button type="submit" class="btn btn-primary col-md-6">SEARCH</button>
-                                </div>
-                            </form>
-                        </div>
-                      </div>
+          <!-- 搜索部分 -->
+          <div class="center-center">
+            <div class="search-form">
+              <div class="title">SEARCH</div>
+              <!-- 搜索条件form -->
+              <form>
+                <div class="form-group">
+                  <label for="">Category</label>
+                  <select>
+                    <option value="volvo">All Area</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="">Area</label>
+                  <select>
+                    <option value="volvo">All Area</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="">Elements</label>
+                  <select>
+                    <option value="volvo">All Area</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="">Period</label>
+                  <select>
+                    <option value="volvo">All Area</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="">start date</label>
+                  <select>
+                    <option value="volvo">All Area</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="">end date</label>
+                  <select>
+                    <option value="volvo">All Area</option>
+                  </select>
+                </div>
+                <div class="btn">
+                  <button type="submit" class="btn btn-primary col-md-6">SEARCH</button>
+                </div>
+              </form>
+            </div>
+          </div>
         </div>
-        <div class="product-result">          
+        <div class="product-result">
           <!-- 结果部分 -->
           <div class="center-footer">
-              <div class="center-footer-card-header">
-                  Result
-              </div>
-              <div class="center-footer-card-body">
-                  <table class="table table-striped table-bordered">
-                      <thead>
-                          <th>
-                          <td>header1</td>
-                          <td>header2</td>
-                          <td>header3</td>
-                          <td>header4</td>
-                          <td>header5</td>
-                          <td>header6</td>
-                          </th>
-                      </thead>
-                      <tbody>
-                          <tr>
-                              <td>1</td>
-                              <td>a</td>
-                              <td>b</td>
-                              <td>c</td>
-                              <td>d</td>
-                              <td>e</td>
-                              <td>f</td>
-                          </tr>
-                          <tr>
-                              <td>1</td>
-                              <td>a</td>
-                              <td>b</td>
-                              <td>c</td>
-                              <td>d</td>
-                              <td>e</td>
-                              <td>f</td>
-                          </tr>
-                          <tr>
-                              <td>1</td>
-                              <td>a</td>
-                              <td>b</td>
-                              <td>c</td>
-                              <td>d</td>
-                              <td>e</td>
-                              <td>f</td>
-                          </tr>
-                          <tr>
-                              <td>1</td>
-                              <td>a</td>
-                              <td>b</td>
-                              <td>c</td>
-                              <td>d</td>
-                              <td>e</td>
-                              <td>f</td>
-                          </tr>
-                          <tr>
-                              <td>1</td>
-                              <td>a</td>
-                              <td>b</td>
-                              <td>c</td>
-                              <td>d</td>
-                              <td>e</td>
-                              <td>f</td>
-                          </tr>
-                          <tr>
-                              <td>1</td>
-                              <td>a</td>
-                              <td>b</td>
-                              <td>c</td>
-                              <td>d</td>
-                              <td>e</td>
-                              <td>f</td>
-                          </tr>
-                          <tr>
-                              <td>1</td>
-                              <td>a</td>
-                              <td>b</td>
-                              <td>c</td>
-                              <td>d</td>
-                              <td>e</td>
-                              <td>f</td>
-                          </tr>
-                      </tbody>
-                  </table>
-              </div>
-          </div></div>
+            <div class="center-footer-card-header">
+              Result
+            </div>
+            <div class="center-footer-card-body">
+              <table class="table table-striped table-bordered">
+                <thead>
+                  <th>
+                  <td>header1</td>
+                  <td>header2</td>
+                  <td>header3</td>
+                  <td>header4</td>
+                  <td>header5</td>
+                  <td>header6</td>
+                  </th>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>1</td>
+                    <td>a</td>
+                    <td>b</td>
+                    <td>c</td>
+                    <td>d</td>
+                    <td>e</td>
+                    <td>f</td>
+                  </tr>
+                  <tr>
+                    <td>1</td>
+                    <td>a</td>
+                    <td>b</td>
+                    <td>c</td>
+                    <td>d</td>
+                    <td>e</td>
+                    <td>f</td>
+                  </tr>
+                  <tr>
+                    <td>1</td>
+                    <td>a</td>
+                    <td>b</td>
+                    <td>c</td>
+                    <td>d</td>
+                    <td>e</td>
+                    <td>f</td>
+                  </tr>
+                  <tr>
+                    <td>1</td>
+                    <td>a</td>
+                    <td>b</td>
+                    <td>c</td>
+                    <td>d</td>
+                    <td>e</td>
+                    <td>f</td>
+                  </tr>
+                  <tr>
+                    <td>1</td>
+                    <td>a</td>
+                    <td>b</td>
+                    <td>c</td>
+                    <td>d</td>
+                    <td>e</td>
+                    <td>f</td>
+                  </tr>
+                  <tr>
+                    <td>1</td>
+                    <td>a</td>
+                    <td>b</td>
+                    <td>c</td>
+                    <td>d</td>
+                    <td>e</td>
+                    <td>f</td>
+                  </tr>
+                  <tr>
+                    <td>1</td>
+                    <td>a</td>
+                    <td>b</td>
+                    <td>c</td>
+                    <td>d</td>
+                    <td>e</td>
+                    <td>f</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
-    <footer>
-      <!-- 选择成员国的友情链接 -->
-      <div class="db-select">
-        <div class="dropdown">
-          <button
-            class="btn btn-default dropdown-toggle"
-            type="button"
-            id="db"
-            data-toggle="dropdown"
-            aria-haspopup="true"
-            aria-expanded="true"
-          >
-            Database
-            <span class="caret"></span>
-          </button>
-          <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-            <li><a href="#">China</a></li>
-            <li><a href="#">Japan</a></li>
-            <li><a href="#">Korea</a></li>
-            <li><a href="#">Russia</a></li>
-          </ul>
-        </div>
+  <footer>
+    <!-- 选择成员国的友情链接 -->
+    <div class="db-select">
+      <div class="dropdown">
+        <button class="btn btn-default dropdown-toggle" type="button" id="db" data-toggle="dropdown"
+          aria-haspopup="true" aria-expanded="true">
+          Database
+          <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+          <li><a href="#">China</a></li>
+          <li><a href="#">Japan</a></li>
+          <li><a href="#">Korea</a></li>
+          <li><a href="#">Russia</a></li>
+        </ul>
       </div>
-      <!-- 成员国 -->
-      <div class="members">
-        <h4>NEAR-GOOS Members Countries</h4>
-        <div>
-          <img src="static/chn.jpg" />
-          <img src="static/jap.jpg" />
-          <img src="static/korea.jpg" />
-          <img src="static/rus.jpg" />
-        </div>
+    </div>
+    <!-- 成员国 -->
+    <div class="members">
+      <h4>NEAR-GOOS Members Countries</h4>
+      <div>
+        <img src="static/chn.jpg" />
+        <img src="static/jap.jpg" />
+        <img src="static/korea.jpg" />
+        <img src="static/rus.jpg" />
       </div>
-      <!-- 版权 -->
-      <div class="copyright">
-        <h4>
-          Copyright ©right;
-        </h4>
-        <h4>2013 National Marine Environment Forecasting Center(NMEFC)</h4>
-        <h4>All Rights Reserved</h4>
-      </div>
-    </footer>
-  </body>
+    </div>
+    <!-- 版权 -->
+    <div class="copyright">
+      <h4>
+        Copyright ©right;
+      </h4>
+      <h4>2013 National Marine Environment Forecasting Center(NMEFC)</h4>
+      <h4>All Rights Reserved</h4>
+    </div>
+  </footer>
+</body>
+
 </html>
