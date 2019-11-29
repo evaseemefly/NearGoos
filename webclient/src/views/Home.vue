@@ -9,10 +9,10 @@
           <img src="/images/logo/ioclog.png" />
         </div>
         <ul>
-          <li>Home</li>
-          <li>OverView</li>
-          <li>Data</li>
-          <li>Product</li>
+          <li><router-link :to="{ path: '/' }">Home</router-link></li>
+          <li><router-link :to="{ path: 'content/overview' }">OverView</router-link></li>
+          <li><router-link :to="{ path: 'content' }">Data</router-link></li>
+          <li><router-link :to="{ path: 'content' }">Product</router-link></li>
         </ul>
       </div>
     </header>

@@ -7,11 +7,28 @@
         <img src="/images/logo/nmefclog.png" />
         <img src="/images/logo/ioclog.png" />
       </div>
-      <ul>
+      <!-- <ul>
         <li>Home</li>
         <li>OverView</li>
         <li>Data</li>
         <li>Product</li>
+      </ul>-->
+      <ul>
+        <li>
+          <!-- <router-link :to="{ name: 'map', params: { kind: 'history' }}">船舶历史轨迹</router-link> -->
+          <router-link :to="{ path: 'content' }">Home</router-link>
+        </li>
+        <li>
+          <router-link :to="{ path: '/content/overview' }"
+            >OverView</router-link
+          >
+        </li>
+        <li>
+          <router-link to="/content">Data</router-link>
+        </li>
+        <li>
+          <router-link :to="{ path: '/content/product' }">Product</router-link>
+        </li>
       </ul>
     </div>
     <div class="minor-title">

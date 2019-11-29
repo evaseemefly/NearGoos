@@ -3,6 +3,7 @@ import VueRouter from "vue-router";
 import Home from "../views/Home.vue";
 import Content from "../views/Content.vue";
 import OverView from "../views/content/OverView.vue";
+import Product from "../views/content/Product.vue";
 Vue.use(VueRouter);
 
 const routes = [
@@ -22,6 +23,11 @@ const routes = [
       {
         path: "overview",
         component: OverView,
+        meta: []
+      },
+      {
+        path: "product",
+        component: Product,
         meta: []
       }
     ]
