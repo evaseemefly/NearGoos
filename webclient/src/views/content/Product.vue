@@ -1,5 +1,5 @@
 <template>
- <div class="center">
+  <div class="center">
     <!-- 主要内容 -->
     <div class="my-content">
       <!-- 中间上部区域 -->
@@ -11,13 +11,43 @@
             <!-- 菜单栏 -->
             <div class="product-menu">
               <!-- 此处只为示意，之后使用elementui实现功能 -->
-              <ul class="elements-ul">
+              <!-- <ul class="elements-ul">
                 <li>Wave</li>
                 <li>Sea Surface Temperature</li>
                 <li>Current</li>
                 <li>Sea Ice</li>
                 <li>Far East</li>
-              </ul>
+              </ul>-->
+              <!-- TODO:[*] 19-12-02 此处改为使用elementui -->
+              <el-row class="tac">
+                <el-col :span="24">
+                  <!-- <h5>Type</h5> -->
+                  <el-menu
+                    default-active="2"
+                    class="el-menu-vertical-demo"
+                    @open="handleOpen"
+                    @close="handleClose"
+                    background-color="#33cccc"
+                    text-color="#fff"
+                    active-text-color="#ffd04b"
+                    :default-openeds="openList"
+                  >
+                    <el-submenu index="father.key" v-for="(father, x) in menuList" :key="x">
+                      <template slot="title">
+                        <i class="el-icon-location"></i>
+                        <span>{{father.val}}</span>
+                      </template>
+                      <el-menu-item
+                        index="child.key"
+                        v-for="(child, y) in father.children"
+                        :key="y"
+                        @open="selectMenu"
+                        @click.native="selectMenu(father.key,child.key)"
+                      >{{child.val}}</el-menu-item>
+                    </el-submenu>
+                  </el-menu>
+                </el-col>
+              </el-row>
             </div>
           </div>
           <!-- 中间上部右侧区域 -->
@@ -30,17 +60,13 @@
                 <!-- 预报时效选择框 -->
                 <div class="interval-form">
                   <ul class="interval-ul">
-                    <li>24h</li>
-                    <li>48h</li>
-                    <li>72h</li>
-                    <li>96h</li>
-                    <li>120h</li>
+                    <li v-for="(item, index) in getIntervalList" :key="index">{{item}}</li>
                   </ul>
                 </div>
               </div>
               <!-- 产品图片 -->
               <div class="product-img">
-                <img src="image/Product_img.jpg" width="70%" height="70%">
+                <img src="image/Product_img.jpg" width="70%" height="70%" />
               </div>
             </div>
           </div>
@@ -56,37 +82,37 @@
               <!-- 搜索条件form -->
               <form>
                 <div class="form-group">
-                  <label for="">Category</label>
+                  <label for>Category</label>
                   <select>
                     <option value="volvo">All Area</option>
                   </select>
                 </div>
                 <div class="form-group">
-                  <label for="">Area</label>
+                  <label for>Area</label>
                   <select>
                     <option value="volvo">All Area</option>
                   </select>
                 </div>
                 <div class="form-group">
-                  <label for="">Elements</label>
+                  <label for>Elements</label>
                   <select>
                     <option value="volvo">All Area</option>
                   </select>
                 </div>
                 <div class="form-group">
-                  <label for="">Period</label>
+                  <label for>Period</label>
                   <select>
                     <option value="volvo">All Area</option>
                   </select>
                 </div>
                 <div class="form-group">
-                  <label for="">start date</label>
+                  <label for>start date</label>
                   <select>
                     <option value="volvo">All Area</option>
                   </select>
                 </div>
                 <div class="form-group">
-                  <label for="">end date</label>
+                  <label for>end date</label>
                   <select>
                     <option value="volvo">All Area</option>
                   </select>
@@ -101,20 +127,18 @@
         <div class="product-result">
           <!-- 结果部分 -->
           <div class="center-footer">
-            <div class="center-footer-card-header">
-              Result
-            </div>
+            <div class="center-footer-card-header">Result</div>
             <div class="center-footer-card-body">
               <table class="table table-striped table-bordered">
                 <thead>
-                  <th>
+                  <!-- <th>
                     <td>header1</td>
                     <td>header2</td>
                     <td>header3</td>
                     <td>header4</td>
                     <td>header5</td>
                     <td>header6</td>
-                  </th>
+                  </th>-->
                 </thead>
                 <tbody>
                   <tr>
@@ -194,9 +218,69 @@ import { Component, Prop, Vue, Watch } from "vue-property-decorator";
 @Component({})
 export default class ProductView extends Vue {
   mydata: any = null;
+  openList: Array<string> = ["2", "3"];
+  menuList: Array<{
+    key: string;
+    val: string;
+    children: Array<{ key: string; val: string }>;
+  }> = [
+    {
+      key: "1",
+      val: "wave",
+      children: [{ key: "2", val: "ChinaSea" }, { key: "3", val: "Northwest" }]
+    },
+    {
+      key: "4",
+      val: "Current",
+      children: [
+        { key: "5", val: "EastChinaSea" },
+        { key: "6", val: "Northwest" },
+        { key: "7", val: "FarEast" }
+      ]
+    },
+    {
+      key: "8",
+      val: "Ice",
+      children: [{ key: "9", val: "Bohai" }]
+    },
+    {
+      key: "4",
+      val: "Template",
+      children: [
+        { key: "5", val: "EastChinaSea" },
+        { key: "6", val: "Northwest" }
+      ]
+    }
+  ];
+
+  intervalList: Array<{ key: string; val: Array<number> }> = [
+    { key: "2", val: [24, 48, 72, 96] },
+    { key: "3", val: [24, 48, 72, 96, 120] }
+  ];
+  menuIndex: string = "2";
+
+  handleOpen() {
+    console.log("展开");
+  }
+  selectMenu(father: string, child: string) {
+    console.log(father + "|" + child);
+    this.menuIndex = child;
+  }
+  handleClose() {}
   mounted() {}
   get computedTest() {
     return null;
+  }
+
+  get getIntervalList(): Array<number> {
+    let myself = this;
+    // TODO:[-] 19-12-02 此处bug已解决
+    let res = myself.intervalList.find(temp => myself.menuIndex === temp.key);
+    if (res != undefined) {
+      return res.val;
+    } else {
+      return [];
+    }
   }
 }
 </script>
@@ -205,7 +289,7 @@ export default class ProductView extends Vue {
 @bluebackground: {
   // background: rgba(39, 216, 216, 0.897);
   background: #33cccc;
-}
+};
 // 为二级标题加了一个左+上的间距
 @minortitle: {
   // 统计title加一个左+上的间距
