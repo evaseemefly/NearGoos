@@ -2,14 +2,16 @@
 
 @bluebackground: {
   // background: rgba(39, 216, 216, 0.897);
-  background: #33CCCC;
+  background: #33cccc;
 };
+
 // 统一白色form中的font样式
 @whitefont: {
   font-family: Arial, Helvetica, sans-serif;
   text-shadow: 2px 2px 10px #000;
   color: white;
 };
+
 // 为二级标题加了一个左+上的间距
 @minortitle: {
   // 统计title加一个左+上的间距
@@ -43,11 +45,13 @@ footer {
   flex-direction: column;
   //底部增加一个内padding
   padding-bottom: 50px;
+
   .logo {
     img {
       height: 100px;
     }
   }
+
   .main-title {
     display: flex;
     flex-direction: row;
@@ -56,6 +60,7 @@ footer {
     font-weight: 700;
     font-size: 30px;
     align-items: center;
+
     ul {
       display: flex;
       flex-direction: row;
@@ -67,6 +72,7 @@ footer {
       }
     }
   }
+
   .minor-title {
     display: flex;
     color: whitesmoke;
@@ -80,6 +86,7 @@ footer {
     h4 {
       width: 50%;
     }
+
     button {
       background: rgba(212, 132, 28, 0.815);
       color: white;
@@ -87,7 +94,6 @@ footer {
     }
   }
 }
-
 
 // 中间的区域
 .center {
@@ -101,54 +107,63 @@ footer {
     flex: 1;
     flex-direction: row;
     justify-content: space-around;
-    
-    .center-header-left {
-      //菜单栏
-      display: flex;
-      flex: 1;
-      flex-direction: row;
-      justify-content: flex-start;
-      .elements-ul{
-        width:700px;
-        height:50px;
-        list-style: none;
-        margin:0;
-        padding:0 20px;
-        font-size: 30px;
-        line-height:50px;
-        background: #33CCCC;
-        color: white;
-    }
 
-}
-    }
-    .center-header-right {
-      //产品
+    .product-show {
       display: flex;
-      flex: 1;
-      flex-direction: row;
-      justify-content: flex-end;
-      .title{
-        font-size: 36px;
-        line-height:50px;
-        background: #33CCCC;
-        color: white;
+      .center-header-left {
+        //菜单栏
+        display: flex;
+        flex: 1;
+        flex-direction: row;
+        justify-content: flex-start;
+
+        .elements-ul {
+          display: flex;
+          flex: 1;
+          flex-direction: column;
+          // width: 700px;
+          // height: 50px;
+          list-style: none;
+          margin: 0;
+          padding: 0 20px;
+          font-size: 30px;
+          line-height: 50px;
+          background: #33cccc;
+          color: white;
+        }
       }
-      .interval-ul{
-        width:700px;
-        height:50px;
-        list-style: none;
-        margin:0;
-        padding:0 20px;
-        font-size: 30px;
-        line-height:50px;
-        background: #33CCCC;
-        color: white;
-    }
-      .interval-ul li{
-        width:70px;
-        margin:0 10px;
-        float: left;
+      .center-header-right {
+        //产品
+        display: flex;
+        flex: 3;
+        flex-direction: row;
+        justify-content: flex-end;
+
+        .title {
+          font-size: 36px;
+          line-height: 50px;
+          background: #33cccc;
+          color: white;
+        }
+
+        .interval-ul {
+          width: 700px;
+          height: 50px;
+          list-style: none;
+          margin: 0;
+          padding: 0 20px;
+          font-size: 30px;
+          line-height: 50px;
+          background: #33cccc;
+          color: white;
+        }
+
+        .interval-ul li {
+          width: 70px;
+          margin: 0 10px;
+          float: left;
+        }
+      }
     }
   }
 
@@ -161,32 +176,37 @@ footer {
     @bluebackground();
     @margindefault();
     @borderradius();
+
     .title {
-        @minortitle();
-        // font-size: ;
-      }
-      form {
+      @minortitle();
+      // font-size: ;
+    }
+
+    form {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-around;
+
+      .form-group {
         display: flex;
-        flex-direction: row;
-        justify-content: space-around;
-        .form-group {
-          display: flex;
-          justify-content: center;
-          label {
-            @whitefont();
-          }
-        }
-        .btn {
-          display: flex;
-          justify-content: center;
-          button {
-            color: #fff;
-            // 暂时对提交按钮 先不上色了
-            // background-color: #2bbbad !important;
-          }
+        justify-content: center;
+
+        label {
+          @whitefont();
         }
       }
-    
+
+      .btn {
+        display: flex;
+        justify-content: center;
+
+        button {
+          color: #fff;
+          // 暂时对提交按钮 先不上色了
+          // background-color: #2bbbad !important;
+        }
+      }
+    }
   }
 
   .center-footer {
@@ -197,6 +217,7 @@ footer {
     flex-direction: column;
     @margindefault();
     @borderradius();
+
     .center-footer-card-header {
       @minortitle();
     }
@@ -207,39 +228,40 @@ footer {
   }
 }
 
-
-
-
-
-
-
 //footer的父类
 .footer() {
   background: url("image/home_1_2.jpg");
   display: flex;
   justify-content: space-around;
   align-items: center;
+
   .db-select {
     display: flex;
   }
+
   .members {
     display: flex;
     flex-direction: column;
+
     h4 {
       color: white;
     }
+
     img {
       margin-right: 0.25em;
     }
   }
+
   .copyright {
     display: flex;
     flex-direction: column;
+
     h4 {
       color: white;
     }
   }
 }
+
 // 含图片的背景
 .basecontent() {
   height: 600px;
@@ -251,25 +273,25 @@ footer {
 .desfont() {
   line-height: 1.8;
 }
+
 // 定义的 白色的描述性字体
 .deswhite() {
   color: aliceblue;
   font-size: 600;
 }
+
 header {
   .header();
 }
 
-.my-content{
-  .product-show{
-
+.my-content {
+  .product-show {
   }
-  .product-data{
-    
+
+  .product-data {
   }
 }
 
 footer {
   .footer();
 }
-

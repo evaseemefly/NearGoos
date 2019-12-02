@@ -4,6 +4,7 @@ import Home from "../views/Home.vue";
 import Content from "../views/Content.vue";
 import OverView from "../views/content/OverView.vue";
 import Product from "../views/content/Product.vue";
+import DataView from "../views/content/Data.vue";
 Vue.use(VueRouter);
 
 const routes = [
@@ -28,6 +29,11 @@ const routes = [
       {
         path: "product",
         component: Product,
+        meta: []
+      },
+      {
+        path: "data",
+        component: DataView,
         meta: []
       }
     ]

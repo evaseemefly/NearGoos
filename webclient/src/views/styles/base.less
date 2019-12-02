@@ -1,0 +1,74 @@
+// 所有的父类常量放置于此
+@margindefault: {
+  margin: 1em;
+};
+@thumbnail: {
+};
+@borderradius: {
+  border-radius: 1em;
+};
+// header
+@header: {
+  // div底图
+  // 上面url tab
+  // 中间居中title
+  // 下面一个button
+  background: url("image/home_1_2.jpg");
+  // height: 100px;
+  display: flex;
+  flex-direction: column;
+  //底部增加一个内padding
+  padding-bottom: 50px;
+  .logo {
+    img {
+      height: 100px;
+    }
+  }
+  .main-title {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    color: wheat;
+    font-weight: 700;
+    font-size: 30px;
+    align-items: center;
+    ul {
+      display: flex;
+      flex-direction: row;
+
+      li {
+        padding-right: 1em;
+        // 去掉li的圆点
+        list-style: none;
+      }
+    }
+  }
+};
+
+//footer的父类
+@footer: {
+  background: url("image/home_1_2.jpg");
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  .db-select {
+    display: flex;
+  }
+  .members {
+    display: flex;
+    flex-direction: column;
+    h4 {
+      color: white;
+    }
+    img {
+      margin-right: 0.25em;
+    }
+  }
+  .copyright {
+    display: flex;
+    flex-direction: column;
+    h4 {
+      color: white;
+    }
+  }
+};
