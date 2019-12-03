@@ -157,6 +157,22 @@
                   </div>-->
                 </div>
                 <div class="form-content-btn">
+                  <div class="statistics-info">
+                    <span>category</span>
+                    <span>wave</span>
+                  </div>
+                  <div class="statistics-info">
+                    <span>area</span>
+                    <span>china sea</span>
+                  </div>
+                  <div class="statistics-info">
+                    <span>period</span>
+                    <span>48</span>
+                  </div>
+                  <div class="statistics-info">
+                    <span>files count</span>
+                    <span>73</span>
+                  </div>
                   <div class="btn">
                     <button type="submit" class="btn btn-primary col-md-6">SEARCH</button>
                   </div>
@@ -558,6 +574,21 @@ export default class ProductView extends Vue {
         flex: 1;
         display: flex;
         flex-direction: column;
+        .statistics-info {
+          display: flex;
+          justify-content: space-between;
+          color: #838e95;
+          padding:1em;
+          border-bottom: 1px solid #d5dce5;
+          span:first-child {
+            font-weight: 600;
+            color: #272727;
+          }
+          span:last-child {
+            font-weight: 500;
+            color: #838e95;
+          }
+        }
       }
 
       .btn {
