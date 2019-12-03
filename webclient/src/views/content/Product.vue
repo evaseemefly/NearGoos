@@ -32,11 +32,7 @@
                     active-text-color="#ffd04b"
                     :default-openeds="openList"
                   >
-                    <el-submenu
-                      v-for="(father, x) in menuList"
-                      :index="father.key"
-                      :key="x"
-                    >
+                    <el-submenu v-for="(father, x) in menuList" :index="father.key" :key="x">
                       <template slot="title">
                         <i class></i>
                         <span>{{ father.val }}</span>
@@ -48,8 +44,7 @@
                         @open="selectMenu"
                         @click.native="selectMenu(father.key, child.key)"
                         background-color="#0b6fb1"
-                        >{{ child.val }}</el-menu-item
-                      >
+                      >{{ child.val }}</el-menu-item>
                     </el-submenu>
                   </el-menu>
                 </el-col>
@@ -66,9 +61,7 @@
                 <!-- 预报时效选择框 -->
                 <div class="interval-form">
                   <ul class="interval-ul">
-                    <li v-for="(item, index) in getIntervalList" :key="index">
-                      {{ item }}
-                    </li>
+                    <li v-for="(item, index) in getIntervalList" :key="index">{{ item }}</li>
                   </ul>
                 </div>
               </div>
@@ -93,30 +86,30 @@
                   <div class="form-group">
                     <label for>Category</label>
                     <el-select
-                      v-model="optionVal"
+                      v-model="optionCategoryVal"
                       mulitple="true"
                       placeholder="please select"
                     >
                       <el-option
                         v-for="item in optionsCategory"
-                        :key="item.val"
-                        :label="item.lab"
-                        :value="item.val"
+                        :key="item.key"
+                        :label="item.val"
+                        :value="item.key"
                       ></el-option>
                     </el-select>
                   </div>
                   <div class="form-group">
                     <label for>Area</label>
-                    <el-select v-model="value" placeholder="please select">
+                    <el-select v-model="optionAreaVal" placeholder="please select">
                       <el-option
                         v-for="item in optionsArea"
-                        :key="item.val"
-                        :label="item.lab"
-                        :value="item.val"
+                        :key="item.key"
+                        :label="item.val"
+                        :value="item.key"
                       ></el-option>
                     </el-select>
                   </div>
-                  <div class="form-group">
+                  <!-- <div class="form-group">
                     <label for>Elements</label>
                     <el-select v-model="value" placeholder="please select">
                       <el-option
@@ -126,21 +119,21 @@
                         :value="item.val"
                       ></el-option>
                     </el-select>
-                  </div>
+                  </div>-->
                 </div>
                 <div class="form-content">
                   <div class="form-group">
                     <label for>Period</label>
-                    <el-select v-model="value" placeholder="请选择">
+                    <el-select v-model="optionPeriodVal" placeholder="请选择">
                       <el-option
-                        v-for="item in optionsCategory"
-                        :key="item.val"
-                        :label="item.lab"
-                        :value="item.val"
+                        v-for="item in optionsPeriod"
+                        :key="item"
+                        :label="item"
+                        :value="item"
                       ></el-option>
                     </el-select>
                   </div>
-                  <div class="form-group">
+                  <!--<div class="form-group">
                     <label for>start date</label>
                     <el-select v-model="value" placeholder="请选择">
                       <el-option
@@ -161,13 +154,11 @@
                         :value="item.val"
                       ></el-option>
                     </el-select>
-                  </div>
+                  </div>-->
                 </div>
                 <div class="form-content-btn">
                   <div class="btn">
-                    <button type="submit" class="btn btn-primary col-md-6">
-                      SEARCH
-                    </button>
+                    <button type="submit" class="btn btn-primary col-md-6">SEARCH</button>
                   </div>
                 </div>
               </form>
@@ -272,23 +263,32 @@ export default class ProductView extends Vue {
   menuList: Array<{
     key: string;
     val: string;
-    children: Array<{ key: string; val: string }>;
+    children: Array<{
+      key: string;
+      val: string;
+      period: string;
+    }>;
   }> = [
+    // {
+    //   key: '0',
+    //   val: 'null',
+    //   children: [{ key: '0', val: 'null' }],
+    // },
     {
       key: '1',
       val: 'wave',
       children: [
-        { key: '1-1', val: 'ChinaSea' },
-        { key: '1-2', val: 'Northwest' },
+        { key: '1-1', val: 'ChinaSea', period: '1-1' },
+        { key: '1-2', val: 'Northwest', period: '1-2' },
       ],
     },
     {
       key: '2',
       val: 'Current',
       children: [
-        { key: '2-1', val: 'EastChinaSea' },
-        { key: '2-2', val: 'Northwest' },
-        { key: '2-3', val: 'FarEast' },
+        { key: '2-1', val: 'EastChinaSea', period: '1-1' },
+        { key: '2-2', val: 'Northwest', period: '1-1' },
+        { key: '2-3', val: 'FarEast', period: '1-2' },
       ],
     },
     // {
@@ -309,37 +309,41 @@ export default class ProductView extends Vue {
   intervalList: Array<{ key: string; val: number[] }> = [
     { key: '1-1', val: [24, 48, 72, 96] },
     { key: '1-2', val: [24, 48, 72, 96, 120] },
+    { key: '2-1', val: [24, 48, 72, 96, 120] },
   ];
+
   // 下拉框
   // optionsCategory: Array<{ val: string; lab: string> }> = [
   //   { val: "选项1", lab: "测试" }
   // ];
-  optionsCategory: Array<{ lab: string; val: string }> = [
-    { val: '1', lab: 'wave' },
-    { val: '2', lab: 'current' },
-    { val: '3', lab: 'ice' },
-    { val: '4', lab: 'template' },
-  ];
-  optionsArea: Array<{ lab: string; val: string }> = [
-    { lab: '', val: '' },
-    { lab: '', val: '' },
-    { lab: '', val: '' },
-  ];
+  // optionsCategory: Array<{ lab: string; val: string }> = [
+  //   { val: '1', lab: 'wave' },
+  //   { val: '2', lab: 'current' },
+  //   { val: '3', lab: 'ice' },
+  //   { val: '4', lab: 'template' },
+  // ];
+
+  // optionsArea: Array<{ lab: string; val: string }> = [
+  //   { lab: '', val: '' },
+  //   { lab: '', val: '' },
+  //   { lab: '', val: '' },
+  // ];
+
   optionsElements: Array<{ lab: string; val: string }> = [
     { lab: '', val: '' },
     { lab: '', val: '' },
     { lab: '', val: '' },
   ];
-  optionsPeriod: Array<{ lab: string; val: string }> = [
-    { lab: '', val: '' },
-    { lab: '', val: '' },
-    { lab: '', val: '' },
-  ];
-  optionVal: string = '1';
-  optionCategoryVal: string = '1';
-  optionAreaVal: string = '1';
-  optionElementsVal: string = '1';
-  optionPeriodVal: string = '1';
+  // optionsPeriod: Array<{ lab: string; val: string }> = [
+  //   { lab: '', val: '' },
+  //   { lab: '', val: '' },
+  //   { lab: '', val: '' },
+  // ];
+  // optionVal: string = '1';
+  optionCategoryVal: string = '';
+  optionAreaVal: string = '';
+  // optionElementsVal: string = '1';
+  optionPeriodVal: string = '';
 
   menuIndex: string = '1';
 
@@ -356,6 +360,36 @@ export default class ProductView extends Vue {
   }
   get computedTest() {
     return null;
+  }
+
+  get optionsCategory(): { key: string; val: string }[] {
+    let list: { key: string; val: string }[] = [];
+    this.menuList.map(temp => list.push({ key: temp.key, val: temp.val }));
+    return list;
+  }
+
+  get optionsArea(): { key: string; val: string }[] {
+    let list: { key: string; val: string }[] = [];
+    let myself = this;
+    // 找到当前 category 选择的对应的menulist中的 obj
+    let res = this.menuList.find(temp => myself.optionCategoryVal === temp.key);
+    if (res !== undefined) {
+      return res.children;
+    } else {
+      return [];
+    }
+  }
+
+  get optionsPeriod(): number[] {
+    let list: { key: string; val: string }[] = [];
+    let myself = this;
+    // 找到当前 area 选择对应的 intervalList 中的时间间隔数组
+    let res = this.intervalList.find(temp => myself.optionAreaVal === temp.key);
+    if (res !== undefined) {
+      return res.val;
+    } else {
+      return [];
+    }
   }
 
   get getIntervalList(): number[] {
