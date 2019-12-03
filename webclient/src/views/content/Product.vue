@@ -32,18 +32,24 @@
                     active-text-color="#ffd04b"
                     :default-openeds="openList"
                   >
-                    <el-submenu index="father.key" v-for="(father, x) in menuList" :key="x">
+                    <el-submenu
+                      v-for="(father, x) in menuList"
+                      :index="father.key"
+                      :key="x"
+                    >
                       <template slot="title">
-                        <i class="el-icon-location"></i>
-                        <span>{{father.val}}</span>
+                        <i class></i>
+                        <span>{{ father.val }}</span>
                       </template>
                       <el-menu-item
-                        index="child.key"
+                        :index="child.key"
                         v-for="(child, y) in father.children"
                         :key="y"
                         @open="selectMenu"
-                        @click.native="selectMenu(father.key,child.key)"
-                      >{{child.val}}</el-menu-item>
+                        @click.native="selectMenu(father.key, child.key)"
+                        background-color="#0b6fb1"
+                        >{{ child.val }}</el-menu-item
+                      >
                     </el-submenu>
                   </el-menu>
                 </el-col>
@@ -60,7 +66,9 @@
                 <!-- 预报时效选择框 -->
                 <div class="interval-form">
                   <ul class="interval-ul">
-                    <li v-for="(item, index) in getIntervalList" :key="index">{{item}}</li>
+                    <li v-for="(item, index) in getIntervalList" :key="index">
+                      {{ item }}
+                    </li>
                   </ul>
                 </div>
               </div>
@@ -81,44 +89,86 @@
               <div class="title">SEARCH</div>
               <!-- 搜索条件form -->
               <form>
-                <div class="form-group">
-                  <label for>Category</label>
-                  <select>
-                    <option value="volvo">All Area</option>
-                  </select>
+                <div class="form-content">
+                  <div class="form-group">
+                    <label for>Category</label>
+                    <el-select
+                      v-model="optionVal"
+                      mulitple="true"
+                      placeholder="please select"
+                    >
+                      <el-option
+                        v-for="item in optionsCategory"
+                        :key="item.val"
+                        :label="item.lab"
+                        :value="item.val"
+                      ></el-option>
+                    </el-select>
+                  </div>
+                  <div class="form-group">
+                    <label for>Area</label>
+                    <el-select v-model="value" placeholder="please select">
+                      <el-option
+                        v-for="item in optionsArea"
+                        :key="item.val"
+                        :label="item.lab"
+                        :value="item.val"
+                      ></el-option>
+                    </el-select>
+                  </div>
+                  <div class="form-group">
+                    <label for>Elements</label>
+                    <el-select v-model="value" placeholder="please select">
+                      <el-option
+                        v-for="item in optionsElements"
+                        :key="item.val"
+                        :label="item.lab"
+                        :value="item.val"
+                      ></el-option>
+                    </el-select>
+                  </div>
                 </div>
-                <div class="form-group">
-                  <label for>Area</label>
-                  <select>
-                    <option value="volvo">All Area</option>
-                  </select>
+                <div class="form-content">
+                  <div class="form-group">
+                    <label for>Period</label>
+                    <el-select v-model="value" placeholder="请选择">
+                      <el-option
+                        v-for="item in optionsCategory"
+                        :key="item.val"
+                        :label="item.lab"
+                        :value="item.val"
+                      ></el-option>
+                    </el-select>
+                  </div>
+                  <div class="form-group">
+                    <label for>start date</label>
+                    <el-select v-model="value" placeholder="请选择">
+                      <el-option
+                        v-for="item in optionsCategory"
+                        :key="item.val"
+                        :label="item.lab"
+                        :value="item.val"
+                      ></el-option>
+                    </el-select>
+                  </div>
+                  <div class="form-group">
+                    <label for>end date</label>
+                    <el-select v-model="value" placeholder="请选择">
+                      <el-option
+                        v-for="item in optionsCategory"
+                        :key="item.val"
+                        :label="item.lab"
+                        :value="item.val"
+                      ></el-option>
+                    </el-select>
+                  </div>
                 </div>
-                <div class="form-group">
-                  <label for>Elements</label>
-                  <select>
-                    <option value="volvo">All Area</option>
-                  </select>
-                </div>
-                <div class="form-group">
-                  <label for>Period</label>
-                  <select>
-                    <option value="volvo">All Area</option>
-                  </select>
-                </div>
-                <div class="form-group">
-                  <label for>start date</label>
-                  <select>
-                    <option value="volvo">All Area</option>
-                  </select>
-                </div>
-                <div class="form-group">
-                  <label for>end date</label>
-                  <select>
-                    <option value="volvo">All Area</option>
-                  </select>
-                </div>
-                <div class="btn">
-                  <button type="submit" class="btn btn-primary col-md-6">SEARCH</button>
+                <div class="form-content-btn">
+                  <div class="btn">
+                    <button type="submit" class="btn btn-primary col-md-6">
+                      SEARCH
+                    </button>
+                  </div>
                 </div>
               </form>
             </div>
@@ -214,69 +264,105 @@
   </div>
 </template>
 <script lang="ts">
-import { Component, Prop, Vue, Watch } from "vue-property-decorator";
+import { Component, Prop, Vue, Watch } from 'vue-property-decorator';
 @Component({})
 export default class ProductView extends Vue {
   mydata: any = null;
-  openList: Array<string> = ["2", "3"];
+  openList: string[] = [];
   menuList: Array<{
     key: string;
     val: string;
     children: Array<{ key: string; val: string }>;
   }> = [
     {
-      key: "1",
-      val: "wave",
-      children: [{ key: "2", val: "ChinaSea" }, { key: "3", val: "Northwest" }]
-    },
-    {
-      key: "4",
-      val: "Current",
+      key: '1',
+      val: 'wave',
       children: [
-        { key: "5", val: "EastChinaSea" },
-        { key: "6", val: "Northwest" },
-        { key: "7", val: "FarEast" }
-      ]
+        { key: '1-1', val: 'ChinaSea' },
+        { key: '1-2', val: 'Northwest' },
+      ],
     },
     {
-      key: "8",
-      val: "Ice",
-      children: [{ key: "9", val: "Bohai" }]
-    },
-    {
-      key: "4",
-      val: "Template",
+      key: '2',
+      val: 'Current',
       children: [
-        { key: "5", val: "EastChinaSea" },
-        { key: "6", val: "Northwest" }
-      ]
-    }
+        { key: '2-1', val: 'EastChinaSea' },
+        { key: '2-2', val: 'Northwest' },
+        { key: '2-3', val: 'FarEast' },
+      ],
+    },
+    // {
+    //   key: "8",
+    //   val: "Ice",
+    //   children: [{ key: "9", val: "Bohai" }]
+    // },
+    // {
+    //   key: "10",
+    //   val: "Template",
+    //   children: [
+    //     { key: "11", val: "EastChinaSea" },
+    //     { key: "12", val: "Northwest" }
+    //   ]
+    // }
   ];
 
-  intervalList: Array<{ key: string; val: Array<number> }> = [
-    { key: "2", val: [24, 48, 72, 96] },
-    { key: "3", val: [24, 48, 72, 96, 120] }
+  intervalList: Array<{ key: string; val: number[] }> = [
+    { key: '1-1', val: [24, 48, 72, 96] },
+    { key: '1-2', val: [24, 48, 72, 96, 120] },
   ];
-  menuIndex: string = "2";
+  // 下拉框
+  // optionsCategory: Array<{ val: string; lab: string> }> = [
+  //   { val: "选项1", lab: "测试" }
+  // ];
+  optionsCategory: Array<{ lab: string; val: string }> = [
+    { val: '1', lab: 'wave' },
+    { val: '2', lab: 'current' },
+    { val: '3', lab: 'ice' },
+    { val: '4', lab: 'template' },
+  ];
+  optionsArea: Array<{ lab: string; val: string }> = [
+    { lab: '', val: '' },
+    { lab: '', val: '' },
+    { lab: '', val: '' },
+  ];
+  optionsElements: Array<{ lab: string; val: string }> = [
+    { lab: '', val: '' },
+    { lab: '', val: '' },
+    { lab: '', val: '' },
+  ];
+  optionsPeriod: Array<{ lab: string; val: string }> = [
+    { lab: '', val: '' },
+    { lab: '', val: '' },
+    { lab: '', val: '' },
+  ];
+  optionVal: string = '1';
+  optionCategoryVal: string = '1';
+  optionAreaVal: string = '1';
+  optionElementsVal: string = '1';
+  optionPeriodVal: string = '1';
+
+  menuIndex: string = '1';
 
   handleOpen() {
-    console.log("展开");
+    console.log('展开');
   }
   selectMenu(father: string, child: string) {
-    console.log(father + "|" + child);
+    // console.log(father + "|" + child);
     this.menuIndex = child;
   }
   handleClose() {}
-  mounted() {}
+  mounted() {
+    this.openList = ['1', '2'];
+  }
   get computedTest() {
     return null;
   }
 
-  get getIntervalList(): Array<number> {
+  get getIntervalList(): number[] {
     let myself = this;
     // TODO:[-] 19-12-02 此处bug已解决
     let res = myself.intervalList.find(temp => myself.menuIndex === temp.key);
-    if (res != undefined) {
+    if (res !== undefined) {
       return res.val;
     } else {
       return [];
@@ -285,10 +371,10 @@ export default class ProductView extends Vue {
 }
 </script>
 <style scoped lang="less">
-@import "../styles/base.less";
+@import '../styles/base.less';
 @bluebackground: {
-  // background: rgba(39, 216, 216, 0.897);
-  background: #33cccc;
+  background: rgba(39, 216, 216, 0.897);
+  // background: #0b6fb1;
 };
 // 为二级标题加了一个左+上的间距
 @minortitle: {
@@ -305,6 +391,10 @@ export default class ProductView extends Vue {
   font-family: Arial, Helvetica, sans-serif;
   text-shadow: 2px 2px 10px #000;
   color: white;
+};
+// menu中的子menu样式
+@menu-child: {
+  background: #0b6fb1;
 };
 // 中间的区域
 .center {
@@ -327,6 +417,7 @@ export default class ProductView extends Vue {
         flex: 1;
         flex-direction: row;
         justify-content: flex-start;
+        margin-right: 3em;
 
         .elements-ul {
           display: flex;
@@ -339,8 +430,17 @@ export default class ProductView extends Vue {
           padding: 0 20px;
           font-size: 30px;
           line-height: 50px;
-          background: #33cccc;
+          // background: #33cccc;
           color: white;
+        }
+        .product-menu {
+          .el-submenu {
+            ul {
+              li {
+                background-color: #0b6fb1 !important;
+              }
+            }
+          }
         }
       }
       .center-header-right {
@@ -398,13 +498,32 @@ export default class ProductView extends Vue {
       flex-direction: row;
       justify-content: space-around;
 
-      .form-group {
+      // TODO:[*] 19-12-03 之前的form中的六个select是水平排列，现改为2*3
+      .form-content {
         display: flex;
-        justify-content: center;
-
-        label {
-          @whitefont();
+        flex-direction: column;
+        background-color: rgba(3, 3, 3, 0.068);
+        flex: 1;
+        .form-group {
+          display: flex;
+          // flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          label {
+            @whitefont();
+            margin: 1em;
+            display: flex;
+            width: 5em;
+          }
+          .el-select {
+            display: flex;
+          }
         }
+      }
+      .form-content-btn {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
       }
 
       .btn {
