@@ -32,7 +32,11 @@
                     active-text-color="#ffd04b"
                     :default-openeds="openList"
                   >
-                    <el-submenu v-for="(father, x) in menuList" :index="father.key" :key="x">
+                    <el-submenu
+                      v-for="(father, x) in menuList"
+                      :index="father.key"
+                      :key="x"
+                    >
                       <template slot="title">
                         <i class></i>
                         <span>{{ father.val }}</span>
@@ -44,7 +48,8 @@
                         @open="selectMenu"
                         @click.native="selectMenu(father.key, child.key)"
                         background-color="#0b6fb1"
-                      >{{ child.val }}</el-menu-item>
+                        >{{ child.val }}</el-menu-item
+                      >
                     </el-submenu>
                   </el-menu>
                 </el-col>
@@ -61,7 +66,9 @@
                 <!-- 预报时效选择框 -->
                 <div class="interval-form">
                   <ul class="interval-ul">
-                    <li v-for="(item, index) in getIntervalList" :key="index">{{ item }}</li>
+                    <li v-for="(item, index) in getIntervalList" :key="index">
+                      {{ item }}
+                    </li>
                   </ul>
                 </div>
               </div>
@@ -100,7 +107,10 @@
                   </div>
                   <div class="form-group">
                     <label for>Area</label>
-                    <el-select v-model="optionAreaVal" placeholder="please select">
+                    <el-select
+                      v-model="optionAreaVal"
+                      placeholder="please select"
+                    >
                       <el-option
                         v-for="item in optionsArea"
                         :key="item.key"
@@ -174,7 +184,9 @@
                     <span>73</span>
                   </div>
                   <div class="btn">
-                    <button type="submit" class="btn btn-primary col-md-6">SEARCH</button>
+                    <button type="submit" class="btn btn-primary col-md-6">
+                      SEARCH
+                    </button>
                   </div>
                 </div>
               </form>
@@ -272,6 +284,8 @@
 </template>
 <script lang="ts">
 import { Component, Prop, Vue, Watch } from 'vue-property-decorator';
+
+import { getAllArea } from '@/api/index';
 @Component({})
 export default class ProductView extends Vue {
   mydata: any = null;
@@ -373,6 +387,9 @@ export default class ProductView extends Vue {
   handleClose() {}
   mounted() {
     this.openList = ['1', '2'];
+    getAllArea().then((res: any) => {
+      console.log(res);
+    });
   }
   get computedTest() {
     return null;
@@ -530,95 +547,107 @@ export default class ProductView extends Vue {
 
   // 中间部分
   // 横向排列
-  .center-center {
+  .product-data {
     display: flex;
-    flex: 1;
-    flex-direction: column;
-    @bluebackground();
-    @margindefault();
-    @borderradius();
 
-    .title {
-      @minortitle();
-      // font-size: ;
-    }
-
-    form {
+    .product-search {
       display: flex;
-      flex-direction: row;
-      justify-content: space-around;
-
-      // TODO:[*] 19-12-03 之前的form中的六个select是水平排列，现改为2*3
-      .form-content {
+      flex: 1;
+      .center-center {
         display: flex;
-        flex-direction: column;
-        background-color: rgba(3, 3, 3, 0.068);
         flex: 1;
-        .form-group {
-          display: flex;
-          // flex-direction: column;
-          justify-content: center;
-          align-items: center;
-          label {
-            @whitefont();
-            margin: 1em;
-            display: flex;
-            width: 5em;
-          }
-          .el-select {
-            display: flex;
-          }
-        }
-      }
-      .form-content-btn {
-        flex: 1;
-        display: flex;
         flex-direction: column;
-        .statistics-info {
-          display: flex;
-          justify-content: space-between;
-          color: #838e95;
-          padding:1em;
-          border-bottom: 1px solid #d5dce5;
-          span:first-child {
-            font-weight: 600;
-            color: #272727;
-          }
-          span:last-child {
-            font-weight: 500;
-            color: #838e95;
-          }
+        @bluebackground();
+        @margindefault();
+        @borderradius();
+
+        .title {
+          @minortitle();
+          // font-size: ;
         }
-      }
 
-      .btn {
-        display: flex;
-        justify-content: center;
+        form {
+          display: flex;
+          flex-direction: row;
+          justify-content: space-around;
 
-        button {
-          color: #fff;
-          // 暂时对提交按钮 先不上色了
-          // background-color: #2bbbad !important;
+          // TODO:[*] 19-12-03 之前的form中的六个select是水平排列，现改为2*3
+          .form-content {
+            display: flex;
+            flex-direction: column;
+            background-color: rgba(3, 3, 3, 0.068);
+            flex: 1;
+            .form-group {
+              display: flex;
+              // flex-direction: column;
+              justify-content: center;
+              align-items: center;
+              label {
+                @whitefont();
+                margin: 1em;
+                display: flex;
+                width: 5em;
+              }
+              .el-select {
+                display: flex;
+              }
+            }
+          }
+          .form-content-btn {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            .statistics-info {
+              display: flex;
+              justify-content: space-between;
+              color: #838e95;
+              padding: 1em;
+              border-bottom: 1px solid #d5dce5;
+              span:first-child {
+                font-weight: 600;
+                color: #272727;
+              }
+              span:last-child {
+                font-weight: 500;
+                color: #838e95;
+              }
+            }
+          }
+
+          .btn {
+            display: flex;
+            justify-content: center;
+
+            button {
+              color: #fff;
+              // 暂时对提交按钮 先不上色了
+              // background-color: #2bbbad !important;
+            }
+          }
         }
       }
     }
-  }
 
-  .center-footer {
-    display: flex;
-    flex: 2;
-    // background: rgb(42, 134, 146);
-    @bluebackground();
-    flex-direction: column;
-    @margindefault();
-    @borderradius();
+    .product-result {
+      display: flex;
+      flex: 1.5;
+      .center-footer {
+        display: flex;
+        flex: 2;
+        // background: rgb(42, 134, 146);
+        @bluebackground();
+        flex-direction: column;
+        @margindefault();
+        @borderradius();
 
-    .center-footer-card-header {
-      @minortitle();
-    }
+        .center-footer-card-header {
+          @minortitle();
+        }
 
-    .center-footer-card-body {
-      background: white;
+        .center-footer-card-body {
+          background: white;
+        }
+      }
     }
   }
 }
