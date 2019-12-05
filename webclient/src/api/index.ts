@@ -18,4 +18,11 @@ const getAllArea = () => {
   });
 };
 
-export { getAllArea };
+const getAllTypesMenu = () => {
+  let url = `${host}/product/menu/list`
+  return axios.get(url, {
+    params: {}
+  })
+}
+
+export { getAllArea, getAllTypesMenu };
