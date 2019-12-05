@@ -14,9 +14,7 @@
 ### 初始化工程
 
 ```
-npm init
-npm install
-vue init webpack
+npm install （如果速度问题可以使用cnpm）
 ```
 ### 启动
 
