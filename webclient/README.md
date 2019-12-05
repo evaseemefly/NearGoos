@@ -3,7 +3,7 @@
 ## 安装
 
 ```
-1.控制台安装node js, vue
+1.控制台安装node js，npm, cnpm, vue
 ```
 
 
