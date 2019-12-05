@@ -3,6 +3,11 @@
 ## 安装
 
 ```
+1.控制台安装node js, vue
+```
+
+
+```
 npm install
 ```
 
