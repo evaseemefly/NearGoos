@@ -15,6 +15,7 @@
 
 ```
 npm init
+npm install
 vue init webpack
 ```
 ### 启动
