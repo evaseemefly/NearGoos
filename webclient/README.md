@@ -11,7 +11,12 @@
   npm install --global vue-cli
   npm install -g webpack
 ```
+### 初始化工程
 
+```
+npm init
+vue init webpack
+```
 ### 启动
 
 ```
