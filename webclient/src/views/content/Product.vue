@@ -387,12 +387,14 @@ export default class ProductView extends Vue {
     return null;
   }
 
+  // 产品种类的下拉选项
   get optionsCategory(): { key: string; val: string }[] {
     let list: { key: string; val: string }[] = [];
     this.menuList.map(temp => list.push({ key: temp.key, val: temp.val }));
     return list;
   }
 
+  // 产品区域的下拉选项
   get optionsArea(): { key: string; val: string }[] {
     let list: { key: string; val: string }[] = [];
     let myself = this;
@@ -405,6 +407,7 @@ export default class ProductView extends Vue {
     }
   }
 
+  // 产品时间间隔的下拉选项
   get optionsPeriod(): { key: string; val: string }[] {
     let list: { key: string; val: string }[] = [];
     let listStr: string[] = [];
