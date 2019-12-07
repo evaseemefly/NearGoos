@@ -367,18 +367,24 @@ export default class ProductView extends Vue {
   // ];
   // optionVal: string = '1';
   optionCategoryVal: string = '';
+
   optionAreaVal: string = '';
   // optionElementsVal: string = '1';
   optionPeriodVal: string = '';
 
   menuIndex: string = '1';
+  menuFatherIndex: string = '1';
+  menuChildIndex: string = '1';
 
   handleOpen() {
     console.log('展开');
   }
   selectMenu(father: string, child: string) {
     // console.log(father + "|" + child);
-    this.menuIndex = child;
+    // TODO:[*] 19-12-07 由于此处修改为读取后台的api返回的menuList动态生成
+    // this.menuIndex = child;
+    this.menuFatherIndex = father;
+    this.menuChildIndex = child;
   }
   handleClose() {}
   mounted() {
@@ -515,15 +521,28 @@ export default class ProductView extends Vue {
     // }
   }
 
-  get getIntervalList(): number[] {
+  get getIntervalList(): string[] {
     let myself = this;
+    let res: string[] = [];
     // TODO:[-] 19-12-02 此处bug已解决
-    let res = myself.intervalList.find(temp => myself.menuIndex === temp.key);
-    if (res !== undefined) {
-      return res.val;
-    } else {
-      return [];
+    // let res = myself.intervalList.find(temp => myself.menuIndex === temp.key);
+    // if (res !== undefined) {
+    //   return res.val;
+    // } else {
+    //   return [];
+    // }
+    // TODO:[*] 之前的方式已过期，获取periods通过监听menuFatherIndex与menuChildIndex
+    let father = myself.menuList.find(
+      temp => myself.menuFatherIndex === temp.key
+    );
+    if (father !== undefined) {
+      let children = father.children;
+      let child = children.find(x => myself.menuChildIndex === x.key);
+      if (child !== undefined) {
+        res = child.periods;
+      }
     }
+    return res;
   }
 }
 </script>
