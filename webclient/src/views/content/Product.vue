@@ -22,13 +22,33 @@
               <el-row class="tac">
                 <el-col :span="24">
                   <!-- <h5>Type</h5> -->
-                  <el-menu default-active="2" class="el-menu-vertical-demo" @open="handleOpen" @close="handleClose" background-color="#33cccc" text-color="#fff" active-text-color="#ffd04b" :default-openeds="openList">
-                    <el-submenu v-for="(father, x) in menuList" :index="father.key" :key="x">
+                  <el-menu
+                    default-active="2"
+                    class="el-menu-vertical-demo"
+                    @open="handleOpen"
+                    @close="handleClose"
+                    background-color="#33cccc"
+                    text-color="#fff"
+                    active-text-color="#ffd04b"
+                    :default-openeds="openList"
+                  >
+                    <el-submenu
+                      v-for="(father, x) in menuList"
+                      :index="father.key"
+                      :key="x"
+                    >
                       <template slot="title">
                         <i class></i>
                         <span>{{ father.val }}</span>
                       </template>
-                      <el-menu-item :index="child.key" v-for="(child, y) in father.children" :key="y" @open="selectMenu" @click.native="selectMenu(father.key, child.key)" background-color="#0b6fb1">{{ child.val }}</el-menu-item>
+                      <el-menu-item
+                        :index="child.key"
+                        v-for="(child, y) in father.children"
+                        :key="y"
+                        @open="selectMenu"
+                        @click.native="selectMenu(father.key, child.key)"
+                        background-color="#0b6fb1"
+                      >{{ child.val }}</el-menu-item>
                     </el-submenu>
                   </el-menu>
                 </el-col>
@@ -45,7 +65,10 @@
                 <!-- 预报时效选择框 -->
                 <div class="interval-form">
                   <ul class="interval-ul">
-                    <li v-for="(item, index) in getIntervalList" :key="index">
+                    <li
+                      v-for="(item, index) in getIntervalList"
+                      :key="index"
+                    >
                       {{ item }}
                     </li>
                   </ul>
@@ -53,7 +76,11 @@
               </div>
               <!-- 产品图片 -->
               <div class="product-img">
-                <img src="image/Product_img.jpg" width="70%" height="70%" />
+                <img
+                  src="image/Product_img.jpg"
+                  width="70%"
+                  height="70%"
+                />
               </div>
             </div>
           </div>
@@ -71,14 +98,31 @@
                 <div class="form-content">
                   <div class="form-group">
                     <label for>Category</label>
-                    <el-select v-model="optionCategoryVal" mulitple="true" placeholder="please select">
-                      <el-option v-for="item in optionsCategory" :key="item.key" :label="item.val" :value="item.key"></el-option>
+                    <el-select
+                      v-model="optionCategoryVal"
+                      mulitple="true"
+                      placeholder="please select"
+                    >
+                      <el-option
+                        v-for="item in optionsCategory"
+                        :key="item.key"
+                        :label="item.val"
+                        :value="item.key"
+                      ></el-option>
                     </el-select>
                   </div>
                   <div class="form-group">
                     <label for>Area</label>
-                    <el-select v-model="optionAreaVal" placeholder="please select">
-                      <el-option v-for="item in optionsArea" :key="item.key" :label="item.val" :value="item.key"></el-option>
+                    <el-select
+                      v-model="optionAreaVal"
+                      placeholder="please select"
+                    >
+                      <el-option
+                        v-for="item in optionsArea"
+                        :key="item.key"
+                        :label="item.val"
+                        :value="item.key"
+                      ></el-option>
                     </el-select>
                   </div>
                   <!-- <div class="form-group">
@@ -96,8 +140,16 @@
                 <div class="form-content">
                   <div class="form-group">
                     <label for>Period</label>
-                    <el-select v-model="optionPeriodVal" placeholder="请选择">
-                      <el-option v-for="item in optionsPeriod" :key="item.key" :label="item.val" :value="item.key"></el-option>
+                    <el-select
+                      v-model="optionPeriodVal"
+                      placeholder="请选择"
+                    >
+                      <el-option
+                        v-for="item in optionsPeriod"
+                        :key="item.key"
+                        :label="item.val"
+                        :value="item.key"
+                      ></el-option>
                     </el-select>
                   </div>
                   <!--<div class="form-group">
@@ -141,7 +193,10 @@
                     <span>73</span>
                   </div>
                   <div class="btn">
-                    <button type="submit" class="btn btn-primary col-md-6">
+                    <button
+                      type="submit"
+                      class="btn btn-primary col-md-6"
+                    >
                       SEARCH
                     </button>
                   </div>
@@ -377,6 +432,8 @@ export default class ProductView extends Vue {
             // }=>{
 
             // })
+            // TODO:[*] 19-12-07 此处有一个后台的bug，后台返回的res中，每一项有可能出现不包含children的情况
+            // 在判断时需要加入必要的判断
             myself.menuList.push(temp);
           }
         );
@@ -389,6 +446,8 @@ export default class ProductView extends Vue {
 
   // 产品种类的下拉选项
   get optionsCategory(): { key: string; val: string }[] {
+    // TODO:[*] 19-12-07 注意每个下拉框的计算方法都需要加入清除当前选中的值
+    this.optionCategoryVal = '';
     let list: { key: string; val: string }[] = [];
     this.menuList.map(temp => list.push({ key: temp.key, val: temp.val }));
     return list;
@@ -396,12 +455,13 @@ export default class ProductView extends Vue {
 
   // 产品区域的下拉选项
   get optionsArea(): { key: string; val: string }[] {
+    this.optionAreaVal = '';
     let list: { key: string; val: string }[] = [];
     let myself = this;
     // 找到当前 category 选择的对应的menulist中的 obj
     let res = this.menuList.find(temp => myself.optionCategoryVal === temp.key);
     if (res !== undefined) {
-      return res.children;
+      return res.children === undefined ? [] : res.children;
     } else {
       return [];
     }
@@ -409,6 +469,7 @@ export default class ProductView extends Vue {
 
   // 产品时间间隔的下拉选项
   get optionsPeriod(): { key: string; val: string }[] {
+    this.optionPeriodVal = '';
     let list: { key: string; val: string }[] = [];
     let listStr: string[] = [];
     let myself = this;
@@ -430,7 +491,7 @@ export default class ProductView extends Vue {
       }> = this.menuList.filter(temp => {
         return temp.key === myself.optionCategoryVal;
       })[0].children;
-      if (children.length > 0) {
+      if (children !== undefined && children.length > 0) {
         let periods: string[] = [];
         let periodsIndex: string[] = [];
         periods = children.filter(temp => {
