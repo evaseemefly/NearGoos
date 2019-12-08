@@ -47,6 +47,92 @@
                 </div>
             </div>
         </div>
+                <div class="center-center ">
+                  <div class="center-center-left blue-green-bg">
+                <!-- 统计的title -->
+                <div class="statistics-title">STATISTICS</div><br>
+                <!-- 下面的具体内容 -->
+                <div class="statistics-form">
+                    <!-- station -->
+                    <div class="card-form">
+                        <div class="title">Buoy</div>
+                        <div class="body">
+                            <ul>
+                                <li>file numbers:1897</li>
+                                <li>total size(KB):2334</li>
+                                <li>time range:xxx-xxx</li>
+                                <li>format: xml</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- fub -->
+                    <div class="card-form">
+                        <div class="title">Station</div>
+                        <div class="body">
+                            <ul>
+                                <li>file numbers:1897</li>
+                                <li>total size(KB):2334</li>
+                                <li>time range:xxx-xxx</li>
+                                <li>format: xml</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- ship -->
+                    <div class="card-form">
+                        <div class="title">Ship</div>
+                        <div class="body">
+                            <ul>
+                                <li>file numbers:1897</li>
+                                <li>total size(KB):2334</li>
+                                <li>time range:xxx-xxx</li>
+                                <li>format: xml</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="center-center-right default-bg">
+                <div class="statistics-title">
+                    SEARCH
+                </div><br>
+                <!-- 搜索条件form -->
+                <form>
+                    <div class="form-group">
+                        <label for="">Category</label>
+                        <select>
+                            <option value="volvo">All Area</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="">Area</label>
+                        <select>
+                            <option value="volvo">All Area</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="">Source</label>
+                        <select>
+                            <option value="volvo">All Area</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="">start date</label>
+                        <select>
+                            <option value="volvo">All Area</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="">end date</label>
+                        <select>
+                            <option value="volvo">All Area</option>
+                        </select>
+                    </div>
+                    <div class="btn">
+                        <button type="submit" class="btn btn-primary col-md-6">Search</button>
+                    </div>
+                </form>
+            </div>
+        </div>
   </div>
 </template>
 <script lang="ts">
@@ -62,10 +148,23 @@ export default class DataView extends Vue {
 </script>
 <style scoped lang="less">
 @import "../styles/base.less";
+@margindefault: {
+  margin: 1em;
+};
+@thumbnail: {
+};
+@borderradius: {
+  border-radius: 1em;
+};
 //蓝色背景
 @bluebackground: {
   
   background: rgba(51, 204, 204, 1);
+};
+//灰色背景
+@graybackground: {
+  
+  background: rgba(215, 215, 215, 1);
 };
 // 统一白色form中的font样式
 @whitefont: {
@@ -155,116 +254,118 @@ export default class DataView extends Vue {
     }
   }
 
-  // // 中间部分
-  // // 横向排列
-  // .center-center {
-  //   display: flex;
-  //   flex: 1;
-  //   // background: rgb(145, 172, 73);
+  // 中间部分
+  // 横向排列
+  .center-center {
+    display: flex;
+    flex: 1;
+    // background: rgb(145, 172, 73);
 
-  //   // 中间部分的统计信息（station|fub|ship）的一些有序列表
-  //   .center-center-left {
-  //     display: flex;
-  //     flex: 3;
-  //     // background: rgba(39, 216, 216, 0.897);
-  //     @bluebackground();
-  //     flex-direction: column;
-  //     @margindefault();
-  //     @borderradius();
-  //     .statistics-title {
-  //       // color: yellow;
-  //       // font-family: Arial, Helvetica, sans-serif;
-  //       // text-shadow: 2px 2px 10px #000;
-  //       @minortitle();
-  //     }
+    // 中间部分的统计信息（station|fub|ship）的一些有序列表
+    .center-center-left {
+      display: flex;
+      flex: 3;
+      // background: rgba(39, 216, 216, 0.897);
+      @bluebackground();
+      flex-direction: column;
+      @margindefault();
+      @borderradius();
+      .statistics-title {
+        // color: yellow;
+        // font-family: Arial, Helvetica, sans-serif;
+        // text-shadow: 2px 2px 10px #000;
+        font-size: 3em;
+        @minortitle();
+      }
 
-  //     .statistics-form {
-  //       display: flex;
-  //       flex-direction: row;
-  //       justify-content: center;
+      .statistics-form {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
 
-  //       .card-form {
-  //         display: flex;
-  //         flex: 1;
-  //         flex-direction: column;
-  //         // 注意此处为副轴方向
-  //         align-items: center;
-  //         font-family: Arial, Helvetica, sans-serif;
-  //         text-shadow: 2px 2px 10px #000;
-  //         .title {
-  //           font-size: 2.5em;
-  //           color: white;
-  //         }
+        .card-form {
+          display: flex;
+          flex: 1;
+          flex-direction: column;
+          // 注意此处为副轴方向
+          align-items: center;
+          font-family: Arial, Helvetica, sans-serif;
+          text-shadow: 2px 2px 10px #000;
+          .title {
+            font-size: 2em;
+            color: white;
+          }
 
-  //         .body {
-  //           ul {
-  //             li {
-  //               line-height: 3em;
-  //               color: white;
-  //             }
-  //           }
-  //         }
-  //       }
+          .body {
+            ul {
+              li {
+                line-height: 3em;
+                color: white;
+              }
+            }
+          }
+        }
 
-  //       // 非最后一个都加入右侧的边框（白色）
-  //       .card-form:not(:last-of-type) {
-  //         // 加入右侧的边框
-  //         border-right: 1px solid white;
-  //       }
-  //     }
-  //   }
+        // 非最后一个都加入右侧的边框（白色）
+        .card-form:not(:last-of-type) {
+          // 加入右侧的边框
+          border-right: 1px solid white;
+        }
+      }
+    }
 
-  //   .center-center-right {
-  //     display: flex;
-  //     flex: 1;
-  //     flex-direction: column;
-  //     // background: rgb(15, 177, 163);
-  //     @bluebackground();
-  //     @margindefault();
-  //     @borderradius();
-  //     .statistics-title {
-  //       @minortitle();
-  //       // font-size: ;
-  //     }
-  //     form {
-  //       display: flex;
-  //       flex-direction: column;
+    .center-center-right {
+      display: flex;
+      flex: 1;
+      flex-direction: column;
+      // background: rgb(15, 177, 163);
+      @graybackground();
+      @margindefault();
+      @borderradius();
+      .statistics-title {
+        @minortitle();
+        
+        // font-size: ;
+      }
+      form {
+        display: flex;
+        flex-direction: column;
 
-  //       .form-group {
-  //         display: flex;
-  //         justify-content: space-around;
-  //         label {
-  //           @whitefont();
-  //         }
-  //       }
-  //       .btn {
-  //         display: flex;
-  //         justify-content: center;
-  //         button {
-  //           color: #fff;
-  //           // 暂时对提交按钮 先不上色了
-  //           // background-color: #2bbbad !important;
-  //         }
-  //       }
-  //     }
-  //   }
+        .form-group {
+          display: flex;
+          justify-content: space-around;
+          label {
+            @whitefont();
+          }
+        }
+        .btn {
+          display: flex;
+          justify-content: center;
+          button {
+            @bluebackground();
+            border:none
+            // background-color: #2bbbad !important;
+          }
+        }
+      }
+    }
   }
 
-//   .center-footer {
-//     display: flex;
-//     flex: 2;
-//     // background: rgb(42, 134, 146);
-//     @bluebackground();
-//     flex-direction: column;
-//     @margindefault();
-//     @borderradius();
-//     .center-footer-card-header {
-//       @minortitle();
-//     }
+  .center-footer {
+    display: flex;
+    flex: 2;
+    // background: rgb(42, 134, 146);
+    @bluebackground();
+    flex-direction: column;
+    @margindefault();
+    @borderradius();
+    .center-footer-card-header {
+      @minortitle();
+    }
 
-//     .center-footer-card-body {
-//       background: white;
-//     }
-//   }
-// }
+    .center-footer-card-body {
+      background: white;
+    }
+  }
+}
 </style>
