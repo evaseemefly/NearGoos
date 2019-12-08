@@ -25,4 +25,17 @@ const getAllTypesMenu = () => {
   })
 }
 
-export { getAllArea, getAllTypesMenu };
+const getProductResByConCondition = (params: any) => {
+  let url = `${host}/product/list`;
+  return axios.get(url, {
+    params: {
+      cateogry: params.cateogry,
+      area: params.area,
+      period: params.period,
+      start: params.start,
+      end: params.end
+    }
+  })
+}
+
+export { getAllArea, getAllTypesMenu, getProductResByConCondition };

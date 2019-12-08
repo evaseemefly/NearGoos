@@ -94,7 +94,7 @@
             <div class="search-form">
               <div class="title">SEARCH</div>
               <!-- 搜索条件form -->
-              <form>
+              <form @submit.prevent="submit">
                 <div class="form-content">
                   <div class="form-group">
                     <label for>Category</label>
@@ -125,17 +125,6 @@
                       ></el-option>
                     </el-select>
                   </div>
-                  <!-- <div class="form-group">
-                    <label for>Elements</label>
-                    <el-select v-model="value" placeholder="please select">
-                      <el-option
-                        v-for="item in optionsElements"
-                        :key="item.val"
-                        :label="item.lab"
-                        :value="item.val"
-                      ></el-option>
-                    </el-select>
-                  </div>-->
                 </div>
                 <div class="form-content">
                   <div class="form-group">
@@ -152,41 +141,37 @@
                       ></el-option>
                     </el-select>
                   </div>
-                  <!--<div class="form-group">
-                    <label for>start date</label>
-                    <el-select v-model="value" placeholder="请选择">
-                      <el-option
-                        v-for="item in optionsCategory"
-                        :key="item.val"
-                        :label="item.lab"
-                        :value="item.val"
-                      ></el-option>
-                    </el-select>
+                  <div class="form-group">
+                    <label>Start Date</label>
+                    <el-date-picker
+                      v-model="startDate"
+                      type="date"
+                      placeholder="选择日期"
+                    >
+                    </el-date-picker>
                   </div>
                   <div class="form-group">
-                    <label for>end date</label>
-                    <el-select v-model="value" placeholder="请选择">
-                      <el-option
-                        v-for="item in optionsCategory"
-                        :key="item.val"
-                        :label="item.lab"
-                        :value="item.val"
-                      ></el-option>
-                    </el-select>
-                  </div>-->
+                    <label>Start Date</label>
+                    <el-date-picker
+                      v-model="finishDate"
+                      type="date"
+                      placeholder="选择日期"
+                    >
+                    </el-date-picker>
+                  </div>
                 </div>
                 <div class="form-content-btn">
                   <div class="statistics-info">
                     <span>category</span>
-                    <span>wave</span>
+                    <span>{{categoryVal}}</span>
                   </div>
                   <div class="statistics-info">
                     <span>area</span>
-                    <span>china sea</span>
+                    <span>{{areaVal}}</span>
                   </div>
                   <div class="statistics-info">
                     <span>period</span>
-                    <span>48</span>
+                    <span>{{periodsVal}}</span>
                   </div>
                   <div class="statistics-info">
                     <span>files count</span>
@@ -296,8 +281,12 @@
 </template>
 <script lang="ts">
 import { Component, Prop, Vue, Watch } from 'vue-property-decorator';
-
-import { getAllArea, getAllTypesMenu } from '@/api/index';
+import { SearchCondition } from '@/middle_model/product.ts';
+import {
+  getAllArea,
+  getAllTypesMenu,
+  getProductResByConCondition,
+} from '@/api/index';
 @Component({})
 export default class ProductView extends Vue {
   mydata: any = null;
@@ -312,25 +301,6 @@ export default class ProductView extends Vue {
       periodsIndex: string[];
     }>;
   }> = [];
-  // = [
-  //   {
-  //     key: '1',
-  //     val: 'wave',
-  //     children: [
-  //       { key: '1-1', val: 'ChinaSea', periods: '1-1' },
-  //       { key: '1-2', val: 'Northwest', periods: '1-2' },
-  //     ],
-  //   },
-  //   {
-  //     key: '2',
-  //     val: 'Current',
-  //     children: [
-  //       { key: '2-1', val: 'EastChinaSea', periods: '1-1' },
-  //       { key: '2-2', val: 'Northwest', periods: '1-1' },
-  //       { key: '2-3', val: 'FarEast', periods: '1-2' },
-  //     ],
-  //   },
-  // ];
 
   intervalList: Array<{ key: string; val: number[] }> = [
     { key: '1-1', val: [24, 48, 72, 96] },
@@ -338,44 +308,25 @@ export default class ProductView extends Vue {
     { key: '2-1', val: [24, 48, 72, 96, 120] },
   ];
 
-  // 下拉框
-  // optionsCategory: Array<{ val: string; lab: string> }> = [
-  //   { val: "选项1", lab: "测试" }
-  // ];
-  // optionsCategory: Array<{ lab: string; val: string }> = [
-  //   { val: '1', lab: 'wave' },
-  //   { val: '2', lab: 'current' },
-  //   { val: '3', lab: 'ice' },
-  //   { val: '4', lab: 'template' },
-  // ];
-
-  // optionsArea: Array<{ lab: string; val: string }> = [
-  //   { lab: '', val: '' },
-  //   { lab: '', val: '' },
-  //   { lab: '', val: '' },
-  // ];
-
   optionsElements: Array<{ lab: string; val: string }> = [
     { lab: '', val: '' },
     { lab: '', val: '' },
     { lab: '', val: '' },
   ];
-  // optionsPeriod: Array<{ lab: string; val: string }> = [
-  //   { lab: '', val: '' },
-  //   { lab: '', val: '' },
-  //   { lab: '', val: '' },
-  // ];
-  // optionVal: string = '1';
-  optionCategoryVal: string = '';
 
+  // optionVal: string = '1';
+  // 中间左侧的搜索框中select绑定的val
+  optionCategoryVal: string = '';
   optionAreaVal: string = '';
-  // optionElementsVal: string = '1';
   optionPeriodVal: string = '';
 
   menuIndex: string = '1';
   menuFatherIndex: string = '1';
   menuChildIndex: string = '1';
 
+  // 时间搜索框绑定的data
+  startDate: Date = new Date();
+  finishDate: Date = new Date();
   handleOpen() {
     console.log('展开');
   }
@@ -387,6 +338,23 @@ export default class ProductView extends Vue {
     this.menuChildIndex = child;
   }
   handleClose() {}
+  submit() {
+    let myself = this;
+    console.log('提交表单');
+    // 1 获取提交的数据
+    let params = new SearchCondition(
+      myself.optionCategoryVal,
+      myself.optionAreaVal,
+      myself.optionPeriodVal,
+      myself.startDate,
+      myself.finishDate
+    );
+    getProductResByConCondition(params).then(res => {
+      if (res.status === 200) {
+        console.log(res.data);
+      }
+    });
+  }
   mounted() {
     this.openList = ['1', '2'];
     let myself = this;
@@ -543,6 +511,48 @@ export default class ProductView extends Vue {
       }
     }
     return res;
+  }
+
+  get categoryVal(): string {
+    let myself = this;
+    let val = this.menuList.find(temp => temp.key === myself.optionCategoryVal);
+    return val === undefined ? '' : val.val;
+  }
+
+  get areaVal(): string {
+    let myself = this;
+    let typeTemp = this.menuList.find(
+      temp => temp.key === myself.optionCategoryVal
+    );
+    if (typeTemp !== undefined) {
+      let areaTemp = typeTemp.children.find(
+        temp => temp.key === myself.optionAreaVal
+      );
+      return areaTemp === undefined ? '' : areaTemp.val;
+    } else {
+      return '';
+    }
+  }
+
+  get periodsVal(): string {
+    let myself = this;
+    let periodVal = '';
+    let typeTemp = this.menuList.find(
+      temp => temp.key === myself.optionCategoryVal
+    );
+    if (typeTemp !== undefined) {
+      let areaTemp = typeTemp.children.find(
+        temp => temp.key === myself.optionAreaVal
+      );
+      if (areaTemp !== undefined) {
+        let index = areaTemp.periodsIndex.indexOf(myself.optionPeriodVal);
+        periodVal = areaTemp.periods[index];
+      }
+      // return areaTemp === undefined ? '' : areaTemp.val;
+    } else {
+      // return '';
+    }
+    return periodVal;
   }
 }
 </script>
