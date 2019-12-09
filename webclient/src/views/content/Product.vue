@@ -48,7 +48,8 @@
                         @open="selectMenu"
                         @click.native="selectMenu(father.key, child.key)"
                         background-color="#0b6fb1"
-                      >{{ child.val }}</el-menu-item>
+                        >{{ child.val }}</el-menu-item
+                      >
                     </el-submenu>
                   </el-menu>
                 </el-col>
@@ -65,10 +66,7 @@
                 <!-- 预报时效选择框 -->
                 <div class="interval-form">
                   <ul class="interval-ul">
-                    <li
-                      v-for="(item, index) in getIntervalList"
-                      :key="index"
-                    >
+                    <li v-for="(item, index) in getIntervalList" :key="index">
                       {{ item }}
                     </li>
                   </ul>
@@ -76,11 +74,7 @@
               </div>
               <!-- 产品图片 -->
               <div class="product-img">
-                <img
-                  src="image/Product_img.jpg"
-                  width="70%"
-                  height="70%"
-                />
+                <img src="image/Product_img.jpg" width="70%" height="70%" />
               </div>
             </div>
           </div>
@@ -129,10 +123,7 @@
                 <div class="form-content">
                   <div class="form-group">
                     <label for>Period</label>
-                    <el-select
-                      v-model="optionPeriodVal"
-                      placeholder="请选择"
-                    >
+                    <el-select v-model="optionPeriodVal" placeholder="请选择">
                       <el-option
                         v-for="item in optionsPeriod"
                         :key="item.key"
@@ -163,25 +154,22 @@
                 <div class="form-content-btn">
                   <div class="statistics-info">
                     <span>category</span>
-                    <span>{{categoryVal}}</span>
+                    <span>{{ categoryVal }}</span>
                   </div>
                   <div class="statistics-info">
                     <span>area</span>
-                    <span>{{areaVal}}</span>
+                    <span>{{ areaVal }}</span>
                   </div>
                   <div class="statistics-info">
                     <span>period</span>
-                    <span>{{periodsVal}}</span>
+                    <span>{{ periodsVal }}</span>
                   </div>
                   <div class="statistics-info">
                     <span>files count</span>
                     <span>73</span>
                   </div>
                   <div class="btn">
-                    <button
-                      type="submit"
-                      class="btn btn-primary col-md-6"
-                    >
+                    <button type="submit" class="btn btn-primary col-md-6">
                       SEARCH
                     </button>
                   </div>
@@ -195,83 +183,29 @@
           <div class="center-footer">
             <div class="center-footer-card-header">Result</div>
             <div class="center-footer-card-body">
-              <table class="table table-striped table-bordered">
-                <thead>
-                  <!-- <th>
-                    <td>header1</td>
-                    <td>header2</td>
-                    <td>header3</td>
-                    <td>header4</td>
-                    <td>header5</td>
-                    <td>header6</td>
-                  </th>-->
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>1</td>
-                    <td>a</td>
-                    <td>b</td>
-                    <td>c</td>
-                    <td>d</td>
-                    <td>e</td>
-                    <td>f</td>
-                  </tr>
-                  <tr>
-                    <td>1</td>
-                    <td>a</td>
-                    <td>b</td>
-                    <td>c</td>
-                    <td>d</td>
-                    <td>e</td>
-                    <td>f</td>
-                  </tr>
-                  <tr>
-                    <td>1</td>
-                    <td>a</td>
-                    <td>b</td>
-                    <td>c</td>
-                    <td>d</td>
-                    <td>e</td>
-                    <td>f</td>
-                  </tr>
-                  <tr>
-                    <td>1</td>
-                    <td>a</td>
-                    <td>b</td>
-                    <td>c</td>
-                    <td>d</td>
-                    <td>e</td>
-                    <td>f</td>
-                  </tr>
-                  <tr>
-                    <td>1</td>
-                    <td>a</td>
-                    <td>b</td>
-                    <td>c</td>
-                    <td>d</td>
-                    <td>e</td>
-                    <td>f</td>
-                  </tr>
-                  <tr>
-                    <td>1</td>
-                    <td>a</td>
-                    <td>b</td>
-                    <td>c</td>
-                    <td>d</td>
-                    <td>e</td>
-                    <td>f</td>
-                  </tr>
-                  <tr>
-                    <td>1</td>
-                    <td>a</td>
-                    <td>b</td>
-                    <td>c</td>
-                    <td>d</td>
-                    <td>e</td>
-                    <td>f</td>
-                  </tr>
-                </tbody>
-              </table>
+              <el-table
+                ref="multipleTable"
+                :data="tableData"
+                tooltip-effect="dark"
+                style="width: 100%"
+                @selection-change="handleSelectionChange"
+              >
+                <el-table-column type="selection" width="55"> </el-table-column>
+                <el-table-column label="date" show-overflow-tooltip>
+                  <template slot-scope="scope">{{ scope.row.date }}</template>
+                </el-table-column>
+                <el-table-column prop="name" label="name" width="120">
+                </el-table-column>
+                <el-table-column prop="area" width="120" label="area">
+                  <template slot-scope="scope">{{
+                    areaConvert(scope.row.area)
+                  }}</template>
+                </el-table-column>
+                <el-table-column prop="interval" label="interval" width="120">
+                </el-table-column>
+                <el-table-column prop="type" label="type" width="120">
+                </el-table-column>
+              </el-table>
             </div>
           </div>
         </div>
@@ -287,7 +221,11 @@ import {
   getAllTypesMenu,
   getProductResByConCondition,
 } from '@/api/index';
-@Component({})
+@Component({
+  filters: {
+    //TODO:[*] 19-12-09 注意在filters中无法使用this
+  },
+})
 export default class ProductView extends Vue {
   mydata: any = null;
   openList: string[] = [];
@@ -301,7 +239,12 @@ export default class ProductView extends Vue {
       periodsIndex: string[];
     }>;
   }> = [];
-
+  areaList: Array<{
+    key: string;
+    val: string;
+  }> = [];
+  // 暂时不需要type list 直接从menuList的一级数组中查找即可
+  // typeList: Array<{ key: string; val: string }> = [];
   intervalList: Array<{ key: string; val: number[] }> = [
     { key: '1-1', val: [24, 48, 72, 96] },
     { key: '1-2', val: [24, 48, 72, 96, 120] },
@@ -327,8 +270,20 @@ export default class ProductView extends Vue {
   // 时间搜索框绑定的data
   startDate: Date = new Date();
   finishDate: Date = new Date();
+  tableData: Array<{
+    name: string;
+    area: number;
+    interval: number;
+    date: Date;
+    type: number;
+  }> = [];
+
   handleOpen() {
     console.log('展开');
+  }
+
+  handleSelectionChange() {
+    console.log('选中改变');
   }
   selectMenu(father: string, child: string) {
     // console.log(father + "|" + child);
@@ -349,9 +304,28 @@ export default class ProductView extends Vue {
       myself.startDate,
       myself.finishDate
     );
+    // 2 提交之后注意要清除当前的tableData
+    myself.tableData = [];
     getProductResByConCondition(params).then(res => {
       if (res.status === 200) {
-        console.log(res.data);
+        // console.log(res.data);
+        res.data.forEach(
+          (temp: {
+            name: string;
+            area: number;
+            interval: number;
+            targetDate: Date;
+            type: number;
+          }) => {
+            myself.tableData.push({
+              name: temp.name,
+              area: temp.area,
+              interval: temp.interval,
+              date: temp.targetDate,
+              type: temp.type,
+            });
+          }
+        );
       }
     });
   }
@@ -361,6 +335,17 @@ export default class ProductView extends Vue {
     // 之前测试使用，现去掉
     // getAllArea().then((res: any) => {
     // });
+    // 获取所有的area的字典
+    getAllArea().then((res: any) => {
+      if (res.status === 200) {
+        res.data.forEach((temp: { key: string; val: string }) => {
+          myself.areaList.push({
+            key: temp.key,
+            val: temp.val,
+          });
+        });
+      }
+    });
     getAllTypesMenu().then((res: any) => {
       if (res.status === 200) {
         // console.log(res.data);
@@ -376,8 +361,8 @@ export default class ProductView extends Vue {
               __proto__: Object
             1: {
                 key: "2",
-               val: "Northwest", 
-               periods: Array(5), 
+               val: "Northwest",
+               periods: Array(5),
                periodsIndex: Array(5)
                }
           length: 2
@@ -414,6 +399,18 @@ export default class ProductView extends Vue {
       }
     });
   }
+  areaConvert(val: string): string {
+    const that = this;
+    if (that.areaList) {
+      let areas = that.areaList.find(temp => temp.key === val);
+      if (areas !== undefined) {
+        return areas.val;
+      }
+    }
+    return '';
+    // return this.areaList.find(temp => temp.key === val)['val'];
+  }
+
   get computedTest() {
     return null;
   }
