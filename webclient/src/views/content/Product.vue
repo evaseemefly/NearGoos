@@ -32,11 +32,7 @@
                     active-text-color="#ffd04b"
                     :default-openeds="openList"
                   >
-                    <el-submenu
-                      v-for="(father, x) in menuList"
-                      :index="father.key"
-                      :key="x"
-                    >
+                    <el-submenu v-for="(father, x) in menuList" :index="father.key" :key="x">
                       <template slot="title">
                         <i class></i>
                         <span>{{ father.val }}</span>
@@ -69,19 +65,13 @@
                       v-for="(item, index) in getIntervalList"
                       :key="index"
                       @click="loadProductImageUrl(item)"
-                    >
-                      {{ item.val }}
-                    </li>
+                    >{{ item.val }}</li>
                   </ul>
                 </div>
               </div>
               <!-- 产品图片 -->
               <div class="product-img">
-                <img
-                  src="image/Product_img.jpg"
-                  width="70%"
-                  height="70%"
-                />
+                <img src="image/Product_img.jpg" width="70%" height="70%" />
               </div>
             </div>
           </div>
@@ -114,10 +104,7 @@
                   </div>
                   <div class="form-group">
                     <label for>Area</label>
-                    <el-select
-                      v-model="optionAreaVal"
-                      placeholder="please select"
-                    >
+                    <el-select v-model="optionAreaVal" placeholder="please select">
                       <el-option
                         v-for="item in optionsArea"
                         :key="item.key"
@@ -130,10 +117,7 @@
                 <div class="form-content">
                   <div class="form-group">
                     <label for>Period</label>
-                    <el-select
-                      v-model="optionPeriodVal"
-                      placeholder="请选择"
-                    >
+                    <el-select v-model="optionPeriodVal" placeholder="请选择">
                       <el-option
                         v-for="item in optionsPeriod"
                         :key="item.key"
@@ -144,21 +128,11 @@
                   </div>
                   <div class="form-group">
                     <label>Start Date</label>
-                    <el-date-picker
-                      v-model="startDate"
-                      type="date"
-                      placeholder="选择日期"
-                    >
-                    </el-date-picker>
+                    <el-date-picker v-model="startDate" type="date" placeholder="选择日期"></el-date-picker>
                   </div>
                   <div class="form-group">
                     <label>Start Date</label>
-                    <el-date-picker
-                      v-model="finishDate"
-                      type="date"
-                      placeholder="选择日期"
-                    >
-                    </el-date-picker>
+                    <el-date-picker v-model="finishDate" type="date" placeholder="选择日期"></el-date-picker>
                   </div>
                 </div>
                 <div class="form-content-btn">
@@ -179,12 +153,7 @@
                     <span>73</span>
                   </div>
                   <div class="btn">
-                    <button
-                      type="submit"
-                      class="btn btn-primary col-md-6"
-                    >
-                      SEARCH
-                    </button>
+                    <button type="submit" class="btn btn-primary col-md-6">SEARCH</button>
                   </div>
                 </div>
               </form>
@@ -203,43 +172,20 @@
                 style="width: 100%"
                 @selection-change="handleSelectionChange"
               >
-                <el-table-column
-                  type="selection"
-                  width="55"
-                > </el-table-column>
-                <el-table-column
-                  label="date"
-                  show-overflow-tooltip
-                >
+                <el-table-column type="selection" width="55"></el-table-column>
+                <el-table-column label="date" show-overflow-tooltip>
                   <template slot-scope="scope">{{ scope.row.date }}</template>
                 </el-table-column>
-                <el-table-column
-                  prop="name"
-                  label="name"
-                  width="120"
-                >
-                </el-table-column>
-                <el-table-column
-                  prop="area"
-                  width="120"
-                  label="area"
-                >
-                  <template slot-scope="scope">{{
+                <el-table-column prop="name" label="name" width="120"></el-table-column>
+                <el-table-column prop="area" width="120" label="area">
+                  <template slot-scope="scope">
+                    {{
                     areaConvert(scope.row.area)
-                  }}</template>
+                    }}
+                  </template>
                 </el-table-column>
-                <el-table-column
-                  prop="interval"
-                  label="interval"
-                  width="120"
-                >
-                </el-table-column>
-                <el-table-column
-                  prop="type"
-                  label="type"
-                  width="120"
-                >
-                </el-table-column>
+                <el-table-column prop="interval" label="interval" width="120"></el-table-column>
+                <el-table-column prop="type" label="type" width="120"></el-table-column>
               </el-table>
             </div>
           </div>
@@ -250,7 +196,10 @@
 </template>
 <script lang="ts">
 import { Component, Prop, Vue, Watch } from 'vue-property-decorator';
-import { SearchCondition } from '@/middle_model/product.ts';
+import {
+  SearchCondition,
+  ProductImageCondition,
+} from '@/middle_model/product.ts';
 import {
   getAllArea,
   getAllTypesMenu,
@@ -447,8 +396,16 @@ export default class ProductView extends Vue {
     // return this.areaList.find(temp => temp.key === val)['val'];
   }
 
-  loadProductImageUrl(interval: any): void {
+  // TODO:[*] 19-12-10 此处为根据 father child interval 加载获取对应的图片地址
+  loadProductImageUrl(interval: { index: string; val: string }): void {
+    let _that = this;
     console.log(interval);
+    let params = new ProductImageCondition(
+      _that.menuFatherIndex,
+      _that.menuChildIndex,
+      interval.index
+    );
+    console.log(params);
   }
 
   get computedTest() {
