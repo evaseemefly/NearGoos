@@ -66,8 +66,12 @@
                 <!-- 预报时效选择框 -->
                 <div class="interval-form">
                   <ul class="interval-ul">
-                    <li v-for="(item, index) in getIntervalList" :key="index">
-                      {{ item }}
+                    <li
+                      v-for="(item, index) in getIntervalList"
+                      :key="index"
+                      @click="loadProductImageUrl(item)"
+                    >
+                      {{ item.val }}
                     </li>
                   </ul>
                 </div>
@@ -138,8 +142,7 @@
                       v-model="startDate"
                       type="date"
                       placeholder="选择日期"
-                    >
-                    </el-date-picker>
+                    ></el-date-picker>
                   </div>
                   <div class="form-group">
                     <label>Start Date</label>
@@ -147,8 +150,7 @@
                       v-model="finishDate"
                       type="date"
                       placeholder="选择日期"
-                    >
-                    </el-date-picker>
+                    ></el-date-picker>
                   </div>
                 </div>
                 <div class="form-content-btn">
@@ -190,21 +192,30 @@
                 style="width: 100%"
                 @selection-change="handleSelectionChange"
               >
-                <el-table-column type="selection" width="55"> </el-table-column>
+                <el-table-column type="selection" width="55"></el-table-column>
                 <el-table-column label="date" show-overflow-tooltip>
                   <template slot-scope="scope">{{ scope.row.date }}</template>
                 </el-table-column>
-                <el-table-column prop="name" label="name" width="120">
-                </el-table-column>
+                <el-table-column
+                  prop="name"
+                  label="name"
+                  width="120"
+                ></el-table-column>
                 <el-table-column prop="area" width="120" label="area">
-                  <template slot-scope="scope">{{
-                    areaConvert(scope.row.area)
-                  }}</template>
+                  <template slot-scope="scope">
+                    {{ areaConvert(scope.row.area) }}
+                  </template>
                 </el-table-column>
-                <el-table-column prop="interval" label="interval" width="120">
-                </el-table-column>
-                <el-table-column prop="type" label="type" width="120">
-                </el-table-column>
+                <el-table-column
+                  prop="interval"
+                  label="interval"
+                  width="120"
+                ></el-table-column>
+                <el-table-column
+                  prop="type"
+                  label="type"
+                  width="120"
+                ></el-table-column>
               </el-table>
             </div>
           </div>
@@ -215,11 +226,15 @@
 </template>
 <script lang="ts">
 import { Component, Prop, Vue, Watch } from 'vue-property-decorator';
-import { SearchCondition } from '@/middle_model/product.ts';
+import {
+  SearchCondition,
+  ProductImageCondition,
+} from '@/middle_model/product.ts';
 import {
   getAllArea,
   getAllTypesMenu,
   getProductResByConCondition,
+  getProductImageUrl,
 } from '@/api/index';
 @Component({
   filters: {
@@ -285,6 +300,7 @@ export default class ProductView extends Vue {
   handleSelectionChange() {
     console.log('选中改变');
   }
+  // TODO:[*] 19-12-09 此处加入了新的功能:根据选择的father和child加载对应的 interval list
   selectMenu(father: string, child: string) {
     // console.log(father + "|" + child);
     // TODO:[*] 19-12-07 由于此处修改为读取后台的api返回的menuList动态生成
@@ -411,6 +427,23 @@ export default class ProductView extends Vue {
     // return this.areaList.find(temp => temp.key === val)['val'];
   }
 
+  // TODO:[*] 19-12-10 此处为根据 father child interval 加载获取对应的图片地址
+  loadProductImageUrl(interval: { index: string; val: string }): void {
+    let _that = this;
+    console.log(interval);
+    let params = new ProductImageCondition(
+      _that.menuFatherIndex,
+      _that.menuChildIndex,
+      interval.index
+    );
+    console.log(params);
+    getProductImageUrl(params).then((res: any) => {
+      if (res.status === 200) {
+        console.log(res.data);
+      }
+    });
+  }
+
   get computedTest() {
     return null;
   }
@@ -486,9 +519,10 @@ export default class ProductView extends Vue {
     // }
   }
 
-  get getIntervalList(): string[] {
+  get getIntervalList(): Array<{ index: string; val: string }> {
     let myself = this;
-    let res: string[] = [];
+    // let res: string[] = [];
+    let res: Array<{ index: string; val: string }> = [];
     // TODO:[-] 19-12-02 此处bug已解决
     // let res = myself.intervalList.find(temp => myself.menuIndex === temp.key);
     // if (res !== undefined) {
@@ -504,7 +538,14 @@ export default class ProductView extends Vue {
       let children = father.children;
       let child = children.find(x => myself.menuChildIndex === x.key);
       if (child !== undefined) {
-        res = child.periods;
+        let periods = child.periods;
+
+        periods.forEach((val, index) => {
+          res.push({
+            index: child !== undefined ? child.periodsIndex[index] : '',
+            val: val,
+          });
+        });
       }
     }
     return res;
