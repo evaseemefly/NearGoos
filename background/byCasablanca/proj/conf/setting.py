@@ -12,8 +12,8 @@ _ROOT_DIR = r'D:\03data\neargoos'
 DB_HOST = 'localhost'
 DB_PORT = 3306
 DB_USER = 'root'
-# DB_PWD='123456'
-DB_PWD = 'admin123'
+DB_PWD='123456'
+# DB_PWD = 'admin123'
 DB_NAME = 'neargoos'
 
 # MONGO相关

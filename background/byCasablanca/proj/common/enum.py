@@ -9,23 +9,24 @@ class ProductType(Enum):
     '''
         海浪
     '''
-    WAVE=0
+    WAVE=1
     '''
         海流
     '''
-    CURRENT=1
+    CURRENT=2
     '''
         海冰
     '''
-    ICE=2
+    # todo:[*] 19-12-12 注意所有海冰相关的暂时注释掉
+    # ICE=3
     '''
         海表面温度
     '''
-    SST=3
+    SST=4
     '''
         海表面高度
     '''
-    SSH=4
+    SSH=5
 
 @unique
 
@@ -37,20 +38,20 @@ class Area(Enum):
     '''
         中国海
     '''
-    CHINASEA=0
+    CHINASEA=1
     '''
         西北太
     '''
-    NORTHWEST=1
+    NORTHWEST=2
     '''
         东海
     '''
-    EASTCHINASEA=2
+    EASTCHINASEA=3
     '''
         深远海
     '''
-    FAREAST=3
+    FAREAST=4
     '''
         渤海
     '''
-    BOHAI=4
+    BOHAI=5

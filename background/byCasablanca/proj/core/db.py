@@ -15,7 +15,9 @@ class DBFactory:
         self.user = setting.DB_USER
         self.pwd = setting.DB_PWD
         self.db_name = setting.DB_NAME
-        self.engine_str = f'mysql+mysqlconnector://{self.user}:{self.pwd}@{self.host}:{self.port}/{self.db_name}'
+        # self.engine_str = f'mysql+mysqlconnector://{self.user}:{self.pwd}@{self.host}:{self.port}/{self.db_name}'
+        # TODO:[-] 19-12-12 ModuleNotFoundError: No module named 'mysql' 切换 mysqlconnector->mysqldb
+        self.engine_str = f'mysql+mysqldb://{self.user}:{self.pwd}@{self.host}:{self.port}/{self.db_name}'
 
         pass
 

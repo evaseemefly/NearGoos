@@ -22,13 +22,33 @@
               <el-row class="tac">
                 <el-col :span="24">
                   <!-- <h5>Type</h5> -->
-                  <el-menu default-active="2" class="el-menu-vertical-demo" @open="handleOpen" @close="handleClose" background-color="#33cccc" text-color="#fff" active-text-color="#ffd04b" :default-openeds="openList">
-                    <el-submenu v-for="(father, x) in menuList" :index="father.key" :key="x">
+                  <el-menu
+                    default-active="2"
+                    class="el-menu-vertical-demo"
+                    @open="handleOpen"
+                    @close="handleClose"
+                    background-color="#33cccc"
+                    text-color="#fff"
+                    active-text-color="#ffd04b"
+                    :default-openeds="openList"
+                  >
+                    <el-submenu
+                      v-for="(father, x) in menuList"
+                      :index="father.key"
+                      :key="x"
+                    >
                       <template slot="title">
                         <i class></i>
                         <span>{{ father.val }}</span>
                       </template>
-                      <el-menu-item :index="child.key" v-for="(child, y) in father.children" :key="y" @open="selectMenu" @click.native="selectMenu(father.key, child.key)" background-color="#0b6fb1">{{ child.val }}</el-menu-item>
+                      <el-menu-item
+                        :index="child.key"
+                        v-for="(child, y) in father.children"
+                        :key="y"
+                        @open="selectMenu"
+                        @click.native="selectMenu(father.key, child.key)"
+                        background-color="#0b6fb1"
+                      >{{ child.val }}</el-menu-item>
                     </el-submenu>
                   </el-menu>
                 </el-col>
@@ -45,7 +65,11 @@
                 <!-- 预报时效选择框 -->
                 <div class="interval-form">
                   <ul class="interval-ul">
-                    <li v-for="(item, index) in getIntervalList" :key="index" @click="loadProductImageUrl(item)">
+                    <li
+                      v-for="(item, index) in getIntervalList"
+                      :key="index"
+                      @click="loadProductImageUrl(item)"
+                    >
                       {{ item.val }}
                     </li>
                   </ul>
@@ -53,7 +77,11 @@
               </div>
               <!-- 产品图片 -->
               <div class="product-img">
-                <img src="image/Product_img.jpg" width="70%" height="70%" />
+                <img
+                  src="/images/product/data/ftpdownload/wave/2019/10/30/coast04.png"
+                  width="70%"
+                  height="70%"
+                />
               </div>
             </div>
           </div>
@@ -71,31 +99,64 @@
                 <div class="form-content">
                   <div class="form-group">
                     <label for>Category</label>
-                    <el-select v-model="optionCategoryVal" mulitple="true" placeholder="please select">
-                      <el-option v-for="item in optionsCategory" :key="item.key" :label="item.val" :value="item.key"></el-option>
+                    <el-select
+                      v-model="optionCategoryVal"
+                      mulitple="true"
+                      placeholder="please select"
+                    >
+                      <el-option
+                        v-for="item in optionsCategory"
+                        :key="item.key"
+                        :label="item.val"
+                        :value="item.key"
+                      ></el-option>
                     </el-select>
                   </div>
                   <div class="form-group">
                     <label for>Area</label>
-                    <el-select v-model="optionAreaVal" placeholder="please select">
-                      <el-option v-for="item in optionsArea" :key="item.key" :label="item.val" :value="item.key"></el-option>
+                    <el-select
+                      v-model="optionAreaVal"
+                      placeholder="please select"
+                    >
+                      <el-option
+                        v-for="item in optionsArea"
+                        :key="item.key"
+                        :label="item.val"
+                        :value="item.key"
+                      ></el-option>
                     </el-select>
                   </div>
                 </div>
                 <div class="form-content">
                   <div class="form-group">
                     <label for>Period</label>
-                    <el-select v-model="optionPeriodVal" placeholder="请选择">
-                      <el-option v-for="item in optionsPeriod" :key="item.key" :label="item.val" :value="item.key"></el-option>
+                    <el-select
+                      v-model="optionPeriodVal"
+                      placeholder="请选择"
+                    >
+                      <el-option
+                        v-for="item in optionsPeriod"
+                        :key="item.key"
+                        :label="item.val"
+                        :value="item.key"
+                      ></el-option>
                     </el-select>
                   </div>
                   <div class="form-group">
                     <label>Start Date</label>
-                    <el-date-picker v-model="startDate" type="date" placeholder="选择日期"></el-date-picker>
+                    <el-date-picker
+                      v-model="startDate"
+                      type="date"
+                      placeholder="选择日期"
+                    ></el-date-picker>
                   </div>
                   <div class="form-group">
                     <label>Start Date</label>
-                    <el-date-picker v-model="finishDate" type="date" placeholder="选择日期"></el-date-picker>
+                    <el-date-picker
+                      v-model="finishDate"
+                      type="date"
+                      placeholder="选择日期"
+                    ></el-date-picker>
                   </div>
                 </div>
                 <div class="form-content-btn">
@@ -116,7 +177,10 @@
                     <span>73</span>
                   </div>
                   <div class="btn">
-                    <button type="submit" class="btn btn-primary col-md-6">
+                    <button
+                      type="submit"
+                      class="btn btn-primary col-md-6"
+                    >
                       SEARCH
                     </button>
                   </div>
@@ -130,19 +194,47 @@
           <div class="center-footer">
             <div class="center-footer-card-header">Result</div>
             <div class="center-footer-card-body">
-              <el-table ref="multipleTable" :data="tableData" tooltip-effect="dark" style="width: 100%" @selection-change="handleSelectionChange">
-                <el-table-column type="selection" width="55"></el-table-column>
-                <el-table-column label="date" show-overflow-tooltip>
+              <el-table
+                ref="multipleTable"
+                :data="tableData"
+                tooltip-effect="dark"
+                style="width: 100%"
+                @selection-change="handleSelectionChange"
+              >
+                <el-table-column
+                  type="selection"
+                  width="55"
+                ></el-table-column>
+                <el-table-column
+                  label="date"
+                  show-overflow-tooltip
+                >
                   <template slot-scope="scope">{{ scope.row.date }}</template>
                 </el-table-column>
-                <el-table-column prop="name" label="name" width="120"></el-table-column>
-                <el-table-column prop="area" width="120" label="area">
+                <el-table-column
+                  prop="name"
+                  label="name"
+                  width="120"
+                ></el-table-column>
+                <el-table-column
+                  prop="area"
+                  width="120"
+                  label="area"
+                >
                   <template slot-scope="scope">
                     {{ areaConvert(scope.row.area) }}
                   </template>
                 </el-table-column>
-                <el-table-column prop="interval" label="interval" width="120"></el-table-column>
-                <el-table-column prop="type" label="type" width="120"></el-table-column>
+                <el-table-column
+                  prop="interval"
+                  label="interval"
+                  width="120"
+                ></el-table-column>
+                <el-table-column
+                  prop="type"
+                  label="type"
+                  width="120"
+                ></el-table-column>
               </el-table>
             </div>
           </div>
@@ -220,6 +312,7 @@ export default class ProductView extends Vue {
     type: number;
   }> = [];
 
+  // 选中的最近的图片的url
   currentImageUrl: string = '';
 
   handleOpen() {
@@ -369,6 +462,7 @@ export default class ProductView extends Vue {
     getProductImageUrl(params).then((res: any) => {
       if (res.status === 200) {
         console.log(res.data);
+        _that.currentImageUrl = res.data.imageUrl;
       }
     });
   }

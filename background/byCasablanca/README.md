@@ -7,9 +7,12 @@
 ├── common                      <= 一些通用的方法及枚举放置于此(枚举之后也许会单独分出一个package)
 │ ├── enum.py                   <= 枚举
 │ ├── tools.py                  <= 部分公共的工具方法放于此处
+│ ├── dictcommon.py             <= 所有的字典类变量
 ├── conf        				<= 配置文件  
 ├── core  						<= 核心代码 
 │ ├── ftp.py                    <= ftp相关操作
+│ ├── db.py                     <= 数据库工厂类
+│ ├── product.py                <= 所有的产品相关的获取文件以及其他相关信息的class
 ├── model  						<= orm的model以及middle model放置于此
 ├── main.py  					<= 项目入口文件 
 
@@ -65,4 +68,16 @@
 - [x] 数据名称规范如下
       ![alt 流程](../../document/img/readme/TIM截图20191029222836.png)
       ![alt 流程](../../document/img/readme/TIM截图20191029222845.png)
+ 
+---
 
+ ### 图片读取 19-12-12日修改  
+ 在 core.product 中加入了`ProductBase`父类与各类的子类(eg:`Wavechinasea`)  
+ 其中父类实现了根据 file name 获取时间间隔以及时间间隔(index)的方法  
+ 子类重写了`match_pattern`与`period_dict`  
+ 其中`match_pattern` 是获取的正则表达式  
+ `period_dict`为对应的时间间隔字典
+
+`ProductFactory`为产品工厂类，根据传入的产品`type`生成对应的实现类
+
+调用`core.product`为`core.ftp`的`ProductFile`类中的`copy_list`方法中，主要是为了获得对应的产品文件对应的`interval`
