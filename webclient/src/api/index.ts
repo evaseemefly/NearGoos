@@ -25,4 +25,5 @@ const getAllTypesMenu = () => {
   })
 }
 
-export { getAllArea, getAllTypesMenu };
+
+export { getAllArea, getAllTypesMenu};

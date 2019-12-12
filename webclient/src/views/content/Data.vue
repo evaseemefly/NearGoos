@@ -54,13 +54,15 @@
                 <!-- 下面的具体内容 -->
                 <div class="statistics-form">
                     <!-- station -->
-                    <div class="card-form">
+                    <div  class="card-form">
                         <div class="title">Buoy</div>
                         <div class="body">
-                            <ul>
-                                <li>file numbers:1897</li>
-                                <li>total size(KB):2334</li>
-                                <li>time range:xxx-xxx</li>
+                            <ul id>
+                              <!-- v-for循环没有成功,先遗留 -->
+                                  <li>file numbers:<span>{{statistics_result[0].fileNumber}}</span></li>
+                                <li>total size(Byte): <span>{{statistics_result[0].size}}</span></li>
+                                <li>begin time: <span>{{statistics_result[0].beginTime}}</span></li>
+                                <li>end time: <span>{{statistics_result[0].endTime}}</span></li>
                                 <li>format: xml</li>
                             </ul>
                         </div>
@@ -70,22 +72,24 @@
                         <div class="title">Station</div>
                         <div class="body">
                             <ul>
-                                <li>file numbers:1897</li>
-                                <li>total size(KB):2334</li>
-                                <li>time range:xxx-xxx</li>
-                                <li>format: xml</li>
+<li>file numbers:<span>{{statistics_result[1].fileNumber}}</span></li>
+                                <li>total size(Byte): <span>{{statistics_result[1].size}}</span></li>
+                                <li>begin time: <span>{{statistics_result[1].beginTime}}</span></li>
+                                <li>end time: <span>{{statistics_result[1].endTime}}</span></li>
+                                <li>format: txt</li>
                             </ul>
                         </div>
-                    </div>
+                    </div> -->
                     <!-- ship -->
                     <div class="card-form">
                         <div class="title">Ship</div>
                         <div class="body">
                             <ul>
-                                <li>file numbers:1897</li>
-                                <li>total size(KB):2334</li>
-                                <li>time range:xxx-xxx</li>
-                                <li>format: xml</li>
+                              <li>file numbers:<span>{{statistics_result[2].fileNumber}}</span></li>
+                                <li>total size(Byte): <span>{{statistics_result[2].size}}</span></li>
+                                <li>begin time: <span>{{statistics_result[2].beginTime}}</span></li>
+                                <li>end time: <span>{{statistics_result[2].endTime}}</span></li>
+                                <li>format: -</li>
                             </ul>
                         </div>
                     </div>
@@ -137,14 +141,85 @@
 </template>
 <script lang="ts">
 import { Component, Prop, Vue, Watch } from "vue-property-decorator";
+import axios from 'axios';
+const host = 'http://localhost:8083'
 @Component({})
 export default class DataView extends Vue {
   mydata: any = null;
-  mounted() {}
+  statistics_result: any = [];
+  
+  // params = 'FUB';
+  // statistics_fileNumber: any= '-';
+  // statistics_size: any = '-';
+  // statistics_beginTime:any = '-';
+  // statistics_endTime: any='-';
+  // statistics_name : string = '';
+created() {
+      getStatisticsByCategory().then((res:any)=>{
+      if(res.status ===200){
+        this.statistics_result = res.data;
+        // alert(this.statistics_result[0].size);
+      //   //时间转换为UTC时间
+      //   //优化：长度缓存，避免重复获取，数组很大时优化效果明显
+      // for(var j = 0, len = this.statistics_result.length; j< len; j++) {
+      //   if(this.statistics_result[j].beginTime == null){
+
+      //   }else{
+      //     this.statistics_result[j].beginTime = this.statistics_result[j].beginTime.toUTCString();
+      //     this.statistics_result[j].endTime = this.statistics_result[j].endTime.toUTCString();
+      //   }
+      // }
+      }else{
+        alert('请求失败');
+      }
+    })
+  }
   get computedTest() {
     return null;
   }
 }
+//统计栏数据交互
+// var statisticVM = new Vue({
+//   el:'#statistics',
+//   data:{
+//     statistics_data:[]
+//   },
+//   created:function(){
+//     var self = this;
+//     getStatisticsByCategoryName().then((res:any)=>{
+//       if(res.status ===200){
+//         self.statistics_data = res.data
+//         alert('成功');
+//       }else{
+//         alert('请求失败');
+//       }
+//     })
+//   }
+// })
+
+
+
+//获取统计信息
+const getStatisticsByCategory =  () => {
+  let url = `${host}/data/statistics`
+  return axios.get(
+    url,
+    {
+      params: []
+    }
+  
+  )
+}
+
+// var getStatictisByCategory = new Vue({
+//   el:'#statistics',
+//   data:{
+//     answer:'222'
+//     },
+//   mounted:function(){
+
+//   }
+// })
 </script>
 <style scoped lang="less">
 @import "../styles/base.less";
@@ -243,7 +318,7 @@ export default class DataView extends Vue {
             // font-family: "Roboto",sans-serif;
           }
           p {
-            font-size: 0.9rem;
+            font-size: 1.2rem;
             font-weight: 400;
             color: #000000;
           }
@@ -301,6 +376,7 @@ export default class DataView extends Vue {
               li {
                 line-height: 3em;
                 color: white;
+                font-size: 1em;
               }
             }
           }
