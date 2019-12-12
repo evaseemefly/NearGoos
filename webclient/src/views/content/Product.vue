@@ -22,13 +22,34 @@
               <el-row class="tac">
                 <el-col :span="24">
                   <!-- <h5>Type</h5> -->
-                  <el-menu default-active="2" class="el-menu-vertical-demo" @open="handleOpen" @close="handleClose" background-color="#33cccc" text-color="#fff" active-text-color="#ffd04b" :default-openeds="openList">
-                    <el-submenu v-for="(father, x) in menuList" :index="father.key" :key="x">
+                  <el-menu
+                    default-active="2"
+                    class="el-menu-vertical-demo"
+                    @open="handleOpen"
+                    @close="handleClose"
+                    background-color="#33cccc"
+                    text-color="#fff"
+                    active-text-color="#ffd04b"
+                    :default-openeds="openList"
+                  >
+                    <el-submenu
+                      v-for="(father, x) in menuList"
+                      :index="father.key"
+                      :key="x"
+                    >
                       <template slot="title">
                         <i class></i>
                         <span>{{ father.val }}</span>
                       </template>
-                      <el-menu-item :index="child.key" v-for="(child, y) in father.children" :key="y" @open="selectMenu" @click.native="selectMenu(father.key, child.key)" background-color="#0b6fb1">{{ child.val }}</el-menu-item>
+                      <el-menu-item
+                        :index="child.key"
+                        v-for="(child, y) in father.children"
+                        :key="y"
+                        @open="selectMenu"
+                        @click.native="selectMenu(father.key, child.key)"
+                        background-color="#0b6fb1"
+                        >{{ child.val }}</el-menu-item
+                      >
                     </el-submenu>
                   </el-menu>
                 </el-col>
@@ -45,8 +66,12 @@
                 <!-- 预报时效选择框 -->
                 <div class="interval-form">
                   <ul class="interval-ul">
-                    <li v-for="(item, index) in getIntervalList" :key="index">
-                      {{ item }}
+                    <li
+                      v-for="(item, index) in getIntervalList"
+                      :key="index"
+                      @click="loadProductImageUrl(item)"
+                    >
+                      {{ item.val }}
                     </li>
                   </ul>
                 </div>
@@ -67,74 +92,79 @@
             <div class="search-form">
               <div class="title">SEARCH</div>
               <!-- 搜索条件form -->
-              <form>
+              <form @submit.prevent="submit">
                 <div class="form-content">
                   <div class="form-group">
                     <label for>Category</label>
-                    <el-select v-model="optionCategoryVal" mulitple="true" placeholder="please select">
-                      <el-option v-for="item in optionsCategory" :key="item.key" :label="item.val" :value="item.key"></el-option>
+                    <el-select
+                      v-model="optionCategoryVal"
+                      mulitple="true"
+                      placeholder="please select"
+                    >
+                      <el-option
+                        v-for="item in optionsCategory"
+                        :key="item.key"
+                        :label="item.val"
+                        :value="item.key"
+                      ></el-option>
                     </el-select>
                   </div>
                   <div class="form-group">
                     <label for>Area</label>
-                    <el-select v-model="optionAreaVal" placeholder="please select">
-                      <el-option v-for="item in optionsArea" :key="item.key" :label="item.val" :value="item.key"></el-option>
-                    </el-select>
-                  </div>
-                  <!-- <div class="form-group">
-                    <label for>Elements</label>
-                    <el-select v-model="value" placeholder="please select">
+                    <el-select
+                      v-model="optionAreaVal"
+                      placeholder="please select"
+                    >
                       <el-option
-                        v-for="item in optionsElements"
-                        :key="item.val"
-                        :label="item.lab"
-                        :value="item.val"
+                        v-for="item in optionsArea"
+                        :key="item.key"
+                        :label="item.val"
+                        :value="item.key"
                       ></el-option>
                     </el-select>
-                  </div>-->
+                  </div>
                 </div>
                 <div class="form-content">
                   <div class="form-group">
                     <label for>Period</label>
                     <el-select v-model="optionPeriodVal" placeholder="请选择">
-                      <el-option v-for="item in optionsPeriod" :key="item.key" :label="item.val" :value="item.key"></el-option>
-                    </el-select>
-                  </div>
-                  <!--<div class="form-group">
-                    <label for>start date</label>
-                    <el-select v-model="value" placeholder="请选择">
                       <el-option
-                        v-for="item in optionsCategory"
-                        :key="item.val"
-                        :label="item.lab"
-                        :value="item.val"
+                        v-for="item in optionsPeriod"
+                        :key="item.key"
+                        :label="item.val"
+                        :value="item.key"
                       ></el-option>
                     </el-select>
                   </div>
                   <div class="form-group">
-                    <label for>end date</label>
-                    <el-select v-model="value" placeholder="请选择">
-                      <el-option
-                        v-for="item in optionsCategory"
-                        :key="item.val"
-                        :label="item.lab"
-                        :value="item.val"
-                      ></el-option>
-                    </el-select>
-                  </div>-->
+                    <label>Start Date</label>
+                    <el-date-picker
+                      v-model="startDate"
+                      type="date"
+                      placeholder="选择日期"
+                    ></el-date-picker>
+                  </div>
+                  <div class="form-group">
+                    <label>Start Date</label>
+                    <el-date-picker
+                      v-model="finishDate"
+                      type="date"
+                      placeholder="选择日期"
+                    ></el-date-picker>
+                  </div>
                 </div>
                 <div class="form-content-btn">
                   <div class="statistics-info">
                     <span>category</span>
-                    <span>wave</span>
+                    <span>{{ categoryVal }}</span>
                   </div>
                   <div class="statistics-info">
                     <span>area</span>
-                    <span>china sea</span>
+                    <span>{{ areaVal }}</span>
                   </div>
                   <div class="statistics-info">
                     <span>period</span>
-                    <span>48</span>
+                    <span>{{ periodsVal }}</span>
                   </div>
                   <div class="statistics-info">
                     <span>files count</span>
@@ -155,83 +185,38 @@
           <div class="center-footer">
             <div class="center-footer-card-header">Result</div>
             <div class="center-footer-card-body">
-              <table class="table table-striped table-bordered">
-                <thead>
-                  <!-- <th>
-                    <td>header1</td>
-                    <td>header2</td>
-                    <td>header3</td>
-                    <td>header4</td>
-                    <td>header5</td>
-                    <td>header6</td>
-                  </th>-->
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>1</td>
-                    <td>a</td>
-                    <td>b</td>
-                    <td>c</td>
-                    <td>d</td>
-                    <td>e</td>
-                    <td>f</td>
-                  </tr>
-                  <tr>
-                    <td>1</td>
-                    <td>a</td>
-                    <td>b</td>
-                    <td>c</td>
-                    <td>d</td>
-                    <td>e</td>
-                    <td>f</td>
-                  </tr>
-                  <tr>
-                    <td>1</td>
-                    <td>a</td>
-                    <td>b</td>
-                    <td>c</td>
-                    <td>d</td>
-                    <td>e</td>
-                    <td>f</td>
-                  </tr>
-                  <tr>
-                    <td>1</td>
-                    <td>a</td>
-                    <td>b</td>
-                    <td>c</td>
-                    <td>d</td>
-                    <td>e</td>
-                    <td>f</td>
-                  </tr>
-                  <tr>
-                    <td>1</td>
-                    <td>a</td>
-                    <td>b</td>
-                    <td>c</td>
-                    <td>d</td>
-                    <td>e</td>
-                    <td>f</td>
-                  </tr>
-                  <tr>
-                    <td>1</td>
-                    <td>a</td>
-                    <td>b</td>
-                    <td>c</td>
-                    <td>d</td>
-                    <td>e</td>
-                    <td>f</td>
-                  </tr>
-                  <tr>
-                    <td>1</td>
-                    <td>a</td>
-                    <td>b</td>
-                    <td>c</td>
-                    <td>d</td>
-                    <td>e</td>
-                    <td>f</td>
-                  </tr>
-                </tbody>
-              </table>
+              <el-table
+                ref="multipleTable"
+                :data="tableData"
+                tooltip-effect="dark"
+                style="width: 100%"
+                @selection-change="handleSelectionChange"
+              >
+                <el-table-column type="selection" width="55"></el-table-column>
+                <el-table-column label="date" show-overflow-tooltip>
+                  <template slot-scope="scope">{{ scope.row.date }}</template>
+                </el-table-column>
+                <el-table-column
+                  prop="name"
+                  label="name"
+                  width="120"
+                ></el-table-column>
+                <el-table-column prop="area" width="120" label="area">
+                  <template slot-scope="scope">
+                    {{ areaConvert(scope.row.area) }}
+                  </template>
+                </el-table-column>
+                <el-table-column
+                  prop="interval"
+                  label="interval"
+                  width="120"
+                ></el-table-column>
+                <el-table-column
+                  prop="type"
+                  label="type"
+                  width="120"
+                ></el-table-column>
+              </el-table>
             </div>
           </div>
         </div>
@@ -241,9 +226,21 @@
 </template>
 <script lang="ts">
 import { Component, Prop, Vue, Watch } from 'vue-property-decorator';
-
-import { getAllArea, getAllTypesMenu } from '@/api/index';
-@Component({})
+import {
+  SearchCondition,
+  ProductImageCondition,
+} from '@/middle_model/product.ts';
+import {
+  getAllArea,
+  getAllTypesMenu,
+  getProductResByConCondition,
+  getProductImageUrl,
+} from '@/api/index';
+@Component({
+  filters: {
+    //TODO:[*] 19-12-09 注意在filters中无法使用this
+  },
+})
 export default class ProductView extends Vue {
   mydata: any = null;
   openList: string[] = [];
@@ -257,81 +254,114 @@ export default class ProductView extends Vue {
       periodsIndex: string[];
     }>;
   }> = [];
-  // = [
-  //   {
-  //     key: '1',
-  //     val: 'wave',
-  //     children: [
-  //       { key: '1-1', val: 'ChinaSea', periods: '1-1' },
-  //       { key: '1-2', val: 'Northwest', periods: '1-2' },
-  //     ],
-  //   },
-  //   {
-  //     key: '2',
-  //     val: 'Current',
-  //     children: [
-  //       { key: '2-1', val: 'EastChinaSea', periods: '1-1' },
-  //       { key: '2-2', val: 'Northwest', periods: '1-1' },
-  //       { key: '2-3', val: 'FarEast', periods: '1-2' },
-  //     ],
-  //   },
-  // ];
-
+  areaList: Array<{
+    key: string;
+    val: string;
+  }> = [];
+  // 暂时不需要type list 直接从menuList的一级数组中查找即可
+  // typeList: Array<{ key: string; val: string }> = [];
   intervalList: Array<{ key: string; val: number[] }> = [
     { key: '1-1', val: [24, 48, 72, 96] },
     { key: '1-2', val: [24, 48, 72, 96, 120] },
     { key: '2-1', val: [24, 48, 72, 96, 120] },
   ];
 
-  // 下拉框
-  // optionsCategory: Array<{ val: string; lab: string> }> = [
-  //   { val: "选项1", lab: "测试" }
-  // ];
-  // optionsCategory: Array<{ lab: string; val: string }> = [
-  //   { val: '1', lab: 'wave' },
-  //   { val: '2', lab: 'current' },
-  //   { val: '3', lab: 'ice' },
-  //   { val: '4', lab: 'template' },
-  // ];
-
-  // optionsArea: Array<{ lab: string; val: string }> = [
-  //   { lab: '', val: '' },
-  //   { lab: '', val: '' },
-  //   { lab: '', val: '' },
-  // ];
-
   optionsElements: Array<{ lab: string; val: string }> = [
     { lab: '', val: '' },
     { lab: '', val: '' },
     { lab: '', val: '' },
   ];
-  // optionsPeriod: Array<{ lab: string; val: string }> = [
-  //   { lab: '', val: '' },
-  //   { lab: '', val: '' },
-  //   { lab: '', val: '' },
-  // ];
+
   // optionVal: string = '1';
+  // 中间左侧的搜索框中select绑定的val
   optionCategoryVal: string = '';
   optionAreaVal: string = '';
-  // optionElementsVal: string = '1';
   optionPeriodVal: string = '';
 
   menuIndex: string = '1';
+  menuFatherIndex: string = '1';
+  menuChildIndex: string = '1';
+
+  // 时间搜索框绑定的data
+  startDate: Date = new Date();
+  finishDate: Date = new Date();
+  tableData: Array<{
+    name: string;
+    area: number;
+    interval: number;
+    date: Date;
+    type: number;
+  }> = [];
 
   handleOpen() {
     console.log('展开');
   }
+
+  handleSelectionChange() {
+    console.log('选中改变');
+  }
+  // TODO:[*] 19-12-09 此处加入了新的功能:根据选择的father和child加载对应的 interval list
   selectMenu(father: string, child: string) {
     // console.log(father + "|" + child);
-    this.menuIndex = child;
+    // TODO:[*] 19-12-07 由于此处修改为读取后台的api返回的menuList动态生成
+    // this.menuIndex = child;
+    this.menuFatherIndex = father;
+    this.menuChildIndex = child;
   }
   handleClose() {}
+  submit() {
+    let myself = this;
+    console.log('提交表单');
+    // 1 获取提交的数据
+    let params = new SearchCondition(
+      myself.optionCategoryVal,
+      myself.optionAreaVal,
+      myself.optionPeriodVal,
+      myself.startDate,
+      myself.finishDate
+    );
+    // 2 提交之后注意要清除当前的tableData
+    myself.tableData = [];
+    getProductResByConCondition(params).then(res => {
+      if (res.status === 200) {
+        // console.log(res.data);
+        res.data.forEach(
+          (temp: {
+            name: string;
+            area: number;
+            interval: number;
+            targetDate: Date;
+            type: number;
+          }) => {
+            myself.tableData.push({
+              name: temp.name,
+              area: temp.area,
+              interval: temp.interval,
+              date: temp.targetDate,
+              type: temp.type,
+            });
+          }
+        );
+      }
+    });
+  }
   mounted() {
     this.openList = ['1', '2'];
     let myself = this;
     // 之前测试使用，现去掉
     // getAllArea().then((res: any) => {
     // });
+    // 获取所有的area的字典
+    getAllArea().then((res: any) => {
+      if (res.status === 200) {
+        res.data.forEach((temp: { key: string; val: string }) => {
+          myself.areaList.push({
+            key: temp.key,
+            val: temp.val,
+          });
+        });
+      }
+    });
     getAllTypesMenu().then((res: any) => {
       if (res.status === 200) {
         // console.log(res.data);
@@ -347,8 +377,8 @@ export default class ProductView extends Vue {
               __proto__: Object
             1: {
                 key: "2",
-               val: "Northwest", 
-               periods: Array(5), 
+               val: "Northwest",
+               periods: Array(5),
                periodsIndex: Array(5)
                }
           length: 2
@@ -377,35 +407,73 @@ export default class ProductView extends Vue {
             // }=>{
 
             // })
+            // TODO:[*] 19-12-07 此处有一个后台的bug，后台返回的res中，每一项有可能出现不包含children的情况
+            // 在判断时需要加入必要的判断
             myself.menuList.push(temp);
           }
         );
       }
     });
   }
+  areaConvert(val: string): string {
+    const that = this;
+    if (that.areaList) {
+      let areas = that.areaList.find(temp => temp.key === val);
+      if (areas !== undefined) {
+        return areas.val;
+      }
+    }
+    return '';
+    // return this.areaList.find(temp => temp.key === val)['val'];
+  }
+
+  // TODO:[*] 19-12-10 此处为根据 father child interval 加载获取对应的图片地址
+  loadProductImageUrl(interval: { index: string; val: string }): void {
+    let _that = this;
+    console.log(interval);
+    let params = new ProductImageCondition(
+      _that.menuFatherIndex,
+      _that.menuChildIndex,
+      interval.index
+    );
+    console.log(params);
+    getProductImageUrl(params).then((res: any) => {
+      if (res.status === 200) {
+        console.log(res.data);
+      }
+    });
+  }
+
   get computedTest() {
     return null;
   }
 
+  // 产品种类的下拉选项
   get optionsCategory(): { key: string; val: string }[] {
+    // TODO:[*] 19-12-07 注意每个下拉框的计算方法都需要加入清除当前选中的值
+    this.optionCategoryVal = '';
     let list: { key: string; val: string }[] = [];
     this.menuList.map(temp => list.push({ key: temp.key, val: temp.val }));
     return list;
   }
 
+  // 产品区域的下拉选项
   get optionsArea(): { key: string; val: string }[] {
+    this.optionAreaVal = '';
     let list: { key: string; val: string }[] = [];
     let myself = this;
     // 找到当前 category 选择的对应的menulist中的 obj
     let res = this.menuList.find(temp => myself.optionCategoryVal === temp.key);
     if (res !== undefined) {
-      return res.children;
+      return res.children === undefined ? [] : res.children;
     } else {
       return [];
     }
   }
 
+  // 产品时间间隔的下拉选项
   get optionsPeriod(): { key: string; val: string }[] {
+    this.optionPeriodVal = '';
     let list: { key: string; val: string }[] = [];
     let listStr: string[] = [];
     let myself = this;
@@ -427,7 +495,7 @@ export default class ProductView extends Vue {
       }> = this.menuList.filter(temp => {
         return temp.key === myself.optionCategoryVal;
       })[0].children;
-      if (children.length > 0) {
+      if (children !== undefined && children.length > 0) {
         let periods: string[] = [];
         let periodsIndex: string[] = [];
         periods = children.filter(temp => {
@@ -451,15 +519,78 @@ export default class ProductView extends Vue {
     // }
   }
 
-  get getIntervalList(): number[] {
+  get getIntervalList(): Array<{ index: string; val: string }> {
     let myself = this;
+    // let res: string[] = [];
+    let res: Array<{ index: string; val: string }> = [];
     // TODO:[-] 19-12-02 此处bug已解决
-    let res = myself.intervalList.find(temp => myself.menuIndex === temp.key);
-    if (res !== undefined) {
-      return res.val;
-    } else {
-      return [];
+    // let res = myself.intervalList.find(temp => myself.menuIndex === temp.key);
+    // if (res !== undefined) {
+    //   return res.val;
+    // } else {
+    //   return [];
+    // }
+    // TODO:[*] 之前的方式已过期，获取periods通过监听menuFatherIndex与menuChildIndex
+    let father = myself.menuList.find(
+      temp => myself.menuFatherIndex === temp.key
+    );
+    if (father !== undefined) {
+      let children = father.children;
+      let child = children.find(x => myself.menuChildIndex === x.key);
+      if (child !== undefined) {
+        let periods = child.periods;
+
+        periods.forEach((val, index) => {
+          res.push({
+            index: child !== undefined ? child.periodsIndex[index] : '',
+            val: val,
+          });
+        });
+      }
     }
+    return res;
+  }
+
+  get categoryVal(): string {
+    let myself = this;
+    let val = this.menuList.find(temp => temp.key === myself.optionCategoryVal);
+    return val === undefined ? '' : val.val;
+  }
+
+  get areaVal(): string {
+    let myself = this;
+    let typeTemp = this.menuList.find(
+      temp => temp.key === myself.optionCategoryVal
+    );
+    if (typeTemp !== undefined) {
+      let areaTemp = typeTemp.children.find(
+        temp => temp.key === myself.optionAreaVal
+      );
+      return areaTemp === undefined ? '' : areaTemp.val;
+    } else {
+      return '';
+    }
+  }
+
+  get periodsVal(): string {
+    let myself = this;
+    let periodVal = '';
+    let typeTemp = this.menuList.find(
+      temp => temp.key === myself.optionCategoryVal
+    );
+    if (typeTemp !== undefined) {
+      let areaTemp = typeTemp.children.find(
+        temp => temp.key === myself.optionAreaVal
+      );
+      if (areaTemp !== undefined) {
+        let index = areaTemp.periodsIndex.indexOf(myself.optionPeriodVal);
+        periodVal = areaTemp.periods[index];
+      }
+      // return areaTemp === undefined ? '' : areaTemp.val;
+    } else {
+      // return '';
+    }
+    return periodVal;
   }
 }
 </script>
