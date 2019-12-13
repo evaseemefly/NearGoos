@@ -48,7 +48,8 @@
                         @open="selectMenu"
                         @click.native="selectMenu(father.key, child.key)"
                         background-color="#0b6fb1"
-                      >{{ child.val }}</el-menu-item>
+                        >{{ child.val }}</el-menu-item
+                      >
                     </el-submenu>
                   </el-menu>
                 </el-col>
@@ -77,11 +78,7 @@
               </div>
               <!-- 产品图片 -->
               <div class="product-img">
-                <img
-                  src="/images/product/data/ftpdownload/wave/2019/10/30/coast04.png"
-                  width="70%"
-                  height="70%"
-                />
+                <img :src="currentImgUrl" width="70%" height="70%" />
               </div>
             </div>
           </div>
@@ -130,10 +127,7 @@
                 <div class="form-content">
                   <div class="form-group">
                     <label for>Period</label>
-                    <el-select
-                      v-model="optionPeriodVal"
-                      placeholder="请选择"
-                    >
+                    <el-select v-model="optionPeriodVal" placeholder="请选择">
                       <el-option
                         v-for="item in optionsPeriod"
                         :key="item.key"
@@ -177,10 +171,7 @@
                     <span>73</span>
                   </div>
                   <div class="btn">
-                    <button
-                      type="submit"
-                      class="btn btn-primary col-md-6"
-                    >
+                    <button type="submit" class="btn btn-primary col-md-6">
                       SEARCH
                     </button>
                   </div>
@@ -201,14 +192,8 @@
                 style="width: 100%"
                 @selection-change="handleSelectionChange"
               >
-                <el-table-column
-                  type="selection"
-                  width="55"
-                ></el-table-column>
-                <el-table-column
-                  label="date"
-                  show-overflow-tooltip
-                >
+                <el-table-column type="selection" width="55"></el-table-column>
+                <el-table-column label="date" show-overflow-tooltip>
                   <template slot-scope="scope">{{ scope.row.date }}</template>
                 </el-table-column>
                 <el-table-column
@@ -216,11 +201,7 @@
                   label="name"
                   width="120"
                 ></el-table-column>
-                <el-table-column
-                  prop="area"
-                  width="120"
-                  label="area"
-                >
+                <el-table-column prop="area" width="120" label="area">
                   <template slot-scope="scope">
                     {{ areaConvert(scope.row.area) }}
                   </template>
@@ -313,7 +294,12 @@ export default class ProductView extends Vue {
   }> = [];
 
   // 选中的最近的图片的url
-  currentImageUrl: string = '';
+  // currentImageUrl: string =
+  // '/images/product/data/ftpdownload/wave/2019/10/30/coast04.png';
+
+  rootPath: string = '/images/product/data/ftpdownload/wave';
+  currentImgRelativePath: string = '';
+  currentImgFileName: string = '';
 
   handleOpen() {
     console.log('展开');
@@ -462,9 +448,19 @@ export default class ProductView extends Vue {
     getProductImageUrl(params).then((res: any) => {
       if (res.status === 200) {
         console.log(res.data);
-        _that.currentImageUrl = res.data.imageUrl;
+        // _that.currentImageUrl = res.data.imageUrl;
+        _that.currentImgRelativePath = res.data.relativePath;
+        _that.currentImgFileName = res.data.name;
       }
     });
+  }
+
+  get currentImgUrl(): string {
+    return [
+      this.rootPath,
+      this.currentImgRelativePath,
+      this.currentImgFileName,
+    ].join('/');
   }
 
   get computedTest() {
