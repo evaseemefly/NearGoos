@@ -45,7 +45,7 @@ const getProductResByConCondition = (params: any) => {
  * @returns
  */
 const getProductImageUrl = (params: ProductImageCondition) => {
-  const url = `${host}/product/list`;
+  const url = `${host}/product/lastproduct`;
   return axios.get(url, {
     params: {
       cateogry: params.cateogry,
