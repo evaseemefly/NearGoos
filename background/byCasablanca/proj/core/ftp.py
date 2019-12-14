@@ -11,7 +11,11 @@ from model.models import ProductInfoModel
 # 自定义工具
 from common import tools
 from core.db import DBFactory
+#
+from common.enum import Area, ProductType
 
+
+from core.product import ProductFactory
 
 class Ftp:
     ftp = None
@@ -161,9 +165,19 @@ class ProductFile:
                         # todo:[*] 19-10-30 加入写入数据库的操作，此处暂时先这样实现，需要改为工厂模式
                         # db = DBFactory()
                         # todo:[*] 19-10-31 此处的interval未完成——此处可以暂时不写间隔
+                        # 此处需要对间隔加上处理
+                        # 数据名称主要分为三类：
+                        #           1- 间隔：24小时，24-120,index同间隔
+                        #           2- 间隔：24小时，24-120,index:04-18,间隔:4
+                        #           3- 间隔：3h,00-72,海表面高度
+                        # todo:[*] 19-12-12 此处新加入一个根据name,area,type,获取对应的 interval index 的功能
+                        factory = ProductFactory()
+                        product_instance = factory.create_product(
+                            ''.join([str(product.producttype.name), area_temp.area.name]))()
+                        interval_index = product_instance.get_interval_str(file_temp);
                         db.insert_to_db(name=file_temp,
                                         area=area_temp.area,
-                                        interval=0,
+                                        interval=interval_index,
                                         image_url=final_path,
                                         target_date=datetime.utcnow(),
                                         type=product.producttype,
@@ -175,6 +189,16 @@ class ProductFile:
                         # self.ftp.delete_file(file_temp)
                     # db.commit()
         # pass
+        pass
+
+    def _get_interval_index(self, filename: str, area: Area, type: ProductType, re_str):
+        '''
+            根据 name,type,area获取对应的时间间隔index
+        :param filename:
+        :param area:
+        :param type:
+        :return:
+        '''
         pass
 
     def _get_match_list(self, re_str: str) -> []:
@@ -192,3 +216,5 @@ class ProductFile:
                                    interval=int(kwargs.get('interval')), image_url=kwargs.get('image_url'),
                                    target_date=kwargs.get('target_date'), gmt_create=kwargs.get('create'),
                                    gmt_modified=kwargs.get('modified'), type=kwargs.get('type'))
+
+

@@ -78,7 +78,7 @@
               </div>
               <!-- 产品图片 -->
               <div class="product-img">
-                <img src="image/Product_img.jpg" width="70%" height="70%" />
+                <img :src="currentImgUrl" width="70%" height="70%" />
               </div>
             </div>
           </div>
@@ -293,6 +293,14 @@ export default class ProductView extends Vue {
     type: number;
   }> = [];
 
+  // 选中的最近的图片的url
+  // currentImageUrl: string =
+  // '/images/product/data/ftpdownload/wave/2019/10/30/coast04.png';
+
+  rootPath: string = '/images/product/data/ftpdownload/wave';
+  currentImgRelativePath: string = '';
+  currentImgFileName: string = '';
+
   handleOpen() {
     console.log('展开');
   }
@@ -440,8 +448,19 @@ export default class ProductView extends Vue {
     getProductImageUrl(params).then((res: any) => {
       if (res.status === 200) {
         console.log(res.data);
+        // _that.currentImageUrl = res.data.imageUrl;
+        _that.currentImgRelativePath = res.data.relativePath;
+        _that.currentImgFileName = res.data.name;
       }
     });
+  }
+
+  get currentImgUrl(): string {
+    return [
+      this.rootPath,
+      this.currentImgRelativePath,
+      this.currentImgFileName,
+    ].join('/');
   }
 
   get computedTest() {
