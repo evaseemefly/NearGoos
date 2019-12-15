@@ -55,9 +55,22 @@ const getProductImageUrl = (params: ProductImageCondition) => {
   });
 };
 
+/**
+ * 从数据库中动态获取types
+ *
+ * @returns
+ */
+const getTypesByDb = () => {
+  const url = `${host}/product/typesbydb`;
+  return axios.get(url, {
+    params: {},
+  });
+}
+
 export {
   getAllArea,
   getAllTypesMenu,
   getProductResByConCondition,
   getProductImageUrl,
+  getTypesByDb,
 };
