@@ -57,7 +57,7 @@
                     <div  class="card-form">
                         <div class="title">Buoy</div>
                         <div class="body">
-                            <ul id>
+                            <ul>
                               <!-- v-for循环没有成功,先遗留 -->
                                   <li>file numbers:<span>{{statistics_result[0].fileNumber}}</span></li>
                                 <li>total size(Byte): <span>{{statistics_result[0].size}}</span></li>
@@ -239,7 +239,7 @@ const getStatisticsByCategory =  () => {
 //灰色背景
 @graybackground: {
   
-  background: rgba(215, 215, 215, 1);
+  background: rgba(215, 215, 215, 0.7);
 };
 // 统一白色form中的font样式
 @whitefont: {
@@ -399,8 +399,9 @@ const getStatisticsByCategory =  () => {
       @margindefault();
       @borderradius();
       .statistics-title {
-        @minortitle();
-        
+        // @minortitle();
+        font-size: 2em;
+        color: black;
         // font-size: ;
       }
       form {
@@ -410,8 +411,12 @@ const getStatisticsByCategory =  () => {
         .form-group {
           display: flex;
           justify-content: space-around;
+          
+          font-size: 1.5em;
+          
           label {
-            @whitefont();
+            // @whitefont();
+            color: black;
           }
         }
         .btn {
