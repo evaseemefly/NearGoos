@@ -113,14 +113,14 @@
                     
                    
                         <el-form-item label="Area" prop="area">
-                            <el-select v-model="category" size="mini" placeholder="All categories">
+                            <el-select v-model="category" size="mini" placeholder="All areas">
                               <el-option v-for="item in area_list" :key="item.id" :label="item.name" :value="item.name"></el-option>
                             </el-select>
                         </el-form-item>
                     
                     
                         <el-form-item label="Source" prop="category">
-                            <el-select v-model="category" size="mini" placeholder="All categories">
+                            <el-select v-model="category" placeholder="All sources">
                               <el-option v-for="item in statistics_result" :key="item.categoryId" :label="item.name" :value="item.name"></el-option>
                             </el-select>
                         </el-form-item>
@@ -156,6 +156,7 @@ export default class DataView extends Vue {
   mydata: any = null;
   statistics_result: any = [];
   area_list : any = [];
+  source_list: any =[];
   //接受后台返回的类型列表
   //cate_list: any = []
   // params = 'FUB';
@@ -180,15 +181,23 @@ mounted() {
       //   }
       // }
       }else{
-        alert('请求失败');
+        alert('数据统计请求失败');
       }
     })
-
+    //获取全部区域
     getAllArea().then((res:any)=>{
       if(res.status ===200){
           this.area_list = res.data;
       }else{
-        alert('请求失败');
+        alert('区域获取请求失败');
+      }
+    })
+    //获取全部数据源
+    getAllSource().then((res:any)=>{
+      if(res.status ===200){
+          this.source_list = res.data;
+      }else{
+        alert('数据源获取请求失败')
       }
     })
   }
@@ -218,6 +227,17 @@ mounted() {
 //获取全部海区
 const getAllArea = () =>{
   let url = `${host}/data/getAllArea`
+  return axios.get(
+    url,
+    {
+      params: []
+    }
+  )
+}
+
+//获取全部数据源
+const getAllSource = () => {
+  let url = `${host}/data/getAllSource`
   return axios.get(
     url,
     {
