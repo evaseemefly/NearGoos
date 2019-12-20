@@ -100,41 +100,49 @@
                     SEARCH
                 </div><br>
                 <!-- 搜索条件form -->
-                <form>
-                    <div class="form-group">
-                        <label for="">Category</label>
-                        <select>
+                <el-form>
+                    
+                        <el-form-item label="Category" prop="category">
+                            <el-select v-model="category" size="mini" placeholder="All categories">
+                              <el-option v-for="item in statistics_result" :key="item.categoryId" :label="item.name" :value="item.name"></el-option>
+                            </el-select>
+                        </el-form-item>
+                        <!-- <select>
                             <option value="volvo">All Area</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="">Area</label>
-                        <select>
-                            <option value="volvo">All Area</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="">Source</label>
-                        <select>
-                            <option value="volvo">All Area</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="">start date</label>
-                        <select>
-                            <option value="volvo">All Area</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="">end date</label>
-                        <select>
-                            <option value="volvo">All Area</option>
-                        </select>
-                    </div>
+                        </select> -->
+                    
+                   
+                        <el-form-item label="Area" prop="area">
+                            <el-select v-model="category" size="mini" placeholder="All categories">
+                              <el-option v-for="item in area_list" :key="item.id" :label="item.name" :value="item.name"></el-option>
+                            </el-select>
+                        </el-form-item>
+                    
+                    
+                        <el-form-item label="Source" prop="category">
+                            <el-select v-model="category" size="mini" placeholder="All categories">
+                              <el-option v-for="item in statistics_result" :key="item.categoryId" :label="item.name" :value="item.name"></el-option>
+                            </el-select>
+                        </el-form-item>
+                    
+                    
+                        <el-form-item label="Start Time" prop="category">
+                            <el-select v-model="category" size="mini" placeholder="All categories">
+                              <el-option v-for="item in statistics_result" :key="item.categoryId" :label="item.name" :value="item.name"></el-option>
+                            </el-select>
+                        </el-form-item>
+                    
+                    
+                        <el-form-item label="End Time" prop="category">
+                            <el-select v-model="category" size="mini" placeholder="All categories">
+                              <el-option v-for="item in statistics_result" :key="item.categoryId" :label="item.name" :value="item.name"></el-option>
+                            </el-select>
+                        </el-form-item>
+                    
                     <div class="btn">
                         <button type="submit" class="btn btn-primary col-md-6">Search</button>
                     </div>
-                </form>
+                </el-form>
             </div>
         </div>
   </div>
@@ -147,14 +155,16 @@ const host = 'http://localhost:8083'
 export default class DataView extends Vue {
   mydata: any = null;
   statistics_result: any = [];
-  
+  area_list : any = [];
+  //接受后台返回的类型列表
+  //cate_list: any = []
   // params = 'FUB';
   // statistics_fileNumber: any= '-';
   // statistics_size: any = '-';
   // statistics_beginTime:any = '-';
   // statistics_endTime: any='-';
   // statistics_name : string = '';
-created() {
+mounted() {
       getStatisticsByCategory().then((res:any)=>{
       if(res.status ===200){
         this.statistics_result = res.data;
@@ -169,6 +179,14 @@ created() {
       //     this.statistics_result[j].endTime = this.statistics_result[j].endTime.toUTCString();
       //   }
       // }
+      }else{
+        alert('请求失败');
+      }
+    })
+
+    getAllArea().then((res:any)=>{
+      if(res.status ===200){
+          this.area_list = res.data;
       }else{
         alert('请求失败');
       }
@@ -197,9 +215,18 @@ created() {
 //   }
 // })
 
+//获取全部海区
+const getAllArea = () =>{
+  let url = `${host}/data/getAllArea`
+  return axios.get(
+    url,
+    {
+      params: []
+    }
+  )
+}
 
-
-//获取统计信息
+//根据类别获取统计信息
 const getStatisticsByCategory =  () => {
   let url = `${host}/data/statistics`
   return axios.get(
@@ -404,19 +431,21 @@ const getStatisticsByCategory =  () => {
         color: black;
         // font-size: ;
       }
-      form {
+      .el-form {
         display: flex;
+        flex: 1;
         flex-direction: column;
-
-        .form-group {
+        justify-content: center;
+        .el-select {
           display: flex;
-          justify-content: space-around;
-          
+          flex: 1;
+          justify-content: center;
           font-size: 1.5em;
-          
+          width: 40%;
           label {
             // @whitefont();
             color: black;
+            font-size: 2em;
           }
         }
         .btn {
