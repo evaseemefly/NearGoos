@@ -100,11 +100,11 @@
                     SEARCH
                 </div><br>
                 <!-- 搜索条件form -->
-                <el-form>
+                <el-form :model="search_form">
                     
-                        <el-form-item label="Category" prop="category">
-                            <el-select v-model="category" size="mini" placeholder="All categories">
-                              <el-option v-for="item in statistics_result" :key="item.categoryId" :label="item.name" :value="item.name"></el-option>
+                        <el-form-item label="Category">
+                            <el-select  v-model="category_selected" value-key="id" placeholder="All categories">
+                              <el-option v-for="item in category_list" :key="item.id" :label="item.name" :value="item"></el-option>
                             </el-select>
                         </el-form-item>
                         <!-- <select>
@@ -112,31 +112,27 @@
                         </select> -->
                     
                    
-                        <el-form-item label="Area" prop="area">
-                            <el-select v-model="category" size="mini" placeholder="All areas">
-                              <el-option v-for="item in area_list" :key="item.id" :label="item.name" :value="item.name"></el-option>
+                        <el-form-item label="Area">
+                            <el-select v-model="area_selected" value-key="id"  placeholder="All areas">
+                              <el-option v-for="item in area_list" :key="item.id" :label="item.name" :value="item"></el-option>
                             </el-select>
                         </el-form-item>
                     
                     
-                        <el-form-item label="Source" prop="category">
-                            <el-select v-model="category" placeholder="All sources">
-                              <el-option v-for="item in statistics_result" :key="item.categoryId" :label="item.name" :value="item.name"></el-option>
+                        <el-form-item label="Source">
+                            <el-select v-model="source_selected" value-key="id" placeholder="All sources">
+                              <el-option v-for="item in source_list" :key="item.id" :label="item.name" :value="item"></el-option>
                             </el-select>
                         </el-form-item>
                     
                     
-                        <el-form-item label="Start Time" prop="category">
-                            <el-select v-model="category" size="mini" placeholder="All categories">
-                              <el-option v-for="item in statistics_result" :key="item.categoryId" :label="item.name" :value="item.name"></el-option>
-                            </el-select>
+                        <el-form-item label="Start Time">
+                            <el-date-picker v-model="startTime_selected" type="datetime" placeholder="select start time" @change="dataSearch" value-format="yyyy-MM-dd HH" format="yyyy-MM-dd HH"></el-date-picker>
                         </el-form-item>
                     
                     
-                        <el-form-item label="End Time" prop="category">
-                            <el-select v-model="category" size="mini" placeholder="All categories">
-                              <el-option v-for="item in statistics_result" :key="item.categoryId" :label="item.name" :value="item.name"></el-option>
-                            </el-select>
+                        <el-form-item label="End Time">
+                         <el-date-picker v-model="startTime_selected" type="datetime" placeholder="select start time" @change="dataSearch" value-format="yyyy-MM-dd HH" format="yyyy-MM-dd HH"></el-date-picker>
                         </el-form-item>
                     
                     <div class="btn">
@@ -157,6 +153,12 @@ export default class DataView extends Vue {
   statistics_result: any = [];
   area_list : any = [];
   source_list: any =[];
+  category_list:any=[];
+  category_selected = {};
+  area_selected = {};
+  source_selected = {};
+  startTime_selected =''; 
+  endTime_selected = '';
   //接受后台返回的类型列表
   //cate_list: any = []
   // params = 'FUB';
@@ -192,6 +194,14 @@ mounted() {
         alert('区域获取请求失败');
       }
     })
+       //获取全部数据类型
+    getAllCategory().then((res:any)=>{
+      if(res.status ===200){
+          this.category_list = res.data;
+      }else{
+        alert('区域获取请求失败');
+      }
+    })
     //获取全部数据源
     getAllSource().then((res:any)=>{
       if(res.status ===200){
@@ -200,6 +210,9 @@ mounted() {
         alert('数据源获取请求失败')
       }
     })
+
+    this.startTime_selected = initData();
+    this.endTime_selected = initData();
   }
   get computedTest() {
     return null;
@@ -246,6 +259,18 @@ const getAllSource = () => {
   )
 }
 
+
+//获取全部数据类型
+const getAllCategory = () => {
+  let url = `${host}/data/getAllCategory`
+  return axios.get(
+    url,
+    {
+      params: []
+    }
+  )
+}
+
 //根据类别获取统计信息
 const getStatisticsByCategory =  () => {
   let url = `${host}/data/statistics`
@@ -257,6 +282,19 @@ const getStatisticsByCategory =  () => {
   
   )
 }
+
+//初始化时间
+const initData = () =>{
+      var now   = new Date();
+      var monthn = now.getMonth()+1;
+      var yearn  = now.getFullYear();
+      var dayn = now.getDate();
+      var h = now.getHours();
+      return yearn+"-"+monthn+"-"+dayn+" "+h;
+}
+
+
+//测试回显
 
 // var getStatictisByCategory = new Vue({
 //   el:'#statistics',
