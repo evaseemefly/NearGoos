@@ -3,9 +3,19 @@
 ## 安装
 
 ```
-npm install
+1.控制台依次安装nodejs，npm(新版nodejs自带), express，cnpm, vue-cil,webpack 相关命令如下：
+  npm config set prefix "XXXX\nodejs\node_global"
+  npm config set cache"XXXX\nodejs\node_cache"
+  npm install express -g
+  npm install -g cnpm --registry=https://registry.npm.taobao.org
+  npm install --global vue-cli
+  npm install -g webpack
 ```
+### 初始化工程
 
+```
+npm install （如果速度问题可以使用cnpm）
+```
 ### 启动
 
 ```

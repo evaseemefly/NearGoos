@@ -24,7 +24,7 @@
           >
         </li>
         <li>
-          <router-link to="/content">Data</router-link>
+          <router-link :to="{ path: '/content/data' }">Data</router-link>
         </li>
         <li>
           <router-link :to="{ path: '/content/product' }">Product</router-link>
