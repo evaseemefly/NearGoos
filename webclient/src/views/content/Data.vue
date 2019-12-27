@@ -140,8 +140,32 @@
                     </div>
                 </el-form>
             </div>
+          </div>
+            <!-- 查询结果 -->
+            <div class="center-footer">
+                <div class="center-footer-card-header">
+                RESULTS
+            </div>
+                 <div class="center-footer-card-body">
+                   <!-- 表头内容 -->
+                   <!-- <div class="table table-striped table-bordered"> -->
+                  <el-table class="table table-striped table-bordered" :data="results_data" ref="multipleTable"> 
+                    <el-table-column type="selection"></el-table-column>
+                    <el-table-column type="index" label="Index"></el-table-column>
+                    <el-table-column prop="id" label="Id" ></el-table-column>
+                    <el-table-column prop="name" label="Filename" ></el-table-column>
+                    <el-table-column prop="date" label="Date" ></el-table-column>
+                    <el-table-column prop="category" label="Category" ></el-table-column>
+                    <el-table-column prop="area" label="Area" ></el-table-column>
+                    <el-table-column prop="source" label="Source" ></el-table-column>
+                    <el-table-column prop="size" label="Size(Byte)" ></el-table-column>
+                  </el-table>
+                 <div>
+                 </div>
+            <!-- </div> -->
         </div>
   </div>
+</div>
 </template>
 <script lang="ts">
 import { Component, Prop, Vue, Watch } from "vue-property-decorator";
@@ -159,6 +183,7 @@ export default class DataView extends Vue {
   source_selected = {};
   startTime_selected =''; 
   endTime_selected = '';
+  results_data: any =[];
   //接受后台返回的类型列表
   //cate_list: any = []
   // params = 'FUB';
@@ -182,6 +207,11 @@ mounted() {
       //     this.statistics_result[j].endTime = this.statistics_result[j].endTime.toUTCString();
       //   }
       // }
+
+
+
+
+
       }else{
         alert('数据统计请求失败');
       }
@@ -213,6 +243,32 @@ mounted() {
 
     this.startTime_selected = initData();
     this.endTime_selected = initData();
+
+    this.results_data = [{
+                id:'12323',
+                date: '2016-05-03',
+                name: '王小虎',
+                category: '上海市普陀区金沙江路 1518 弄',
+                area:'ddd',
+                source:'ddddaaaaaa',
+                size:'1'
+            }, {
+                id:'21231',
+                date: '2016-05-02',
+                name: '王小虎',
+                category: '上海市普陀区金沙江路 1518 弄',
+                area:'ddd',
+                source:'ddddaaaaaa',
+                size:'0'
+            }, {
+                id:'3123123',
+                date: '2016-05-02',
+                name: '王小虎',
+                category: '上海市普陀区金沙江路 1518 弄',
+                area:'ddd',
+                source:'ddddaaaaaa',
+                size:'-1'
+            }]
   }
   get computedTest() {
     return null;
@@ -523,16 +579,20 @@ const initData = () =>{
     display: flex;
     flex: 2;
     // background: rgb(42, 134, 146);
-    @bluebackground();
+    @graybackground();
     flex-direction: column;
     @margindefault();
     @borderradius();
     .center-footer-card-header {
-      @minortitle();
+      font-size: 2em;
+      color: black;
     }
 
     .center-footer-card-body {
       background: white;
+      font-size: 1em;
+        color: black; 
+        align-self: auto;
     }
   }
 }
