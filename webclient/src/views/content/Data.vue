@@ -104,7 +104,7 @@
                     
                         <el-form-item label="Category">
                             <el-select  v-model="category_selected" value-key="id" placeholder="select category">
-                              <el-option v-for="item in category_list" :key="item.id" :label="item.name" :value="item"></el-option>
+                              <el-option v-for="item in category_list" :key="item.id" :label="item.name" :value="item.id"></el-option>
                             </el-select>
                         </el-form-item>
                         <!-- <select>
@@ -114,14 +114,14 @@
                    
                         <el-form-item label="Area">
                             <el-select v-model="area_selected" value-key="id"  placeholder="select area">
-                              <el-option v-for="item in area_list" :key="item.id" :label="item.name" :value="item"></el-option>
+                              <el-option v-for="item in area_list" :key="item.id" :label="item.name" :value="item.id"></el-option>
                             </el-select>
                         </el-form-item>
                     
                     
                         <el-form-item label="Source">
                             <el-select v-model="source_selected" value-key="id" placeholder="select source">
-                              <el-option v-for="item in source_list" :key="item.id" :label="item.name" :value="item"></el-option>
+                              <el-option v-for="item in source_list" :key="item.id" :label="item.name" :value="item.id"></el-option>
                             </el-select>
                         </el-form-item>
                     
@@ -136,7 +136,7 @@
                         </el-form-item>
                     
                     <div class="btn">
-                        <button type="submit" class="btn btn-primary col-md-6" @click="submitForm($event)">Search Data</button>
+                        <button type="submit" class="btn btn-primary col-md-6" @click="submitForm">Search Data</button>
                     </div>
                 </el-form>
             </div>
@@ -178,39 +178,18 @@ export default class DataView extends Vue {
   area_list : any = [];
   source_list: any =[];
   category_list:any=[];
-  category_selected = {};
-  area_selected = {};
-  source_selected = {};
-  startTime_selected =''; 
-  endTime_selected = '';
+  category_selected = '';
+  area_selected = '';
+  source_selected = '';
+  startTime_selected = initData(); 
+  endTime_selected = initData();
   results_data: any =[];
-  //接受后台返回的类型列表
-  //cate_list: any = []
-  // params = 'FUB';
-  // statistics_fileNumber: any= '-';
-  // statistics_size: any = '-';
-  // statistics_beginTime:any = '-';
-  // statistics_endTime: any='-';
-  // statistics_name : string = '';
+  
+// lifecycle hook
 mounted() {
       getStatisticsByCategory().then((res:any)=>{
       if(res.status ===200){
         this.statistics_result = res.data;
-        // alert(this.statistics_result[0].size);
-      //   //时间转换为UTC时间
-      //   //优化：长度缓存，避免重复获取，数组很大时优化效果明显
-      // for(var j = 0, len = this.statistics_result.length; j< len; j++) {
-      //   if(this.statistics_result[j].beginTime == null){
-
-      //   }else{
-      //     this.statistics_result[j].beginTime = this.statistics_result[j].beginTime.toUTCString();
-      //     this.statistics_result[j].endTime = this.statistics_result[j].endTime.toUTCString();
-      //   }
-      // }
-
-
-
-
 
       }else{
         alert('数据统计请求失败');
@@ -241,9 +220,6 @@ mounted() {
       }
     })
 
-    this.startTime_selected = initData();
-    this.endTime_selected = initData();
-
     this.results_data = [{
                 id:'12323',
                 date: '2016-05-03',
@@ -271,28 +247,23 @@ mounted() {
             }]
   }
 
+  //computed
   get computedTest() {
     return null;
   }
+
+  //methods
+  submitForm(){
+    let formData = new FormData();
+  
+  //绑定数据
+  formData.append('categoryId', this.category_selected);
+  formData.append('areaId', this.area_selected);
+  formData.append('sourceId', this.source_selected);
+  formData.append('beginTime', this.startTime_selected);
+  formData.append('endTime', this.endTime_selected);
+  }
 }
-//统计栏数据交互
-// var statisticVM = new Vue({
-//   el:'#statistics',
-//   data:{
-//     statistics_data:[]
-//   },
-//   created:function(){
-//     var self = this;
-//     getStatisticsByCategoryName().then((res:any)=>{
-//       if(res.status ===200){
-//         self.statistics_data = res.data
-//         alert('成功');
-//       }else{
-//         alert('请求失败');
-//       }
-//     })
-//   }
-// })
 
 //获取全部海区
 const getAllArea = () =>{
@@ -353,14 +324,7 @@ const initData = () =>{
 
 //查询
 const searchData = () =>{
-      let formData = new FormData();
-  
-  //绑定数据
-  formData.append('categoryId', category_selected.id);
-  formData.append('areaId', this.form.area_selected.id);
-  formData.append('sourceId', this.form.source_selected.id);
-  formData.append('beginTime', this.form.startTime_selected);
-  formData.append('endTime', this.form.endTime_selected);
+
 
 }
 
