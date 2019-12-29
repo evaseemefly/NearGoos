@@ -103,7 +103,7 @@
                 <el-form :model="search_form">
                     
                         <el-form-item label="Category">
-                            <el-select  v-model="category_selected" value-key="id" placeholder="All categories">
+                            <el-select  v-model="category_selected" value-key="id" placeholder="select category">
                               <el-option v-for="item in category_list" :key="item.id" :label="item.name" :value="item"></el-option>
                             </el-select>
                         </el-form-item>
@@ -113,14 +113,14 @@
                     
                    
                         <el-form-item label="Area">
-                            <el-select v-model="area_selected" value-key="id"  placeholder="All areas">
+                            <el-select v-model="area_selected" value-key="id"  placeholder="select area">
                               <el-option v-for="item in area_list" :key="item.id" :label="item.name" :value="item"></el-option>
                             </el-select>
                         </el-form-item>
                     
                     
                         <el-form-item label="Source">
-                            <el-select v-model="source_selected" value-key="id" placeholder="All sources">
+                            <el-select v-model="source_selected" value-key="id" placeholder="select source">
                               <el-option v-for="item in source_list" :key="item.id" :label="item.name" :value="item"></el-option>
                             </el-select>
                         </el-form-item>
@@ -136,7 +136,7 @@
                         </el-form-item>
                     
                     <div class="btn">
-                        <button type="submit" class="btn btn-primary col-md-6">Search</button>
+                        <button type="submit" class="btn btn-primary col-md-6" @click="submitForm($event)">Search Data</button>
                     </div>
                 </el-form>
             </div>
@@ -270,6 +270,7 @@ mounted() {
                 size:'-1'
             }]
   }
+
   get computedTest() {
     return null;
   }
@@ -349,6 +350,19 @@ const initData = () =>{
       return yearn+"-"+monthn+"-"+dayn+" "+h;
 }
 
+
+//查询
+const searchData = () =>{
+      let formData = new FormData();
+  
+  //绑定数据
+  formData.append('categoryId', category_selected.id);
+  formData.append('areaId', this.form.area_selected.id);
+  formData.append('sourceId', this.form.source_selected.id);
+  formData.append('beginTime', this.form.startTime_selected);
+  formData.append('endTime', this.form.endTime_selected);
+
+}
 
 //测试回显
 
