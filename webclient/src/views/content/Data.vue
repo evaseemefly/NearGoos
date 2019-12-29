@@ -72,7 +72,7 @@
                         <div class="title">Station</div>
                         <div class="body">
                             <ul>
-<li>file numbers:<span>{{statistics_result[1].fileNumber}}</span></li>
+                                <li>file numbers:<span>{{statistics_result[1].fileNumber}}</span></li>
                                 <li>total size(Byte): <span>{{statistics_result[1].size}}</span></li>
                                 <li>begin time: <span>{{statistics_result[1].beginTime}}</span></li>
                                 <li>end time: <span>{{statistics_result[1].endTime}}</span></li>
@@ -127,16 +127,16 @@
                     
                     
                         <el-form-item label="Start Time">
-                            <el-date-picker v-model="startTime_selected" type="datetime" placeholder="select start time" @change="dataSearch" value-format="yyyy-MM-dd HH" format="yyyy-MM-dd HH"></el-date-picker>
+                            <el-date-picker v-model="startTime_selected" type="datetime" placeholder="select start time(UTC)" @change="dataSearch" value-format="yyyy-MM-dd HH" format="yyyy-MM-dd HH"></el-date-picker>
                         </el-form-item>
                     
                     
                         <el-form-item label="End Time">
-                         <el-date-picker v-model="startTime_selected" type="datetime" placeholder="select start time" @change="dataSearch" value-format="yyyy-MM-dd HH" format="yyyy-MM-dd HH"></el-date-picker>
+                         <el-date-picker v-model="endTime_selected" type="datetime" placeholder="select end time(UTC)" @change="dataSearch" value-format="yyyy-MM-dd HH" format="yyyy-MM-dd HH"></el-date-picker>
                         </el-form-item>
                     
                     <div class="btn">
-                        <button type="submit" class="btn btn-primary col-md-6" @click="submitForm">Search Data</button>
+                        <el-button type="success" class="btn btn-primary col-md-6" @click="submitForm">Search Data</el-button>
                     </div>
                 </el-form>
             </div>
@@ -149,9 +149,9 @@
                  <div class="center-footer-card-body">
                    <!-- 表头内容 -->
                    <!-- <div class="table table-striped table-bordered"> -->
-                  <el-table class="table table-striped table-bordered" :data="results_data" ref="multipleTable"> 
+                  <el-table class="result_table" :data="results_data" ref="multipleTable"> 
                     <el-table-column type="selection"></el-table-column>
-                    <el-table-column type="index" label="Index"></el-table-column>
+                    <el-table-column type="index" label="Index" width="80px"></el-table-column>
                     <el-table-column prop="id" label="Id" ></el-table-column>
                     <el-table-column prop="name" label="Filename" ></el-table-column>
                     <el-table-column prop="date" label="Date" ></el-table-column>
@@ -160,6 +160,8 @@
                     <el-table-column prop="source" label="Source" ></el-table-column>
                     <el-table-column prop="size" label="Size(Byte)" ></el-table-column>
                   </el-table>
+                  <el-button type="success" class="btn_download" @click="submitForm">Download Data</el-button>
+
                  <div>
                  </div>
             <!-- </div> -->
@@ -178,11 +180,11 @@ export default class DataView extends Vue {
   area_list : any = [];
   source_list: any =[];
   category_list:any=[];
-  category_selected = '';
-  area_selected = '';
-  source_selected = '';
-  startTime_selected = initData(); 
-  endTime_selected = initData();
+  category_selected : any = null;
+  area_selected : any = null;
+  source_selected :any = null;
+  startTime_selected :any = null; 
+  endTime_selected :any = null;
   results_data: any =[];
   
 // lifecycle hook
@@ -220,31 +222,7 @@ mounted() {
       }
     })
 
-    this.results_data = [{
-                id:'12323',
-                date: '2016-05-03',
-                name: '王小虎',
-                category: '上海市普陀区金沙江路 1518 弄',
-                area:'ddd',
-                source:'ddddaaaaaa',
-                size:'1'
-            }, {
-                id:'21231',
-                date: '2016-05-02',
-                name: '王小虎',
-                category: '上海市普陀区金沙江路 1518 弄',
-                area:'ddd',
-                source:'ddddaaaaaa',
-                size:'0'
-            }, {
-                id:'3123123',
-                date: '2016-05-02',
-                name: '王小虎',
-                category: '上海市普陀区金沙江路 1518 弄',
-                area:'ddd',
-                source:'ddddaaaaaa',
-                size:'-1'
-            }]
+
   }
 
   //computed
@@ -254,14 +232,37 @@ mounted() {
 
   //methods
   submitForm(){
-    let formData = new FormData();
-  
+    alert('dd')
+    // let formData = new FormData();
+//     let config = {
+//    headers: {
+//     'Content-Type': 'multipart/form-data;boundary = ' + new Date().getTime()
+//     } 
+// }
+  let url = `${host}/data/getDataInfoResultsByQuery`
   //绑定数据
-  formData.append('categoryId', this.category_selected);
-  formData.append('areaId', this.area_selected);
-  formData.append('sourceId', this.source_selected);
-  formData.append('beginTime', this.startTime_selected);
-  formData.append('endTime', this.endTime_selected);
+
+  let data = {
+    'categoryId': this.category_selected ,
+    'areaId': this.area_selected,
+    'sourceId': this.source_selected,
+    'beginTime': this.startTime_selected,
+    'endTime': this.endTime_selected
+  }
+  // formData.append('categoryId', this.category_selected);
+  // formData.append('areaId', this.area_selected);
+  // formData.append('sourceId', this.source_selected);
+  // formData.append('beginTime', this.startTime_selected);
+  // formData.append('endTime', this.endTime_selected);
+  
+  axios.post(url,data).then(res=>{
+    alert(res.data);
+        this.results_data = res.data;
+  }).catch(err=>{
+    alert('err');
+  });
+
+
   }
 }
 
@@ -314,11 +315,13 @@ const getStatisticsByCategory =  () => {
 //初始化时间
 const initData = () =>{
       var now   = new Date();
-      var monthn = now.getMonth()+1;
-      var yearn  = now.getFullYear();
-      var dayn = now.getDate();
-      var h = now.getHours();
-      return yearn+"-"+monthn+"-"+dayn+" "+h;
+      var monthn = now.getUTCMonth()+1;
+      var yearn  = now.getUTCFullYear();
+      var dayn = now.getUTCDate();
+      var h = now.getUTCHours();
+      var m = now.getUTCMinutes();
+      var s = now.getUTCSeconds
+      return yearn+"-"+monthn+"-"+dayn+" "+h+" "+m+" "+s;
 }
 
 
@@ -571,6 +574,31 @@ const searchData = () =>{
       font-size: 1em;
         color: black; 
         align-self: auto;
+        .result_table{
+          height: 500px;
+          overflow: scroll;
+        }
+// 修改滚动条样式
+    // .table table-striped table-bordered::-webkit-scrollbar-thumb{
+    //     border-radius: 2px;
+    //     height: 50px;
+    //     background: #eee;
+    // }
+    // .table table-striped table-bordered::-webkit-scrollbar-track{
+    //     box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+    //     border-radius: 2px;
+    //     background: rgba(0,0,0,0.4);
+    // }
+        .btn_download {
+          display: flex;
+          justify-content: center;
+          margin:0 auto;
+          width: 200px;
+            @bluebackground();
+            border:none
+            // background-color: #2bbbad !important;
+          
+        }
     }
   }
 }
