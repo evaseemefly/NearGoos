@@ -79,7 +79,7 @@
                                 <li>format: txt</li>
                             </ul>
                         </div>
-                    </div> -->
+                    </div> 
                     <!-- ship -->
                     <div class="card-form">
                         <div class="title">Ship</div>
@@ -107,9 +107,6 @@
                               <el-option v-for="item in category_list" :key="item.id" :label="item.name" :value="item.id"></el-option>
                             </el-select>
                         </el-form-item>
-                        <!-- <select>
-                            <option value="volvo">All Area</option>
-                        </select> -->
                     
                    
                         <el-form-item label="Area">
