@@ -59,7 +59,7 @@
                         <div class="body">
                             <ul>
                               <!-- v-for循环没有成功,先遗留 -->
-                                  <li>file numbers:<span>{{statistics_result[0].fileNumber}}</span></li>
+                                <li>file numbers:<span>{{statistics_result[0].fileNumber}}</span></li>
                                 <li>total size(Byte): <span>{{statistics_result[0].size}}</span></li>
                                 <li>begin time: <span>{{statistics_result[0].beginTime}}</span></li>
                                 <li>end time: <span>{{statistics_result[0].endTime}}</span></li>
@@ -496,6 +496,7 @@ const searchData = () =>{
                 line-height: 3em;
                 color: white;
                 font-size: 1em;
+                list-style:none；
               }
             }
           }
