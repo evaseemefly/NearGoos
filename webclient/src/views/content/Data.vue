@@ -61,8 +61,8 @@
                               <!-- v-for循环没有成功,先遗留 -->
                                 <li>file numbers:<span>{{statistics_result[0].fileNumber}}</span></li>
                                 <li>total size(Byte): <span>{{statistics_result[0].size}}</span></li>
-                                <li>begin time: <span>{{statistics_result[0].beginTime}}</span></li>
-                                <li>end time: <span>{{statistics_result[0].endTime}}</span></li>
+                                <li>begin time: <span>{{statistics_result[0].endTime}}</span></li>
+                                <li>end time: <span>{{statistics_result[0].beginTime}}</span></li>
                                 <li>format: xml</li>
                             </ul>
                         </div>
@@ -74,8 +74,8 @@
                             <ul>
                                 <li>file numbers:<span>{{statistics_result[1].fileNumber}}</span></li>
                                 <li>total size(Byte): <span>{{statistics_result[1].size}}</span></li>
-                                <li>begin time: <span>{{statistics_result[1].beginTime}}</span></li>
-                                <li>end time: <span>{{statistics_result[1].endTime}}</span></li>
+                                <li>begin time: <span>{{statistics_result[1].endTime}}</span></li>
+                                <li>end time: <span>{{statistics_result[1].beginTime}}</span></li>
                                 <li>format: txt</li>
                             </ul>
                         </div>
@@ -87,8 +87,8 @@
                             <ul>
                               <li>file numbers:<span>{{statistics_result[2].fileNumber}}</span></li>
                                 <li>total size(Byte): <span>{{statistics_result[2].size}}</span></li>
-                                <li>begin time: <span>{{statistics_result[2].beginTime}}</span></li>
-                                <li>end time: <span>{{statistics_result[2].endTime}}</span></li>
+                                <li>begin time: <span>{{statistics_result[2].endTime}}</span></li>
+                                <li>end time: <span>{{statistics_result[2].beginTime}}</span></li>
                                 <li>format: -</li>
                             </ul>
                         </div>
