@@ -1,369 +1,335 @@
 <template>
   <div class="center">
-    <div class="center-welcome">
-      <div class="title">
-        <h1>WELCOME TO</h1>
-        <div class="important"><h1>RTDB</h1></div>
-      </div>
-      <div class="content">
-        <h3>To dowonload data, please read data introduction before</h3>
-      </div>
+  <div class="center-welcome">
+    <div class="title">
+      <h1>WELCOME TO</h1><div class="important"><h1> RTDB</h1></div>
     </div>
-    <div class="center-header ">
-      <div class="card-form center-header-left">
-        <div class="detail-card">
-          <div class="thumbnail">
-            <img src="/images/logo/BUOY_LOGO.png" />
-            <div class="caption">
-              <h3>Buoy</h3>
-              <p>
-                North Sea Buoy hourly data including elements: buoy id with
-                longitude and latitude; year, month, date, hour (UTC); sea level
-                air pressure, sea level air temperature; significant wave
-                height, maximum wave height; sea surface temperature; data file
-                format .csv.
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="card-form center-header-mid">
-        <div class="detail-card">
-          <div class="thumbnail">
-            <img src="/images/logo/STATION_LOGO.png" />
-            <div class="caption">
-              <h3>Station</h3>
-              <p>
-                14 stations hourly data including elements: station name with
-                longitude and latitude; year, month, date, hour (UTC); wind
-                direction, wind speed; sea level air pressure, sea level air
-                temperature; wave period, significant wave height, maximum wave
-                height; swell direction, swell period, swell height; sea surface
-                temperature; data file format .csv.
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="card-form center-header-right">
-        <div class="detail-card">
-          <div class="thumbnail">
-            <img src="/images/logo/SHIP_LOGO.png" />
-            <div class="caption">
-              <h3>Volunteer Ship</h3>
-              <p>
-                Chinese volunteer ships hourly data including elements: ship
-                name with longitude and latitude; year, month, date, hour (UTC);
-                wind direction, wind speed; sea level air pressure, sea level
-                air temperature; data file format .csv.
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="center-center ">
-      <div class="center-center-left blue-green-bg">
-        <!-- 统计的title -->
-        <div class="statistics-title">STATISTICS</div>
-        <br />
-        <!-- 下面的具体内容 -->
-        <div class="statistics-form">
-          <!-- station -->
-          <div class="card-form">
-            <div class="title">Buoy</div>
-            <div class="body">
-              <ul>
-                <!-- v-for循环没有成功,先遗留 -->
-                <li>
-                  file numbers:<span>{{
-                    statistics_result[0].fileNumber
-                  }}</span>
-                </li>
-                <li>
-                  total size(Byte): <span>{{ statistics_result[0].size }}</span>
-                </li>
-                <li>
-                  begin time: <span>{{ statistics_result[0].beginTime }}</span>
-                </li>
-                <li>
-                  end time: <span>{{ statistics_result[0].endTime }}</span>
-                </li>
-                <li>format: xml</li>
-              </ul>
-            </div>
-          </div>
-          <!-- fub -->
-          <div class="card-form">
-            <div class="title">Station</div>
-            <div class="body">
-              <ul>
-                <li>
-                  file numbers:<span>{{
-                    statistics_result[1].fileNumber
-                  }}</span>
-                </li>
-                <li>
-                  total size(Byte): <span>{{ statistics_result[1].size }}</span>
-                </li>
-                <li>
-                  begin time: <span>{{ statistics_result[1].beginTime }}</span>
-                </li>
-                <li>
-                  end time: <span>{{ statistics_result[1].endTime }}</span>
-                </li>
-                <li>format: txt</li>
-              </ul>
-            </div>
-          </div>
-          -->
-          <!-- ship -->
-          <div class="card-form">
-            <div class="title">Ship</div>
-            <div class="body">
-              <ul>
-                <li>
-                  file numbers:<span>{{
-                    statistics_result[2].fileNumber
-                  }}</span>
-                </li>
-                <li>
-                  total size(Byte): <span>{{ statistics_result[2].size }}</span>
-                </li>
-                <li>
-                  begin time: <span>{{ statistics_result[2].beginTime }}</span>
-                </li>
-                <li>
-                  end time: <span>{{ statistics_result[2].endTime }}</span>
-                </li>
-                <li>format: -</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="center-center-right default-bg">
-        <div class="statistics-title">
-          SEARCH
-        </div>
-        <br />
-        <!-- 搜索条件form -->
-        <el-form :model="search_form">
-          <el-form-item label="Category">
-            <el-select
-              v-model="category_selected"
-              value-key="id"
-              placeholder="All categories"
-            >
-              <el-option
-                v-for="item in category_list"
-                :key="item.id"
-                :label="item.name"
-                :value="item"
-              ></el-option>
-            </el-select>
-          </el-form-item>
-          <!-- <select>
-                            <option value="volvo">All Area</option>
-                        </select> -->
-
-          <el-form-item label="Area">
-            <el-select
-              v-model="area_selected"
-              value-key="id"
-              placeholder="All areas"
-            >
-              <el-option
-                v-for="item in area_list"
-                :key="item.id"
-                :label="item.name"
-                :value="item"
-              ></el-option>
-            </el-select>
-          </el-form-item>
-
-          <el-form-item label="Source">
-            <el-select
-              v-model="source_selected"
-              value-key="id"
-              placeholder="All sources"
-            >
-              <el-option
-                v-for="item in source_list"
-                :key="item.id"
-                :label="item.name"
-                :value="item"
-              ></el-option>
-            </el-select>
-          </el-form-item>
-
-          <el-form-item label="Start Time">
-            <el-date-picker
-              v-model="startTime_selected"
-              type="datetime"
-              placeholder="select start time"
-              @change="dataSearch"
-              value-format="yyyy-MM-dd HH"
-              format="yyyy-MM-dd HH"
-            ></el-date-picker>
-          </el-form-item>
-
-          <el-form-item label="End Time">
-            <el-date-picker
-              v-model="startTime_selected"
-              type="datetime"
-              placeholder="select start time"
-              @change="dataSearch"
-              value-format="yyyy-MM-dd HH"
-              format="yyyy-MM-dd HH"
-            ></el-date-picker>
-          </el-form-item>
-
-          <div class="btn">
-            <button type="submit" class="btn btn-primary col-md-6">
-              Search
-            </button>
-          </div>
-        </el-form>
-      </div>
+    <div class="content">
+      <h3>To dowonload data, please read data introduction before  </h3>
     </div>
   </div>
+<div class="center-header ">
+
+            <div class="card-form center-header-left">
+                <div class="detail-card">
+                    <div class="thumbnail">
+                        <img src="/images/logo/BUOY_LOGO.png">
+                        <div class="caption">
+                            <h3>Buoy</h3>
+                            <p>North Sea Buoy hourly data including elements: buoy id with longitude and latitude; year, month, date, hour (UTC); sea level air pressure, sea level air temperature; significant wave height, maximum wave height; sea surface temperature; data file format .csv.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-form center-header-mid">
+                <div class="detail-card">
+                    <div class="thumbnail">
+                        <img src="/images/logo/STATION_LOGO.png">
+                        <div class="caption">
+                            <h3>Station</h3>
+                            <p>14 stations hourly data including elements: station name with longitude and latitude; year, month, date, hour (UTC); wind direction, wind speed; sea level air pressure, sea level air temperature; wave period, significant wave height, maximum wave height; swell direction, swell period, swell height; sea surface temperature; data file format .csv.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-form center-header-right">
+                <div class="detail-card">
+                    <div class="thumbnail">
+                        <img src="/images/logo/SHIP_LOGO.png">
+                        <div class="caption">
+                            <h3>Volunteer Ship</h3>
+                            <p>Chinese volunteer ships hourly data including elements: ship name with longitude and latitude; year, month, date, hour (UTC); wind direction, wind speed; sea level air pressure, sea level air temperature; data file format .csv.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+                <div class="center-center ">
+                  <div class="center-center-left blue-green-bg">
+                <!-- 统计的title -->
+                <div class="statistics-title">STATISTICS</div><br>
+                <!-- 下面的具体内容 -->
+                <div class="statistics-form">
+                    <!-- station -->
+                    <div  class="card-form">
+                        <div class="title">Buoy</div>
+                        <div class="body">
+                            <ul>
+                              <!-- v-for循环没有成功,先遗留 -->
+                                  <li>file numbers:<span>{{statistics_result[0].fileNumber}}</span></li>
+                                <li>total size(Byte): <span>{{statistics_result[0].size}}</span></li>
+                                <li>begin time: <span>{{statistics_result[0].beginTime}}</span></li>
+                                <li>end time: <span>{{statistics_result[0].endTime}}</span></li>
+                                <li>format: xml</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- fub -->
+                    <div class="card-form">
+                        <div class="title">Station</div>
+                        <div class="body">
+                            <ul>
+                                <li>file numbers:<span>{{statistics_result[1].fileNumber}}</span></li>
+                                <li>total size(Byte): <span>{{statistics_result[1].size}}</span></li>
+                                <li>begin time: <span>{{statistics_result[1].beginTime}}</span></li>
+                                <li>end time: <span>{{statistics_result[1].endTime}}</span></li>
+                                <li>format: txt</li>
+                            </ul>
+                        </div>
+                    </div> -->
+                    <!-- ship -->
+                    <div class="card-form">
+                        <div class="title">Ship</div>
+                        <div class="body">
+                            <ul>
+                              <li>file numbers:<span>{{statistics_result[2].fileNumber}}</span></li>
+                                <li>total size(Byte): <span>{{statistics_result[2].size}}</span></li>
+                                <li>begin time: <span>{{statistics_result[2].beginTime}}</span></li>
+                                <li>end time: <span>{{statistics_result[2].endTime}}</span></li>
+                                <li>format: -</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="center-center-right default-bg">
+                <div class="statistics-title">
+                    SEARCH
+                </div><br>
+                <!-- 搜索条件form -->
+                <el-form :model="search_form">
+                    
+                        <el-form-item label="Category">
+                            <el-select  v-model="category_selected" value-key="id" placeholder="select category">
+                              <el-option v-for="item in category_list" :key="item.id" :label="item.name" :value="item.id"></el-option>
+                            </el-select>
+                        </el-form-item>
+                        <!-- <select>
+                            <option value="volvo">All Area</option>
+                        </select> -->
+                    
+                   
+                        <el-form-item label="Area">
+                            <el-select v-model="area_selected" value-key="id"  placeholder="select area">
+                              <el-option v-for="item in area_list" :key="item.id" :label="item.name" :value="item.id"></el-option>
+                            </el-select>
+                        </el-form-item>
+                    
+                    
+                        <el-form-item label="Source">
+                            <el-select v-model="source_selected" value-key="id" placeholder="select source">
+                              <el-option v-for="item in source_list" :key="item.id" :label="item.name" :value="item.id"></el-option>
+                            </el-select>
+                        </el-form-item>
+                    
+                    
+                        <el-form-item label="Start Time">
+                            <el-date-picker v-model="startTime_selected" type="datetime" placeholder="select start time(UTC)" @change="dataSearch" value-format="yyyy-MM-dd HH" format="yyyy-MM-dd HH"></el-date-picker>
+                        </el-form-item>
+                    
+                    
+                        <el-form-item label="End Time">
+                         <el-date-picker v-model="endTime_selected" type="datetime" placeholder="select end time(UTC)" @change="dataSearch" value-format="yyyy-MM-dd HH" format="yyyy-MM-dd HH"></el-date-picker>
+                        </el-form-item>
+                    
+                    <div class="btn">
+                        <el-button type="success" class="btn btn-primary col-md-6" @click="submitForm">Search Data</el-button>
+                    </div>
+                </el-form>
+            </div>
+          </div>
+            <!-- 查询结果 -->
+            <div class="center-footer">
+                <div class="center-footer-card-header">
+                RESULTS
+            </div>
+                 <div class="center-footer-card-body">
+                   <!-- 表头内容 -->
+                   <!-- <div class="table table-striped table-bordered"> -->
+                  <el-table class="result_table" :data="results_data" ref="multipleTable"> 
+                    <el-table-column type="selection"></el-table-column>
+                    <el-table-column type="index" label="Index" width="80px"></el-table-column>
+                    <el-table-column prop="id" label="Id" ></el-table-column>
+                    <el-table-column prop="name" label="Filename" ></el-table-column>
+                    <el-table-column prop="date" label="Date" ></el-table-column>
+                    <el-table-column prop="category" label="Category" ></el-table-column>
+                    <el-table-column prop="area" label="Area" ></el-table-column>
+                    <el-table-column prop="source" label="Source" ></el-table-column>
+                    <el-table-column prop="size" label="Size(Byte)" ></el-table-column>
+                  </el-table>
+                  <el-button type="success" class="btn_download" @click="submitForm">Download Data</el-button>
+
+                 <div>
+                 </div>
+            <!-- </div> -->
+        </div>
+  </div>
+</div>
 </template>
 <script lang="ts">
-import { Component, Prop, Vue, Watch } from 'vue-property-decorator';
+import { Component, Prop, Vue, Watch } from "vue-property-decorator";
 import axios from 'axios';
-const host = 'http://localhost:8083';
+const host = 'http://localhost:8083'
 @Component({})
 export default class DataView extends Vue {
   mydata: any = null;
   statistics_result: any = [];
-  area_list: any = [];
-  source_list: any = [];
-  category_list: any = [];
-  category_selected = {};
-  area_selected = {};
-  source_selected = {};
-  startTime_selected = '';
-  endTime_selected = '';
-  //接受后台返回的类型列表
-  //cate_list: any = []
-  // params = 'FUB';
-  // statistics_fileNumber: any= '-';
-  // statistics_size: any = '-';
-  // statistics_beginTime:any = '-';
-  // statistics_endTime: any='-';
-  // statistics_name : string = '';
-  mounted() {
-    getStatisticsByCategory().then((res: any) => {
-      if (res.status === 200) {
+  area_list : any = [];
+  source_list: any =[];
+  category_list:any=[];
+  category_selected : any = null;
+  area_selected : any = null;
+  source_selected :any = null;
+  startTime_selected :any = null; 
+  endTime_selected :any = null;
+  results_data: any =[];
+  
+// lifecycle hook
+mounted() {
+      getStatisticsByCategory().then((res:any)=>{
+      if(res.status ===200){
         this.statistics_result = res.data;
-        // alert(this.statistics_result[0].size);
-        //   //时间转换为UTC时间
-        //   //优化：长度缓存，避免重复获取，数组很大时优化效果明显
-        // for(var j = 0, len = this.statistics_result.length; j< len; j++) {
-        //   if(this.statistics_result[j].beginTime == null){
 
-        //   }else{
-        //     this.statistics_result[j].beginTime = this.statistics_result[j].beginTime.toUTCString();
-        //     this.statistics_result[j].endTime = this.statistics_result[j].endTime.toUTCString();
-        //   }
-        // }
-      } else {
+      }else{
         alert('数据统计请求失败');
       }
-    });
+    })
     //获取全部区域
-    getAllArea().then((res: any) => {
-      if (res.status === 200) {
-        this.area_list = res.data;
-      } else {
+    getAllArea().then((res:any)=>{
+      if(res.status ===200){
+          this.area_list = res.data;
+      }else{
         alert('区域获取请求失败');
       }
-    });
-    //获取全部数据类型
-    getAllCategory().then((res: any) => {
-      if (res.status === 200) {
-        this.category_list = res.data;
-      } else {
+    })
+       //获取全部数据类型
+    getAllCategory().then((res:any)=>{
+      if(res.status ===200){
+          this.category_list = res.data;
+      }else{
         alert('区域获取请求失败');
       }
-    });
+    })
     //获取全部数据源
-    getAllSource().then((res: any) => {
-      if (res.status === 200) {
-        this.source_list = res.data;
-      } else {
-        alert('数据源获取请求失败');
+    getAllSource().then((res:any)=>{
+      if(res.status ===200){
+          this.source_list = res.data;
+      }else{
+        alert('数据源获取请求失败')
       }
-    });
+    })
 
-    this.startTime_selected = initData();
-    this.endTime_selected = initData();
+
   }
+
+  //computed
   get computedTest() {
     return null;
   }
+
+  //methods
+  submitForm(){
+    alert('dd')
+    // let formData = new FormData();
+//     let config = {
+//    headers: {
+//     'Content-Type': 'multipart/form-data;boundary = ' + new Date().getTime()
+//     } 
+// }
+  let url = `${host}/data/getDataInfoResultsByQuery`
+  //绑定数据
+
+  let data = {
+    'categoryId': this.category_selected ,
+    'areaId': this.area_selected,
+    'sourceId': this.source_selected,
+    'beginTime': this.startTime_selected,
+    'endTime': this.endTime_selected
+  }
+  // formData.append('categoryId', this.category_selected);
+  // formData.append('areaId', this.area_selected);
+  // formData.append('sourceId', this.source_selected);
+  // formData.append('beginTime', this.startTime_selected);
+  // formData.append('endTime', this.endTime_selected);
+  
+  axios.post(url,data).then(res=>{
+    alert(res.data);
+        this.results_data = res.data;
+  }).catch(err=>{
+    alert('err');
+  });
+
+
+  }
 }
-//统计栏数据交互
-// var statisticVM = new Vue({
-//   el:'#statistics',
-//   data:{
-//     statistics_data:[]
-//   },
-//   created:function(){
-//     var self = this;
-//     getStatisticsByCategoryName().then((res:any)=>{
-//       if(res.status ===200){
-//         self.statistics_data = res.data
-//         alert('成功');
-//       }else{
-//         alert('请求失败');
-//       }
-//     })
-//   }
-// })
 
 //获取全部海区
-const getAllArea = () => {
-  let url = `${host}/data/getAllArea`;
-  return axios.get(url, {
-    params: [],
-  });
-};
+const getAllArea = () =>{
+  let url = `${host}/data/getAllArea`
+  return axios.get(
+    url,
+    {
+      params: []
+    }
+  )
+}
 
 //获取全部数据源
 const getAllSource = () => {
-  let url = `${host}/data/getAllSource`;
-  return axios.get(url, {
-    params: [],
-  });
-};
+  let url = `${host}/data/getAllSource`
+  return axios.get(
+    url,
+    {
+      params: []
+    }
+  )
+}
+
 
 //获取全部数据类型
 const getAllCategory = () => {
-  let url = `${host}/data/getAllCategory`;
-  return axios.get(url, {
-    params: [],
-  });
-};
+  let url = `${host}/data/getAllCategory`
+  return axios.get(
+    url,
+    {
+      params: []
+    }
+  )
+}
 
 //根据类别获取统计信息
-const getStatisticsByCategory = () => {
-  let url = `${host}/data/statistics`;
-  return axios.get(url, {
-    params: [],
-  });
-};
+const getStatisticsByCategory =  () => {
+  let url = `${host}/data/statistics`
+  return axios.get(
+    url,
+    {
+      params: []
+    }
+  
+  )
+}
 
 //初始化时间
-const initData = () => {
-  var now = new Date();
-  var monthn = now.getMonth() + 1;
-  var yearn = now.getFullYear();
-  var dayn = now.getDate();
-  var h = now.getHours();
-  return yearn + '-' + monthn + '-' + dayn + ' ' + h;
-};
+const initData = () =>{
+      var now   = new Date();
+      var monthn = now.getUTCMonth()+1;
+      var yearn  = now.getUTCFullYear();
+      var dayn = now.getUTCDate();
+      var h = now.getUTCHours();
+      var m = now.getUTCMinutes();
+      var s = now.getUTCSeconds
+      return yearn+"-"+monthn+"-"+dayn+" "+h+" "+m+" "+s;
+}
+
+
+//查询
+const searchData = () =>{
+
+
+}
 
 //测试回显
 
@@ -378,7 +344,7 @@ const initData = () => {
 // })
 </script>
 <style scoped lang="less">
-@import '../styles/base.less';
+@import "../styles/base.less";
 @margindefault: {
   margin: 1em;
 };
@@ -389,10 +355,12 @@ const initData = () => {
 };
 //蓝色背景
 @bluebackground: {
+  
   background: rgba(51, 204, 204, 1);
 };
 //灰色背景
 @graybackground: {
+  
   background: rgba(215, 215, 215, 0.7);
 };
 // 统一白色form中的font样式
@@ -430,21 +398,23 @@ const initData = () => {
   //   }
   // }
   // 横向排列，显示三个说明
-  .center-welcome {
+  .center-welcome{
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    .title {
+    align-items:center;
+    justify-content:center;
+    .title{
       display: flex;
-      .important {
-        display: flex;
-        h1 {
-          color: #33cccc;
-          white-space: pre;
-        }
+    .important{
+      display: flex;
+      h1{
+      color: #33CCCC;
+      white-space: pre;
       }
     }
+    }
+
+
   }
   .center-header {
     display: flex;
@@ -460,8 +430,8 @@ const initData = () => {
         justify-content: center;
         .thumbnail {
           img {
-            width: 150px;
-            height: 150px;
+              width: 150px;
+              height: 150px;
           }
           h3 {
             text-align: center;
@@ -578,7 +548,7 @@ const initData = () => {
           justify-content: center;
           button {
             @bluebackground();
-            border: none;
+            border:none
             // background-color: #2bbbad !important;
           }
         }
@@ -590,16 +560,45 @@ const initData = () => {
     display: flex;
     flex: 2;
     // background: rgb(42, 134, 146);
-    @bluebackground();
+    @graybackground();
     flex-direction: column;
     @margindefault();
     @borderradius();
     .center-footer-card-header {
-      @minortitle();
+      font-size: 2em;
+      color: black;
     }
 
     .center-footer-card-body {
       background: white;
+      font-size: 1em;
+        color: black; 
+        align-self: auto;
+        .result_table{
+          height: 500px;
+          overflow: scroll;
+        }
+// 修改滚动条样式
+    // .table table-striped table-bordered::-webkit-scrollbar-thumb{
+    //     border-radius: 2px;
+    //     height: 50px;
+    //     background: #eee;
+    // }
+    // .table table-striped table-bordered::-webkit-scrollbar-track{
+    //     box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+    //     border-radius: 2px;
+    //     background: rgba(0,0,0,0.4);
+    // }
+        .btn_download {
+          display: flex;
+          justify-content: center;
+          margin:0 auto;
+          width: 200px;
+            @bluebackground();
+            border:none
+            // background-color: #2bbbad !important;
+          
+        }
     }
   }
 }
