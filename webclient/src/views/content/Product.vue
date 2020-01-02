@@ -48,7 +48,8 @@
                         @open="selectMenu"
                         @click.native="selectMenu(father.key, child.key)"
                         background-color="#0b6fb1"
-                      >{{ child.val }}</el-menu-item>
+                        >{{ child.val }}</el-menu-item
+                      >
                     </el-submenu>
                   </el-menu>
                 </el-col>
@@ -61,7 +62,7 @@
             <div class="product-exhibition">
               <!-- 标题 -->
               <div class="product-title">
-                <div class="title">China Sea XXX Numeric Forecast</div>
+                <div class="title">{{ titleVal }}</div>
                 <!-- 预报时效选择框 -->
                 <div class="interval-form">
                   <ul class="interval-ul">
@@ -76,11 +77,13 @@
                 </div>
               </div>
               <!-- 产品图片 -->
-              <div class="product-img">
+              <div class="product-img" v-show="imgShow">
                 <img
                   :src="currentImgUrl"
                   width="70%"
                   height="70%"
+                  @load="imgShow = true"
+                  :style="imgConsumerStyle"
                 />
               </div>
             </div>
@@ -130,10 +133,7 @@
                 <div class="form-content">
                   <div class="form-group">
                     <label for>Period</label>
-                    <el-select
-                      v-model="optionPeriodVal"
-                      placeholder="请选择"
-                    >
+                    <el-select v-model="optionPeriodVal" placeholder="请选择">
                       <el-option
                         v-for="item in optionsPeriod"
                         :key="item.key"
@@ -151,7 +151,7 @@
                     ></el-date-picker>
                   </div>
                   <div class="form-group">
-                    <label>Start Date</label>
+                    <label>End Date</label>
                     <el-date-picker
                       v-model="finishDate"
                       type="date"
@@ -177,10 +177,7 @@
                     <span>73</span>
                   </div>
                   <div class="btn">
-                    <button
-                      type="submit"
-                      class="btn btn-primary col-md-6"
-                    >
+                    <button type="submit" class="btn btn-primary col-md-6">
                       SEARCH
                     </button>
                   </div>
@@ -201,14 +198,8 @@
                 style="width: 100%"
                 @selection-change="handleSelectionChange"
               >
-                <el-table-column
-                  type="selection"
-                  width="55"
-                ></el-table-column>
-                <el-table-column
-                  label="date"
-                  show-overflow-tooltip
-                >
+                <el-table-column type="selection" width="55"></el-table-column>
+                <el-table-column label="date" show-overflow-tooltip>
                   <template slot-scope="scope">{{ scope.row.date }}</template>
                 </el-table-column>
                 <el-table-column
@@ -216,11 +207,7 @@
                   label="name"
                   width="120"
                 ></el-table-column>
-                <el-table-column
-                  prop="area"
-                  width="120"
-                  label="area"
-                >
+                <el-table-column prop="area" width="120" label="area">
                   <template slot-scope="scope">
                     {{ areaConvert(scope.row.area) }}
                   </template>
@@ -269,9 +256,11 @@ export default class ProductView extends Vue {
   menuList: Array<{
     key: string;
     val: string;
+    remark: string;
     children: Array<{
       key: string;
       val: string;
+      remark: string;
       periods: string[];
       periodsIndex: string[];
     }>;
@@ -324,6 +313,8 @@ export default class ProductView extends Vue {
   currentImgRelativePath: string = '';
   currentImgFileName: string = '';
 
+  imgShow: boolean = false;
+  imgConsumerStyle: string = 'max-width:500px;';
   handleOpen() {
     console.log('展开');
   }
@@ -423,9 +414,11 @@ export default class ProductView extends Vue {
           (temp: {
             key: string;
             val: string;
+            remark: string;
             children: Array<{
               key: string;
               val: string;
+              remark: string;
               periods: string[];
               periodsIndex: string[];
             }>;
@@ -458,6 +451,8 @@ export default class ProductView extends Vue {
         });
       }
     });
+
+    this.imgShow = true;
   }
   areaConvert(val: string): string {
     const that = this;
@@ -480,6 +475,7 @@ export default class ProductView extends Vue {
       _that.menuChildIndex,
       interval.index
     );
+    this.imgShow = false;
     // console.log(params);
     getProductImageUrl(params).then(
       (res: {
@@ -641,10 +637,12 @@ export default class ProductView extends Vue {
       temp => temp.key === myself.optionCategoryVal
     );
     if (typeTemp !== undefined) {
-      let areaTemp = typeTemp.children.find(
-        temp => temp.key === myself.optionAreaVal
-      );
-      return areaTemp === undefined ? '' : areaTemp.val;
+      if (typeTemp.hasOwnProperty('children')) {
+        let areaTemp = typeTemp.children.find(
+          temp => temp.key === myself.optionAreaVal
+        );
+        return areaTemp === undefined ? '' : areaTemp.val;
+      }
     } else {
       return '';
     }
@@ -657,19 +655,82 @@ export default class ProductView extends Vue {
       temp => temp.key === myself.optionCategoryVal
     );
     if (typeTemp !== undefined) {
-      let areaTemp = typeTemp.children.find(
-        temp => temp.key === myself.optionAreaVal
-      );
-      if (areaTemp !== undefined) {
-        let index = areaTemp.periodsIndex.indexOf(myself.optionPeriodVal);
-        periodVal = areaTemp.periods[index];
+      if (typeTemp.hasOwnProperty('children')) {
+        let areaTemp = typeTemp.children.find(
+          temp => temp.key === myself.optionAreaVal
+        );
+        if (areaTemp !== undefined) {
+          let index = areaTemp.periodsIndex.indexOf(myself.optionPeriodVal);
+          periodVal = areaTemp.periods[index];
+        }
       }
+
       // return areaTemp === undefined ? '' : areaTemp.val;
     } else {
       // return '';
     }
     return periodVal;
   }
+
+  // 20-01-02 ：加入根据选择的菜单动态变化title
+  get titleVal(): string {
+    // 根据 menuFatherIndex 与 menuChildIndex 获取对应的remark
+    let fatherRemark: string = '';
+    let childRemark: string = '';
+    let myself = this;
+    let father = this.menuList.find(
+      temp => temp.key === myself.menuFatherIndex
+    );
+    if (father !== undefined) {
+      fatherRemark = father.remark;
+      let child = father.children.find(
+        temp => temp.key === myself.menuChildIndex
+      );
+      if (child !== undefined) {
+        childRemark = child.remark;
+      }
+    }
+
+    return fatherRemark + childRemark;
+  }
+
+  @Watch('imgShow')
+  onIsShow(val: boolean): void {
+    let _that = this;
+    if (val === true) {
+      let parent = document.getElementsByClassName('product-img');
+      if (parent.length > 0) {
+        let children = parent[0].getElementsByTagName('img');
+        if (children.length > 0) {
+          let imgNode = children[0];
+          console.log(imgNode);
+          //naturalWidth: 674
+          //naturalHeight: 1057
+          //
+          /*
+          判断原始图片的长宽，
+            height > width: 竖着
+            height < width:横着
+        */
+          if (imgNode.naturalHeight > imgNode.naturalWidth) {
+            // 竖着
+            _that.imgConsumerStyle = 'max-width:500px;';
+          } else {
+            // 横着
+            _that.imgConsumerStyle = 'max-height:500px;';
+          }
+        }
+      }
+    }
+  }
+
+  // get maxStyle(): any {
+  //   // 大体思路，找到 .product-img->img 的长宽
+  //   let node = document
+  //     .getElementsByClassName('product-img')
+  //     .getElemntByTagName('img');
+  //   return null;
+  // }
 }
 </script>
 <style scoped lang="less">
@@ -761,20 +822,33 @@ export default class ProductView extends Vue {
 
         .interval-ul {
           width: 700px;
-          height: 50px;
+          // height: 50px;
+          // TODO:[*] 20-01-02 使用flex，不再使用浮动的方式布局li
+          display: flex;
+          flex-wrap: wrap;
           list-style: none;
           margin: 0;
           padding: 0 20px;
-          font-size: 30px;
-          line-height: 50px;
+          font-size: 1.5rem;
+          // line-height: 50px;
           background: #33cccc;
           color: white;
         }
 
         .interval-ul li {
-          width: 70px;
-          margin: 0 10px;
-          float: left;
+          // width: 1.6rem;
+          // margin: 0 10px;
+          // padding: 0 1ppx;
+          padding: 0.5rem;
+          // background-color: #0b6fb1 !important;
+          // float: left;
+        }
+        .interval-ul li:hover {
+          // transform: scale(2);
+          transition: all 1s linear;
+          background: #0b6fb1;
+          // width: 1.6rem;
+          padding: 0.5rem;
         }
       }
     }
