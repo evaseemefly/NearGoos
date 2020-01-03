@@ -496,7 +496,7 @@ const searchData = () =>{
                 line-height: 3em;
                 color: white;
                 font-size: 1em;
-                list-style:none；
+                list-style: none
               }
             }
           }
