@@ -10,7 +10,11 @@
         </div>
         <ul>
           <li><router-link :to="{ path: '/' }">Home</router-link></li>
-          <li><router-link :to="{ path: 'content/overview' }">OverView</router-link></li>
+          <li>
+            <router-link :to="{ path: 'content/overview' }"
+              >OverView</router-link
+            >
+          </li>
           <li><router-link :to="{ path: 'content' }">Data</router-link></li>
           <li><router-link :to="{ path: 'content' }">Product</router-link></li>
         </ul>
@@ -74,30 +78,74 @@
 
 <script>
 // @ is an alias to /src
-import HelloWorld from "@/components/HelloWorld.vue";
+import HelloWorld from '@/components/HelloWorld.vue';
 
 export default {
-  name: "home",
+  name: 'home',
   components: {
-    HelloWorld
-  }
+    HelloWorld,
+  },
 };
 </script>
 
 <style scoped lang="less">
 .my-root {
-  background: url("/images/background/home_1_7.jpg");
+  background: url('/images/background/home_1_7.jpg');
   display: flex;
   min-height: 100vh;
   flex-direction: column;
   .my-content {
     display: flex;
     flex: 10;
+    // transition: all 0.25s linear;
     // background: #7f9943;
     .minor-title {
       @minortitle();
     }
   }
+}
+
+.my-content ::before h2,
+.my-content ::before h4 {
+  transform: translate3d(0, -30%, 0) translate3d(0, -30px, 0);
+  transition: all 0.25s linear;
+  background: linear-gradient(
+    to bottom,
+    rgba(72, 76, 97, 0) 0%,
+    rgba(72, 76, 97, 0.8) 75%
+  );
+}
+
+.my-content:hover {
+  // opacity: 0.2;
+  background-color: rgba(174, 174, 185, 0.15);
+  transition: all 1s linear;
+}
+
+.my-content:hover h2,
+.my-content:hover h4 {
+  transform: translate3d(0, -30%, 0) translate3d(0, -30px, 0);
+  transition: all 0.25s linear;
+  color: #ffffff;
+  // transform: translate3d(0, 0, 0);
+}
+
+.my-content h2,
+.my-content h4 {
+  transform: translate3d(0, 0, 0) translate3d(0, 0, 0);
+  transition: all 0.25s linear;
+  color: #ffffff;
+  // transform: translate3d(0, 0, 0);
+}
+
+.my-content:hover .minor-title {
+  background: rgba(27, 144, 125, 0.411);
+  transition: all 0.25s linear;
+}
+.my-content:hover .minor-title button {
+  background: rgba(212, 132, 28, 0.815);
+  transform: translate3d(0, 10%, 0) translate3d(0, 10px, 0);
+  transition: all 0.25s linear;
 }
 
 // 沿主轴居中常量
@@ -116,6 +164,7 @@ export default {
   line-height: 1.8;
   font-family: Arial, Helvetica, sans-serif;
   text-shadow: 2px 2px 10px #000;
+  // color: #e9d14c;
 };
 
 footer {
@@ -143,9 +192,12 @@ footer {
     @desfont();
   }
   button {
-    background: rgba(212, 132, 28, 0.815);
+    // background: rgba(212, 132, 28, 0.815);
+    background: rgba(27, 144, 125, 0.815);
     color: white;
     font-size: 20px;
+    transform: translate3d(0, 0, 0) translate3d(0, 0, 0);
+    transition: all 0.25s linear;
   }
 };
 
@@ -234,7 +286,66 @@ footer {
 }
 header {
   // .header();
+  // transform: translate3d(0, 0, 0) translate3d(0, 0, 0);
+  // transition: all 0.25s linear;
+
+  // animation-delay: 1s;
   @header();
+}
+header {
+  .logo {
+    animation: logoFadeIn 1.5s linear;
+  }
+  ul {
+    animation: titleFadeIn 1.5s linear;
+  }
+}
+
+@keyframes logoFadeIn {
+  0% {
+    opacity: 0;
+  }
+  25% {
+    opacity: 0.25;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  75% {
+    opacity: 0.75;
+  }
+}
+
+@keyframes titleFadeIn {
+  0% {
+    opacity: 0;
+    // transform: translate3d(0, -50%, 0);
+    transform: translateY(-50%);
+    // color: #ffffff;
+  }
+  25% {
+    opacity: 0.25;
+    // transform: translate3d(0, -37.5%, 0);
+    transform: translateY(-37.5%);
+    // color: #cabb36;
+  }
+  50% {
+    opacity: 0.5;
+    // transform: translate3d(0, -25%, 0);
+    transform: translateY(-25%);
+    // color: #3dac11;
+  }
+  75% {
+    opacity: 0.75;
+    // transform: translate3d(0, -12.5%, 0);
+    transform: translateY(-12.5%);
+    // color: #2c55da;
+  }
+}
+
+header::before {
+  transform: translate3d(0, -30%, 0) translate3d(0, -30px, 0);
+  transition: all 0.25s linear;
 }
 
 footer {
