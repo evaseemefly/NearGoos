@@ -30,13 +30,13 @@
         <div class="btn-group dropup">
     <button class="btn btn-default dropdown-toggle" data-toggle="dropdown" type="button">Select Database<span class="caret"></span></button>
     <ul class="dropdown-menu">
-         <li><a href="#">China National Delay-mode Database</a></li>
-         <li><a href="#">Japan Regional Real Time Database</a></li>
-         <li><a href="#">Korea National Real Time Database</a></li>
+         <li><a href="http://near-goos.nmdis.org.cn/catalog/home">China National Delay-mode Database</a></li>
+         <li><a href="https://ds.data.jma.go.jp/gmd/goos/data/database.html">Japan Regional Real Time Database</a></li>
+         <li><a href="http://sms.khoa.go.kr/koofs/eng/observation/obs_real_map.asp">Korea National Real Time Database</a></li>
          <li><a href="http://rus.ferhri.ru/esimo/Projects/Neargoos/">Russia National Real Time Database</a></li>
-         <li><a href="https://near-goos1.jodc.go.jp/index_j.html">Japan Regional Delay-mode Database</a></li>
-         <li><a href="#">Korea National Delay-mode Database</a></li>
-         <li><a href="#">Russia National Delay-mode Database</a></li>
+         <li><a href="https://near-goos1.jodc.go.jp/">Japan Regional Delay-mode Database</a></li>
+         <li><a href="http://kodc.nfrdi.re.kr/page?id=eng_index">Korea National Delay-mode Database</a></li>
+         <li><a href="http://www.pacificinfo.ru">Russia National Delay-mode Database</a></li>
     </ul>
 </div>
       
@@ -104,9 +104,15 @@ export default class Footer extends Vue {}
         font-size: 16px;
         text-decoration: none;
         display: block;
+        width:300px;
+        text-align: center;
       }
       // 鼠标悬停更改下拉框颜色
     .dropdown-menu a:hover {background-color: rgba(215,215,215,0.7)}
+//     /* 在鼠标移上去后显示下拉菜单 不知为何效果没出来*/
+//     .btn:hover .dropdown-menu {
+//      display: block;
+// }
 
 // /* 容器 <div> - 需要定位下拉内容 */
 //     .dropdown {
