@@ -32,11 +32,7 @@
                     active-text-color="#ffd04b"
                     :default-openeds="openList"
                   >
-                    <el-submenu
-                      v-for="(father, x) in menuList"
-                      :index="father.key"
-                      :key="x"
-                    >
+                    <el-submenu v-for="(father, x) in menuList" :index="father.key" :key="x">
                       <template slot="title">
                         <i class></i>
                         <span>{{ father.val }}</span>
@@ -48,8 +44,7 @@
                         @open="selectMenu"
                         @click.native="selectMenu(father.key, child.key)"
                         background-color="#0b6fb1"
-                        >{{ child.val }}</el-menu-item
-                      >
+                      >{{ child.val }}</el-menu-item>
                     </el-submenu>
                   </el-menu>
                 </el-col>
@@ -70,9 +65,7 @@
                       v-for="(item, index) in getIntervalList"
                       :key="index"
                       @click="loadProductImageUrl(item)"
-                    >
-                      {{ item.val }}
-                    </li>
+                    >{{ item.val }}</li>
                   </ul>
                 </div>
               </div>
@@ -96,71 +89,122 @@
           <!-- 搜索部分 -->
           <div class="center-center">
             <div class="search-form">
-              <div class="title">SEARCH</div>
+              <div class="title">
+                <h2>多条件搜索</h2>
+                <h4>根据产品种类-> 产品区域 -> 对应时效 -> 起止时间</h4>
+              </div>
               <!-- 搜索条件form -->
               <form @submit.prevent="submit">
+                <!-- TODO:[20-01-04] 此处修改改为横向排列 -->
                 <div class="form-content">
+                  <!-- 产品种类 -->
                   <div class="form-group">
-                    <label for>Category</label>
-                    <el-select
-                      v-model="optionCategoryVal"
-                      mulitple="true"
-                      placeholder="please select"
-                    >
-                      <el-option
-                        v-for="item in optionsCategory"
-                        :key="item.key"
-                        :label="item.val"
-                        :value="item.key"
-                      ></el-option>
-                    </el-select>
+                    <div class="form-select">
+                      <label for>Category</label>
+                      <el-select
+                        v-model="optionCategoryVal"
+                        mulitple="true"
+                        placeholder="please select"
+                      >
+                        <el-option
+                          v-for="item in optionsCategory"
+                          :key="item.key"
+                          :label="item.val"
+                          :value="item.key"
+                        ></el-option>
+                      </el-select>
+                    </div>
+                    <figure>
+                      <figcaption>
+                        <font-awesome-icon :icon="['far', 'list-alt']" size="2x" />
+                        <div>
+                          <h4>产品种类</h4>
+                          <p>包含各类产品XXXXXXXXXX</p>
+                        </div>
+                      </figcaption>
+                    </figure>
+                  </div>
+                  <!-- 产品区域 -->
+                  <div class="form-group">
+                    <div class="form-select">
+                      <label for>Area</label>
+                      <el-select v-model="optionAreaVal" placeholder="please select">
+                        <el-option
+                          v-for="item in optionsArea"
+                          :key="item.key"
+                          :label="item.val"
+                          :value="item.key"
+                        ></el-option>
+                      </el-select>
+                    </div>
+                    <figure>
+                      <figcaption>
+                        <font-awesome-icon :icon="['fas', 'globe-americas']" size="2x" />
+                        <div>
+                          <h4>产品区域</h4>
+                          <p>共包含xxx区域，xxx区域</p>
+                        </div>
+                      </figcaption>
+                    </figure>
+                  </div>
+                  <!-- 产品时间间隔 -->
+                  <div class="form-group">
+                    <div class="form-select">
+                      <label for>Period</label>
+                      <el-select v-model="optionPeriodVal" placeholder="请选择">
+                        <el-option
+                          v-for="item in optionsPeriod"
+                          :key="item.key"
+                          :label="item.val"
+                          :value="item.key"
+                        ></el-option>
+                      </el-select>
+                    </div>
+                    <figure>
+                      <figcaption>
+                        <font-awesome-icon :icon="['fas', 'history']" size="2x" />
+                        <div>
+                          <h4>产品时效</h4>
+                          <p>时效包括xxxxx,xxxxx,xxxxxx</p>
+                        </div>
+                      </figcaption>
+                    </figure>
+                  </div>
+                  <!-- 起始时间 -->
+                  <div class="form-group">
+                    <div class="form-select">
+                      <label>Start Date</label>
+                      <el-date-picker v-model="startDate" type="date" placeholder="选择日期"></el-date-picker>
+                    </div>
+                    <figure>
+                      <figcaption>
+                        <font-awesome-icon :icon="['fas', 'calendar-check']" size="2x" />
+                        <div>
+                          <h4>起始时间</h4>
+                          <p>包含各类产品XXXXXXXXXX</p>
+                        </div>
+                      </figcaption>
+                    </figure>
                   </div>
                   <div class="form-group">
-                    <label for>Area</label>
-                    <el-select
-                      v-model="optionAreaVal"
-                      placeholder="please select"
-                    >
-                      <el-option
-                        v-for="item in optionsArea"
-                        :key="item.key"
-                        :label="item.val"
-                        :value="item.key"
-                      ></el-option>
-                    </el-select>
-                  </div>
-                </div>
-                <div class="form-content">
-                  <div class="form-group">
-                    <label for>Period</label>
-                    <el-select v-model="optionPeriodVal" placeholder="请选择">
-                      <el-option
-                        v-for="item in optionsPeriod"
-                        :key="item.key"
-                        :label="item.val"
-                        :value="item.key"
-                      ></el-option>
-                    </el-select>
-                  </div>
-                  <div class="form-group">
-                    <label>Start Date</label>
-                    <el-date-picker
-                      v-model="startDate"
-                      type="date"
-                      placeholder="选择日期"
-                    ></el-date-picker>
-                  </div>
-                  <div class="form-group">
-                    <label>End Date</label>
-                    <el-date-picker
-                      v-model="finishDate"
-                      type="date"
-                      placeholder="选择日期"
-                    ></el-date-picker>
+                    <div class="form-select">
+                      <label>End Date</label>
+                      <el-date-picker v-model="finishDate" type="date" placeholder="选择日期"></el-date-picker>
+                    </div>
+                    <figure>
+                      <figcaption>
+                        <font-awesome-icon :icon="['fas', 'calendar-week']" size="2x" />
+                        <div>
+                          <h4>产品种类</h4>
+                          <p>包含各类产品XXXXXXXXXX</p>
+                        </div>
+                      </figcaption>
+                    </figure>
                   </div>
                 </div>
                 <div class="form-content-btn">
-                  <div class="statistics-info">
+                  <!-- TODO:[*] 20-01-04 去掉 种类 区域 间隔 -->
+                  <!-- <div class="statistics-info">
                     <span>category</span>
                     <span>{{ categoryVal }}</span>
                   </div>
@@ -175,14 +219,17 @@
                   <div class="statistics-info">
                     <span>files count</span>
                     <span>73</span>
-                  </div>
+                  </div>-->
                   <div class="btn">
-                    <button type="submit" class="btn btn-primary col-md-6">
-                      SEARCH
-                    </button>
+                    <button type="submit" class="btn btn-primary col-md-6">SEARCH</button>
                   </div>
                 </div>
               </form>
+              <div class="search-footer">
+                <h4>查询符合条件的所有结果</h4>
+                <p>若结果没有你满意的结果请联系管理员</p>
+                <p>查询只能查询6个月之内的数据</p>
+              </div>
             </div>
           </div>
         </div>
@@ -202,26 +249,12 @@
                 <el-table-column label="date" show-overflow-tooltip>
                   <template slot-scope="scope">{{ scope.row.date }}</template>
                 </el-table-column>
-                <el-table-column
-                  prop="name"
-                  label="name"
-                  width="120"
-                ></el-table-column>
+                <el-table-column prop="name" label="name" width="120"></el-table-column>
                 <el-table-column prop="area" width="120" label="area">
-                  <template slot-scope="scope">
-                    {{ areaConvert(scope.row.area) }}
-                  </template>
+                  <template slot-scope="scope">{{ areaConvert(scope.row.area) }}</template>
                 </el-table-column>
-                <el-table-column
-                  prop="interval"
-                  label="interval"
-                  width="120"
-                ></el-table-column>
-                <el-table-column
-                  prop="type"
-                  label="type"
-                  width="120"
-                ></el-table-column>
+                <el-table-column prop="interval" label="interval" width="120"></el-table-column>
+                <el-table-column prop="type" label="type" width="120"></el-table-column>
               </el-table>
             </div>
           </div>
@@ -736,24 +769,42 @@ export default class ProductView extends Vue {
 <style scoped lang="less">
 @import '../styles/base.less';
 @bluebackground: {
-  background: rgba(39, 216, 216, 0.897);
+  // background: rgba(39, 216, 216, 0.377);
+  background: #33cccc;
   // background: #0b6fb1;
+};
+@searchtitle: {
+};
+@searchminortitle: {
+  // color: #72e9e9;
+  // font-size: 1rem;
+
+  margin-left: 2rem;
+  margin-top: 0;
+  margin-bottom: 0;
+  line-height: 2;
+  color: #72e9e9;
+  font-size: 1rem;
 };
 // 为二级标题加了一个左+上的间距
 @minortitle: {
   // 统计title加一个左+上的间距
   margin-left: 1.5em;
-  margin-top: 1em;
+  // margin-top: 1em;
   font-size: 200%;
   color: white;
   font-family: Arial, Helvetica, sans-serif;
   text-shadow: 2px 2px 10px #000;
 };
+@fontcolor: {
+  color: white;
+};
 // 统一白色form中的font样式
 @whitefont: {
   font-family: Arial, Helvetica, sans-serif;
   text-shadow: 2px 2px 10px #000;
-  color: white;
+  // color: white;
+  @fontcolor();
 };
 // menu中的子menu样式
 @menu-child: {
@@ -856,12 +907,14 @@ export default class ProductView extends Vue {
 
   // 中间部分
   // 横向排列
+  // 搜索栏区域
   .product-data {
     display: flex;
-
+    flex-direction: column;
     .product-search {
       display: flex;
       flex: 1;
+      // width: 70%;
       .center-center {
         display: flex;
         flex: 1;
@@ -869,47 +922,111 @@ export default class ProductView extends Vue {
         @bluebackground();
         @margindefault();
         @borderradius();
-
+        // 搜索栏的title
         .title {
-          @minortitle();
+          display: flex;
+          flex-direction: column;
+          align-items: flex-start;
+          padding: 1rem;
+          h2 {
+            @minortitle();
+          }
+          h4 {
+            @searchminortitle();
+          }
+
           // font-size: ;
         }
-
+        // 搜索栏的中间的搜索下拉框及btn
         form {
           display: flex;
           flex-direction: row;
           justify-content: space-around;
-
+          background-color: rgba(3, 3, 3, 0.068);
           // TODO:[*] 19-12-03 之前的form中的六个select是水平排列，现改为2*3
+          // .form-content {
+          //   display: flex;
+          //   flex-direction: column;
+          //   background-color: rgba(3, 3, 3, 0.068);
+          //   flex: 1;
+          //   .form-group {
+          //     display: flex;
+          //     // flex-direction: column;
+          //     justify-content: center;
+          //     align-items: center;
+          //     label {
+          //       @whitefont();
+          //       margin: 1em;
+          //       display: flex;
+          //       width: 5em;
+          //     }
+          //     .el-select {
+          //       display: flex;
+          //       max-width: 133px;
+          //     }
+          //     .el-input {
+          //       max-width: 133px;
+          //     }
+          //   }
+          // }
+
+          // TODO:[*] 20-01-04 现又改回横向排列
           .form-content {
             display: flex;
-            flex-direction: column;
-            background-color: rgba(3, 3, 3, 0.068);
-            flex: 1;
+            flex-direction: row;
+            // background-color: rgba(3, 3, 3, 0.068);
+            flex: 5;
             .form-group {
+              padding: 1rem;
               display: flex;
-              // flex-direction: column;
+              flex-direction: column;
               justify-content: center;
               align-items: center;
-              label {
-                @whitefont();
-                margin: 1em;
+              .form-select {
                 display: flex;
-                width: 5em;
+                label {
+                  @whitefont();
+                  margin: 1em;
+                  display: flex;
+                  width: 5em;
+                }
+                .el-select {
+                  display: flex;
+                  max-width: 133px;
+                }
+                .el-input {
+                  max-width: 133px;
+                }
               }
-              .el-select {
-                display: flex;
-                max-width: 133px;
-              }
-              .el-input {
-                max-width: 133px;
+              figure {
+                figcaption {
+                  display: flex;
+                  svg {
+                    margin: 1em;
+                    @fontcolor();
+                  }
+                  div {
+                    display: flex;
+                    flex-direction: column;
+                    @fontcolor();
+                    h4 {
+                      font-weight: 500;
+                    }
+                    // 给p一个浅色一点的颜色，建议以底色纵向取颜色
+                    p {
+                      color: #72e9e9;
+                    }
+                  }
+                }
               }
             }
           }
+
           .form-content-btn {
             flex: 1;
             display: flex;
             flex-direction: column;
+            justify-content: center;
             .statistics-info {
               display: flex;
               justify-content: space-between;
@@ -925,17 +1042,36 @@ export default class ProductView extends Vue {
                 color: #838e95;
               }
             }
-          }
 
-          .btn {
-            display: flex;
-            justify-content: center;
+            .btn {
+              display: flex;
+              justify-content: center;
+              align-items: center;
 
-            button {
-              color: #fff;
-              // 暂时对提交按钮 先不上色了
-              // background-color: #2bbbad !important;
+              button {
+                color: #fff;
+                height: 3em;
+                // 暂时对提交按钮 先不上色了
+                // background-color: #2bbbad !important;
+              }
             }
+          }
+        }
+        // TODO:[*] 20-01-04 新加入了一个底部的提示栏
+        .search-footer {
+          padding: 1rem;
+          display: flex;
+          flex-direction: column;
+          align-items: flex-start;
+          // background: #98c2c2;
+          h4 {
+            margin-left: 2rem;
+            color: white;
+            font-weight: 600;
+            font-size: 1rem;
+          }
+          p {
+            @searchminortitle();
           }
         }
       }
