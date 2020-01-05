@@ -32,11 +32,7 @@
                     active-text-color="#ffd04b"
                     :default-openeds="openList"
                   >
-                    <el-submenu
-                      v-for="(father, x) in menuList"
-                      :index="father.key"
-                      :key="x"
-                    >
+                    <el-submenu v-for="(father, x) in menuList" :index="father.key" :key="x">
                       <template slot="title">
                         <i class></i>
                         <span>{{ father.val }}</span>
@@ -74,10 +70,7 @@
                 </div>
               </div>
               <!-- 产品图片 -->
-              <div
-                class="product-img"
-                v-show="imgShow"
-              >
+              <div class="product-img" v-show="imgShow">
                 <img
                   :src="currentImgUrl"
                   width="70%"
@@ -92,6 +85,7 @@
       </div>
       <!-- 中间区域-->
       <div class="product-data">
+        <!-- 多条件搜索栏 -->
         <div class="product-search">
           <!-- 搜索部分 -->
           <div class="center-center">
@@ -123,10 +117,7 @@
                     </div>
                     <figure>
                       <figcaption>
-                        <font-awesome-icon
-                          :icon="['far', 'list-alt']"
-                          size="2x"
-                        />
+                        <font-awesome-icon :icon="['far', 'list-alt']" size="2x" />
                         <div>
                           <h4>产品种类</h4>
                           <p>包含各类产品XXXXXXXXXX</p>
@@ -138,10 +129,7 @@
                   <div class="form-group">
                     <div class="form-select">
                       <label for>Area</label>
-                      <el-select
-                        v-model="optionAreaVal"
-                        placeholder="please select"
-                      >
+                      <el-select v-model="optionAreaVal" placeholder="please select">
                         <el-option
                           v-for="item in optionsArea"
                           :key="item.key"
@@ -152,10 +140,7 @@
                     </div>
                     <figure>
                       <figcaption>
-                        <font-awesome-icon
-                          :icon="['fas', 'globe-americas']"
-                          size="2x"
-                        />
+                        <font-awesome-icon :icon="['fas', 'globe-americas']" size="2x" />
                         <div>
                           <h4>产品区域</h4>
                           <p>共包含xxx区域，xxx区域</p>
@@ -167,10 +152,7 @@
                   <div class="form-group">
                     <div class="form-select">
                       <label for>Period</label>
-                      <el-select
-                        v-model="optionPeriodVal"
-                        placeholder="请选择"
-                      >
+                      <el-select v-model="optionPeriodVal" placeholder="请选择">
                         <el-option
                           v-for="item in optionsPeriod"
                           :key="item.key"
@@ -181,10 +163,7 @@
                     </div>
                     <figure>
                       <figcaption>
-                        <font-awesome-icon
-                          :icon="['fas', 'history']"
-                          size="2x"
-                        />
+                        <font-awesome-icon :icon="['fas', 'history']" size="2x" />
                         <div>
                           <h4>产品时效</h4>
                           <p>时效包括xxxxx,xxxxx,xxxxxx</p>
@@ -196,18 +175,11 @@
                   <div class="form-group">
                     <div class="form-select">
                       <label>Start Date</label>
-                      <el-date-picker
-                        v-model="startDate"
-                        type="date"
-                        placeholder="选择日期"
-                      ></el-date-picker>
+                      <el-date-picker v-model="startDate" type="date" placeholder="选择日期"></el-date-picker>
                     </div>
                     <figure>
                       <figcaption>
-                        <font-awesome-icon
-                          :icon="['fas', 'calendar-check']"
-                          size="2x"
-                        />
+                        <font-awesome-icon :icon="['fas', 'calendar-check']" size="2x" />
                         <div>
                           <h4>起始时间</h4>
                           <p>包含各类产品XXXXXXXXXX</p>
@@ -218,18 +190,11 @@
                   <div class="form-group">
                     <div class="form-select">
                       <label>End Date</label>
-                      <el-date-picker
-                        v-model="finishDate"
-                        type="date"
-                        placeholder="选择日期"
-                      ></el-date-picker>
+                      <el-date-picker v-model="finishDate" type="date" placeholder="选择日期"></el-date-picker>
                     </div>
                     <figure>
                       <figcaption>
-                        <font-awesome-icon
-                          :icon="['fas', 'calendar-week']"
-                          size="2x"
-                        />
+                        <font-awesome-icon :icon="['fas', 'calendar-week']" size="2x" />
                         <div>
                           <h4>产品种类</h4>
                           <p>包含各类产品XXXXXXXXXX</p>
@@ -257,10 +222,7 @@
                     <span>73</span>
                   </div>-->
                   <div class="btn">
-                    <button
-                      type="submit"
-                      class="btn btn-primary col-md-6"
-                    >SEARCH</button>
+                    <button type="submit" class="btn btn-primary col-md-6">SEARCH</button>
                   </div>
                 </div>
               </form>
@@ -272,6 +234,19 @@
             </div>
           </div>
         </div>
+        <!-- 选中会加载的数量显示栏 -->
+        <div class="product-statistics">
+          <div class="center">
+            <div class="statistics-info">
+              <h4>下载列表</h4>
+              <p>4个文件</p>
+            </div>
+            <div class="statistics-btn">
+              <button type="submit" class="btn btn-primary col-md-6">下载</button>
+            </div>
+          </div>
+        </div>
+        <!-- 结果显示栏 -->
         <div class="product-result">
           <!-- 结果部分 -->
           <div class="center-footer">
@@ -283,39 +258,18 @@
                 tooltip-effect="dark"
                 style="width: 100%"
                 @selection-change="handleSelectionChange"
+                @select="selectRow"
               >
-                <el-table-column
-                  type="selection"
-                  width="55"
-                ></el-table-column>
-                <el-table-column
-                  label="date"
-                  show-overflow-tooltip
-                >
-                  <template slot-scope="scope">{{ scope.row.date }}</template>
+                <el-table-column type="selection" width="55"></el-table-column>
+                <el-table-column label="date" show-overflow-tooltip>
+                  <template slot-scope="scope">{{ scope.row.date|formatDate2HM }}</template>
                 </el-table-column>
-                <el-table-column
-                  prop="name"
-                  label="name"
-                  width="120"
-                ></el-table-column>
-                <el-table-column
-                  prop="area"
-                  width="120"
-                  label="area"
-                >
+                <el-table-column prop="name" label="name" width="120"></el-table-column>
+                <el-table-column prop="area" width="120" label="area">
                   <template slot-scope="scope">{{ areaConvert(scope.row.area) }}</template>
                 </el-table-column>
-                <el-table-column
-                  prop="interval"
-                  label="interval"
-                  width="120"
-                ></el-table-column>
-                <el-table-column
-                  prop="type"
-                  label="type"
-                  width="120"
-                ></el-table-column>
+                <el-table-column prop="interval" label="interval" width="120"></el-table-column>
+                <el-table-column prop="type" label="type" width="120"></el-table-column>
               </el-table>
             </div>
           </div>
@@ -326,6 +280,8 @@
 </template>
 <script lang="ts">
 import { Component, Prop, Vue, Watch } from 'vue-property-decorator';
+import moment from 'moment';
+
 import {
   SearchCondition,
   ProductImageCondition,
@@ -340,6 +296,9 @@ import {
 @Component({
   filters: {
     //TODO:[*] 19-12-09 注意在filters中无法使用this
+    formatDate2HM(val: Date): string {
+      return moment(val).format('YYYY-MM-DD hh:mm');
+    },
   },
 })
 export default class ProductView extends Vue {
@@ -415,6 +374,11 @@ export default class ProductView extends Vue {
 
   handleSelectionChange() {
     console.log('选中改变');
+  }
+  // TODO:[*] 20-01-05 计算点击个数未实现
+  selectRow(selection: any, row: any) {
+    console.log(selection);
+    console.log(row);
   }
   // TODO:[*] 19-12-09 此处加入了新的功能:根据选择的father和child加载对应的 interval list
   selectMenu(father: string, child: string) {
@@ -841,21 +805,40 @@ export default class ProductView extends Vue {
   @Watch('menuList')
   onMenuList(val: any): void {
     let _that = this;
+    // TODO:[*] 20-01-05 每当menulist发生变化时，清空结果table
+    _that.tableData = [];
     let cateogryTemp: string = _that.menuList[0].key;
     let areaTemp: string = _that.menuList[0].children[0].key;
-    let now: Date = new Date(2019, 12, 13, 0, 0);
+    let now: Date = new Date(2019, 11, 13);
     let params: any = {
       category: cateogryTemp,
       area: areaTemp,
       start: now,
     };
+
     getProductResByConCondition(params).then(res => {
       if (res.status === 200) {
-        console.log(res.data);
+        // console.log(res.data);
+        res.data.forEach(
+          (temp: {
+            name: string;
+            area: number;
+            interval: number;
+            targetDate: Date;
+            type: number;
+          }) => {
+            _that.tableData.push({
+              name: temp.name,
+              area: temp.area,
+              interval: temp.interval,
+              date: temp.targetDate,
+              type: temp.type,
+            });
+          }
+        );
       }
       // console.log(res);
     });
-    this.imgShow = true;
   }
 
   // get maxStyle(): any {
@@ -1012,6 +995,7 @@ export default class ProductView extends Vue {
   .product-data {
     display: flex;
     flex-direction: column;
+    // 多条件搜索栏
     .product-search {
       display: flex;
       flex: 1;
@@ -1177,7 +1161,46 @@ export default class ProductView extends Vue {
         }
       }
     }
-
+    // 中间显示选中数量的统计栏
+    .product-statistics {
+      display: flex;
+      // justify-content: space-between;
+      // align-items: center;
+      // background: #838e95;
+      .center {
+        @paddingdefaultxs();
+        @borderradius();
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        color: white;
+        // background: #b2c2cc;
+        @bluebackground();
+        @margindefault();
+        .statistics-info {
+          display: flex;
+          align-items: center;
+          h4 {
+            margin-left: 2rem;
+            font-weight: 600;
+            font-size: 1rem;
+          }
+          p {
+            margin-left: 2rem;
+            margin-top: 0;
+            margin-bottom: 0;
+            // line-height: 2;
+            color: #72e9e9;
+            font-size: 1rem;
+          }
+        }
+        .statistics-btn {
+          width: 15rem;
+        }
+      }
+    }
+    // 结果栏
     .product-result {
       display: flex;
       flex: 1.5;
