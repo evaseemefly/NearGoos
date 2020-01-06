@@ -150,45 +150,50 @@
                 </div>
             </div>
             <div class="center-center-right default-bg">
-                <div class="statistics-title">
-                    SEARCH
+                <div class="search-title">
+                    Search XXX XXXXXXXXXXXXXXXXXXXXXXXXX...... 
+                    <div class="search-subtitle">
+                    From XXXXXXXXXXXXXXXXXXXXX...... 
+                </div>
                 </div><br>
+                
                 <!-- 搜索条件form -->
                 <el-form :model="search_form">
                     
-                        <el-form-item label="Category">
+                        <el-form-item >
                             <el-select  v-model="category_selected" value-key="id" placeholder="select category">
                               <el-option v-for="item in category_list" :key="item.id" :label="item.name" :value="item.id"></el-option>
                             </el-select>
                         </el-form-item>
                     
                    
-                        <el-form-item label="Area">
+                        <el-form-item >
                             <el-select v-model="area_selected" value-key="id"  placeholder="select area">
                               <el-option v-for="item in area_list" :key="item.id" :label="item.name" :value="item.id"></el-option>
                             </el-select>
                         </el-form-item>
                     
                     
-                        <el-form-item label="Source">
+                        <el-form-item >
                             <el-select v-model="source_selected" value-key="id" placeholder="select source">
                               <el-option v-for="item in source_list" :key="item.id" :label="item.name" :value="item.id"></el-option>
                             </el-select>
                         </el-form-item>
                     
                     
-                        <el-form-item label="Start Time">
-                            <el-date-picker v-model="startTime_selected" type="datetime" placeholder="select start time(UTC)" @change="dataSearch" value-format="yyyy-MM-dd HH" format="yyyy-MM-dd HH"></el-date-picker>
+                        <el-form-item>
+                            <el-date-picker class="time_select" v-model="startTime_selected" type="datetime" placeholder="select start time(UTC)" @change="dataSearch" value-format="yyyy-MM-dd HH" format="yyyy-MM-dd HH"></el-date-picker>
                         </el-form-item>
                     
                     
-                        <el-form-item label="End Time">
-                         <el-date-picker v-model="endTime_selected" type="datetime" placeholder="select end time(UTC)" @change="dataSearch" value-format="yyyy-MM-dd HH" format="yyyy-MM-dd HH"></el-date-picker>
+                        <el-form-item>
+                         <el-date-picker class="time_select" v-model="endTime_selected" type="datetime" placeholder="select end time(UTC)" @change="dataSearch" value-format="yyyy-MM-dd HH" format="yyyy-MM-dd HH"></el-date-picker>
                         </el-form-item>
-                    
-                    <div class="btn">
+                    <el-form-item>
+                    <!-- <div class="btn"> -->
                         <el-button type="success" class="btn btn-primary col-md-6" @click="submitForm">Search Data</el-button>
-                    </div>
+                    <!-- </div> -->
+                    </el-form-item>
                 </el-form>
             </div>
           </div>
@@ -523,7 +528,7 @@ const searchData = () =>{
         // color: yellow;
         // font-family: Arial, Helvetica, sans-serif;
         // text-shadow: 2px 2px 10px #000;
-        font-size: 3em;
+        font-size: 3rem;
         @minortitle();
       }
 
@@ -541,7 +546,7 @@ const searchData = () =>{
           font-family: Arial, Helvetica, sans-serif;
           text-shadow: 2px 2px 10px #000;
           .title {
-            font-size: 2em;
+            font-size: 2rem;
             color: white;
           }
           .num-box{
@@ -549,10 +554,10 @@ const searchData = () =>{
             color: white;
             list-style: none;
             .num{
-              font-size: 3em
+              font-size: 3rem
             }
             .text{
-              font-size: 1.5em
+              font-size: 1.5rem
             }
 
           }
@@ -561,7 +566,7 @@ const searchData = () =>{
               li {
                 line-height: 3em;
                 color: white;
-                font-size: 1em;
+                font-size: 1rem;
                 list-style: none
               }
             }
@@ -584,38 +589,57 @@ const searchData = () =>{
       @graybackground();
       @margindefault();
       @borderradius();
-      .statistics-title {
+      .search-title {
         // @minortitle();
-        font-size: 2em;
+        text-align:left;
+        font-size: 2rem;
         color: black;
+        padding-left:40px;
         // font-size: ;
+      
+      .search-subtitle {
+        // @minortitle();
+        font-size: 1.5rem;
+
+
+      }
       }
       .el-form {
         display: flex;
         flex: 1;
-        flex-direction: column;
+        flex-direction: row;
+        flex-wrap:wrap;
+        align-items: center;
         justify-content: center;
         .el-select {
           display: flex;
           flex: 1;
           justify-content: center;
-          font-size: 1.5em;
-          width: 40%;
+          font-size: 1.5rem;
+          width:300px;
+          // border:40px #33CCCC;
+          //已取消label
           label {
             // @whitefont();
             color: black;
-            font-size: 2em;
+            font-size: 2rem;
           }
         }
-        .btn {
-          display: flex;
-          justify-content: center;
+        .time_select{
+          width:320px;
+          // border: 10px #33CCCC;
+        }
+        // .btn {
+          
           button {
+            display: flex;
+          justify-content: center;
             @bluebackground();
-            border:none
+            border:none;
             // background-color: #2bbbad !important;
+            width:250px
           }
-        }
+        // }
       }
     }
   }
@@ -629,13 +653,14 @@ const searchData = () =>{
     @margindefault();
     @borderradius();
     .center-footer-card-header {
-      font-size: 2em;
+      font-size: 2rem;
       color: black;
+      //  @minortitle();
     }
 
     .center-footer-card-body {
       background: white;
-      font-size: 1em;
+      font-size: 1rem;
         color: black; 
         align-self: auto;
         .result_table{
