@@ -56,11 +56,29 @@
                     <!-- station -->
                     <div  class="card-form">
                         <div class="title">Buoy</div>
+                        <ul class="num-box">
+                            <li>
+                              <p class="num">
+                                <span id="num">{{statistics_result[0].fileNumber}}</span>
+                              </p>
+                             <p class="text">
+                                <span id="fileNumber_text">file numbers</span>
+                              </p>
+                            </li>
+                            <li>
+                              <p class="num">
+                                <span id="size_num">{{statistics_result[0].size}}</span>
+                              </p>
+                              <p class="text">
+                                <span id="size_text">total size(Byte)</span>
+                              </p>
+                            </li>
+                        </ul>
                         <div class="body">
                             <ul>
                               <!-- v-for循环没有成功,先遗留 -->
-                                <li>file numbers:<span>{{statistics_result[0].fileNumber}}</span></li>
-                                <li>total size(Byte): <span>{{statistics_result[0].size}}</span></li>
+                                <!-- <li>file numbers:<span>{{statistics_result[0].fileNumber}}</span></li>
+                                <li>total size(Byte): <span>{{statistics_result[0].size}}</span></li> -->
                                 <li>begin time: <span>{{statistics_result[0].endTime}}</span></li>
                                 <li>end time: <span>{{statistics_result[0].beginTime}}</span></li>
                                 <li>format: xml</li>
@@ -70,10 +88,28 @@
                     <!-- fub -->
                     <div class="card-form">
                         <div class="title">Station</div>
+                            <ul class="num-box">
+                            <li>
+                              <p class="num">
+                                <span id="num">{{statistics_result[1].fileNumber}}</span>
+                              </p>
+                             <p class="text">
+                                <span id="fileNumber_text">file numbers</span>
+                              </p>
+                            </li>
+                            <li>
+                              <p class="num">
+                                <span id="size_num">{{statistics_result[1].size}}</span>
+                              </p>
+                              <p class="text">
+                                <span id="size_text">total size(Byte)</span>
+                              </p>
+                            </li>
+                        </ul>
                         <div class="body">
                             <ul>
-                                <li>file numbers:<span>{{statistics_result[1].fileNumber}}</span></li>
-                                <li>total size(Byte): <span>{{statistics_result[1].size}}</span></li>
+                                <!-- <li>file numbers:<span>{{statistics_result[1].fileNumber}}</span></li>
+                                <li>total size(Byte): <span>{{statistics_result[1].size}}</span></li> -->
                                 <li>begin time: <span>{{statistics_result[1].endTime}}</span></li>
                                 <li>end time: <span>{{statistics_result[1].beginTime}}</span></li>
                                 <li>format: txt</li>
@@ -83,10 +119,28 @@
                     <!-- ship -->
                     <div class="card-form">
                         <div class="title">Ship</div>
+                                           <ul class="num-box">
+                            <li>
+                              <p class="num">
+                                <span id="num">{{statistics_result[2].fileNumber}}</span>
+                              </p>
+                             <p class="text">
+                                <span id="fileNumber_text">file numbers</span>
+                              </p>
+                            </li>
+                            <li>
+                              <p class="num">
+                                <span id="size_num">{{statistics_result[2].size}}</span>
+                              </p>
+                              <p class="text">
+                                <span id="size_text">total size(Byte)</span>
+                              </p>
+                            </li>
+                        </ul>
                         <div class="body">
                             <ul>
-                              <li>file numbers:<span>{{statistics_result[2].fileNumber}}</span></li>
-                                <li>total size(Byte): <span>{{statistics_result[2].size}}</span></li>
+                              <!-- <li>file numbers:<span>{{statistics_result[2].fileNumber}}</span></li>
+                                <li>total size(Byte): <span>{{statistics_result[2].size}}</span></li> -->
                                 <li>begin time: <span>{{statistics_result[2].endTime}}</span></li>
                                 <li>end time: <span>{{statistics_result[2].beginTime}}</span></li>
                                 <li>format: -</li>
@@ -453,6 +507,7 @@ const searchData = () =>{
   .center-center {
     display: flex;
     flex: 1;
+    flex-direction: column;
     // background: rgb(145, 172, 73);
 
     // 中间部分的统计信息（station|fub|ship）的一些有序列表
@@ -489,7 +544,18 @@ const searchData = () =>{
             font-size: 2em;
             color: white;
           }
+          .num-box{
+            column-count:2;
+            color: white;
+            list-style: none;
+            .num{
+              font-size: 3em
+            }
+            .text{
+              font-size: 1.5em
+            }
 
+          }
           .body {
             ul {
               li {
