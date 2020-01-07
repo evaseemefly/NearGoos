@@ -909,8 +909,9 @@ export default class ProductView extends Vue {
 @import '../styles/base.less';
 @bluebackground: {
   // background: rgba(39, 216, 216, 0.377);
-  // background: #33cccc;
-  background: #1971c2;
+  // background: #1d95aa;
+  background: #0b6fb1;
+  // background: #1971c2;
   // background: #0b6fb1;
 };
 @searchtitle: {
@@ -919,7 +920,7 @@ export default class ProductView extends Vue {
   width: 80%;
 };
 @btn: {
-  background-color: #00b5ad;
+  background-color: #dfd43a;
   box-shadow: 0 0 0 0 rgba(34, 36, 38, 0.15) inset;
 };
 @searchminortitle: {
