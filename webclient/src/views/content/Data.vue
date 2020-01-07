@@ -56,13 +56,31 @@
                     <!-- station -->
                     <div  class="card-form">
                         <div class="title">Buoy</div>
+                        <ul class="num-box">
+                            <li>
+                              <p class="num">
+                                <span id="num">{{statistics_result[0].fileNumber}}</span>
+                              </p>
+                             <p class="text">
+                                <span id="fileNumber_text">file numbers</span>
+                              </p>
+                            </li>
+                            <li>
+                              <p class="num">
+                                <span id="size_num">{{statistics_result[0].size}}</span>
+                              </p>
+                              <p class="text">
+                                <span id="size_text">total size(Byte)</span>
+                              </p>
+                            </li>
+                        </ul>
                         <div class="body">
                             <ul>
                               <!-- v-for循环没有成功,先遗留 -->
-                                  <li>file numbers:<span>{{statistics_result[0].fileNumber}}</span></li>
-                                <li>total size(Byte): <span>{{statistics_result[0].size}}</span></li>
-                                <li>begin time: <span>{{statistics_result[0].beginTime}}</span></li>
-                                <li>end time: <span>{{statistics_result[0].endTime}}</span></li>
+                                <!-- <li>file numbers:<span>{{statistics_result[0].fileNumber}}</span></li>
+                                <li>total size(Byte): <span>{{statistics_result[0].size}}</span></li> -->
+                                <li>begin time: <span>{{statistics_result[0].endTime}}</span></li>
+                                <li>end time: <span>{{statistics_result[0].beginTime}}</span></li>
                                 <li>format: xml</li>
                             </ul>
                         </div>
@@ -70,25 +88,61 @@
                     <!-- fub -->
                     <div class="card-form">
                         <div class="title">Station</div>
+                            <ul class="num-box">
+                            <li>
+                              <p class="num">
+                                <span id="num">{{statistics_result[1].fileNumber}}</span>
+                              </p>
+                             <p class="text">
+                                <span id="fileNumber_text">file numbers</span>
+                              </p>
+                            </li>
+                            <li>
+                              <p class="num">
+                                <span id="size_num">{{statistics_result[1].size}}</span>
+                              </p>
+                              <p class="text">
+                                <span id="size_text">total size(Byte)</span>
+                              </p>
+                            </li>
+                        </ul>
                         <div class="body">
                             <ul>
-                                <li>file numbers:<span>{{statistics_result[1].fileNumber}}</span></li>
-                                <li>total size(Byte): <span>{{statistics_result[1].size}}</span></li>
-                                <li>begin time: <span>{{statistics_result[1].beginTime}}</span></li>
-                                <li>end time: <span>{{statistics_result[1].endTime}}</span></li>
+                                <!-- <li>file numbers:<span>{{statistics_result[1].fileNumber}}</span></li>
+                                <li>total size(Byte): <span>{{statistics_result[1].size}}</span></li> -->
+                                <li>begin time: <span>{{statistics_result[1].endTime}}</span></li>
+                                <li>end time: <span>{{statistics_result[1].beginTime}}</span></li>
                                 <li>format: txt</li>
                             </ul>
                         </div>
-                    </div> -->
+                    </div> 
                     <!-- ship -->
                     <div class="card-form">
                         <div class="title">Ship</div>
+                                           <ul class="num-box">
+                            <li>
+                              <p class="num">
+                                <span id="num">{{statistics_result[2].fileNumber}}</span>
+                              </p>
+                             <p class="text">
+                                <span id="fileNumber_text">file numbers</span>
+                              </p>
+                            </li>
+                            <li>
+                              <p class="num">
+                                <span id="size_num">{{statistics_result[2].size}}</span>
+                              </p>
+                              <p class="text">
+                                <span id="size_text">total size(Byte)</span>
+                              </p>
+                            </li>
+                        </ul>
                         <div class="body">
                             <ul>
-                              <li>file numbers:<span>{{statistics_result[2].fileNumber}}</span></li>
-                                <li>total size(Byte): <span>{{statistics_result[2].size}}</span></li>
-                                <li>begin time: <span>{{statistics_result[2].beginTime}}</span></li>
-                                <li>end time: <span>{{statistics_result[2].endTime}}</span></li>
+                              <!-- <li>file numbers:<span>{{statistics_result[2].fileNumber}}</span></li>
+                                <li>total size(Byte): <span>{{statistics_result[2].size}}</span></li> -->
+                                <li>begin time: <span>{{statistics_result[2].endTime}}</span></li>
+                                <li>end time: <span>{{statistics_result[2].beginTime}}</span></li>
                                 <li>format: -</li>
                             </ul>
                         </div>
@@ -96,48 +150,50 @@
                 </div>
             </div>
             <div class="center-center-right default-bg">
-                <div class="statistics-title">
-                    SEARCH
+                <div class="search-title">
+                    Search XXX XXXXXXXXXXXXXXXXXXXXXXXXX...... 
+                    <div class="search-subtitle">
+                    From XXXXXXXXXXXXXXXXXXXXX...... 
+                </div>
                 </div><br>
+                
                 <!-- 搜索条件form -->
                 <el-form :model="search_form">
                     
-                        <el-form-item label="Category">
+                        <el-form-item >
                             <el-select  v-model="category_selected" value-key="id" placeholder="select category">
                               <el-option v-for="item in category_list" :key="item.id" :label="item.name" :value="item.id"></el-option>
                             </el-select>
                         </el-form-item>
-                        <!-- <select>
-                            <option value="volvo">All Area</option>
-                        </select> -->
                     
                    
-                        <el-form-item label="Area">
+                        <el-form-item >
                             <el-select v-model="area_selected" value-key="id"  placeholder="select area">
                               <el-option v-for="item in area_list" :key="item.id" :label="item.name" :value="item.id"></el-option>
                             </el-select>
                         </el-form-item>
                     
                     
-                        <el-form-item label="Source">
+                        <el-form-item >
                             <el-select v-model="source_selected" value-key="id" placeholder="select source">
                               <el-option v-for="item in source_list" :key="item.id" :label="item.name" :value="item.id"></el-option>
                             </el-select>
                         </el-form-item>
                     
                     
-                        <el-form-item label="Start Time">
-                            <el-date-picker v-model="startTime_selected" type="datetime" placeholder="select start time(UTC)" @change="dataSearch" value-format="yyyy-MM-dd HH" format="yyyy-MM-dd HH"></el-date-picker>
+                        <el-form-item>
+                            <el-date-picker class="time_select" v-model="startTime_selected" type="datetime" placeholder="select start time(UTC)" @change="dataSearch" value-format="yyyy-MM-dd HH" format="yyyy-MM-dd HH"></el-date-picker>
                         </el-form-item>
                     
                     
-                        <el-form-item label="End Time">
-                         <el-date-picker v-model="endTime_selected" type="datetime" placeholder="select end time(UTC)" @change="dataSearch" value-format="yyyy-MM-dd HH" format="yyyy-MM-dd HH"></el-date-picker>
+                        <el-form-item>
+                         <el-date-picker class="time_select" v-model="endTime_selected" type="datetime" placeholder="select end time(UTC)" @change="dataSearch" value-format="yyyy-MM-dd HH" format="yyyy-MM-dd HH"></el-date-picker>
                         </el-form-item>
-                    
-                    <div class="btn">
+                    <el-form-item>
+                    <!-- <div class="btn"> -->
                         <el-button type="success" class="btn btn-primary col-md-6" @click="submitForm">Search Data</el-button>
-                    </div>
+                    <!-- </div> -->
+                    </el-form-item>
                 </el-form>
             </div>
           </div>
@@ -456,6 +512,7 @@ const searchData = () =>{
   .center-center {
     display: flex;
     flex: 1;
+    flex-direction: column;
     // background: rgb(145, 172, 73);
 
     // 中间部分的统计信息（station|fub|ship）的一些有序列表
@@ -471,7 +528,7 @@ const searchData = () =>{
         // color: yellow;
         // font-family: Arial, Helvetica, sans-serif;
         // text-shadow: 2px 2px 10px #000;
-        font-size: 3em;
+        font-size: 3rem;
         @minortitle();
       }
 
@@ -489,16 +546,28 @@ const searchData = () =>{
           font-family: Arial, Helvetica, sans-serif;
           text-shadow: 2px 2px 10px #000;
           .title {
-            font-size: 2em;
+            font-size: 2rem;
             color: white;
           }
+          .num-box{
+            column-count:2;
+            color: white;
+            list-style: none;
+            .num{
+              font-size: 3rem
+            }
+            .text{
+              font-size: 1.5rem
+            }
 
+          }
           .body {
             ul {
               li {
                 line-height: 3em;
                 color: white;
-                font-size: 1em;
+                font-size: 1rem;
+                list-style: none
               }
             }
           }
@@ -520,38 +589,57 @@ const searchData = () =>{
       @graybackground();
       @margindefault();
       @borderradius();
-      .statistics-title {
+      .search-title {
         // @minortitle();
-        font-size: 2em;
+        text-align:left;
+        font-size: 2rem;
         color: black;
+        padding-left:40px;
         // font-size: ;
+      
+      .search-subtitle {
+        // @minortitle();
+        font-size: 1.5rem;
+
+
+      }
       }
       .el-form {
         display: flex;
         flex: 1;
-        flex-direction: column;
+        flex-direction: row;
+        flex-wrap:wrap;
+        align-items: center;
         justify-content: center;
         .el-select {
           display: flex;
           flex: 1;
           justify-content: center;
-          font-size: 1.5em;
-          width: 40%;
+          font-size: 1.5rem;
+          width:300px;
+          // border:40px #33CCCC;
+          //已取消label
           label {
             // @whitefont();
             color: black;
-            font-size: 2em;
+            font-size: 2rem;
           }
         }
-        .btn {
-          display: flex;
-          justify-content: center;
+        .time_select{
+          width:320px;
+          // border: 10px #33CCCC;
+        }
+        // .btn {
+          
           button {
+            display: flex;
+          justify-content: center;
             @bluebackground();
-            border:none
+            border:none;
             // background-color: #2bbbad !important;
+            width:250px
           }
-        }
+        // }
       }
     }
   }
@@ -565,13 +653,14 @@ const searchData = () =>{
     @margindefault();
     @borderradius();
     .center-footer-card-header {
-      font-size: 2em;
+      font-size: 2rem;
       color: black;
+      //  @minortitle();
     }
 
     .center-footer-card-body {
       background: white;
-      font-size: 1em;
+      font-size: 1rem;
         color: black; 
         align-self: auto;
         .result_table{
