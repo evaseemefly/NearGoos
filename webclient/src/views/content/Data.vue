@@ -288,7 +288,6 @@ mounted() {
 
   //methods
   submitForm(){
-    alert('dd')
     // let formData = new FormData();
 //     let config = {
 //    headers: {
@@ -313,7 +312,11 @@ mounted() {
   
   axios.post(url,data).then(res=>{
     alert(res.data);
-        this.results_data = res.data;
+        if(res.data[0].state){
+          this.results_data = res.data;
+        }else{
+          alert(res.data[0].msg);
+        }
   }).catch(err=>{
     alert('err');
   });
