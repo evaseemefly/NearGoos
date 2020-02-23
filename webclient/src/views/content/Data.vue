@@ -215,8 +215,13 @@
                     <el-table-column prop="area" label="Area" ></el-table-column>
                     <el-table-column prop="source" label="Source" ></el-table-column>
                     <el-table-column prop="size" label="Size(Byte)" ></el-table-column>
+                    <el-table-column label="action">
+　　　　<template slot-scope="scope">
+　　　　　　<el-button type="info" class="btn_show" @click="showData('/'+ scope.row.url)">show data</el-button>
+　　　　</template>
+　　</el-table-column>
                   </el-table>
-                  <el-button type="success" class="btn_download" @click="submitForm">Download Data</el-button>
+                  <el-button type="success" class="btn_download" @click="download">Download Data</el-button>
 
                  <div>
                  </div>
@@ -228,6 +233,8 @@
 <script lang="ts">
 import { Component, Prop, Vue, Watch } from "vue-property-decorator";
 import axios from 'axios';
+import JSZip from 'jszip';
+import FileSaver from 'file-saver'
 const host = 'http://localhost:8083'
 @Component({})
 export default class DataView extends Vue {
@@ -242,6 +249,7 @@ export default class DataView extends Vue {
   startTime_selected :any = null; 
   endTime_selected :any = null;
   results_data: any =[];
+  url:any = null;
   
 // lifecycle hook
 mounted() {
@@ -287,6 +295,13 @@ mounted() {
   }
 
   //methods
+  showData(showData_url:string){
+    showData_url = showData_url.replace(/\\/g,'/');
+    window.open(showData_url)
+  }
+
+
+
   submitForm(){
     // let formData = new FormData();
 //     let config = {
@@ -314,9 +329,11 @@ mounted() {
     alert(res.data);
         if(res.data[0].state){
           this.results_data = res.data;
+          // alert(this.results_data[0].url)
         }else{
-          alert(res.data[0].msg);
+          alert(res.data[0].msg)
         }
+        
   }).catch(err=>{
     alert('err');
   });
@@ -390,17 +407,7 @@ const searchData = () =>{
 
 }
 
-//测试回显
 
-// var getStatictisByCategory = new Vue({
-//   el:'#statistics',
-//   data:{
-//     answer:'222'
-//     },
-//   mounted:function(){
-
-//   }
-// })
 </script>
 <style scoped lang="less">
 @import "../styles/base.less";
@@ -681,6 +688,14 @@ const searchData = () =>{
     //     border-radius: 2px;
     //     background: rgba(0,0,0,0.4);
     // }
+          .btn_show {
+          display: flex;
+          margin:0 auto;
+            @bluebackground();
+            border:none
+            // background-color: #2bbbad !important;
+          
+        }
         .btn_download {
           display: flex;
           justify-content: center;
