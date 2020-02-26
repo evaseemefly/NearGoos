@@ -277,7 +277,10 @@
               <p>{{ countSelected }}个文件</p>
             </div>
             <div class="statistics-btn">
-              <button type="submit" class="btn btn-primary col-md-6">
+              <button
+                class="btn btn-primary col-md-6"
+                @click="submitSelectFile"
+              >
                 下载
               </button>
             </div>
@@ -409,7 +412,10 @@ export default class ProductView extends Vue {
     interval: number;
     date: Date;
     type: number;
+    relativePath: string;
   }> = [];
+  // 用来存储选中的tableData对应的路径数组
+  tableDataPath: string[] = [];
 
   // 选中的最近的图片的url
   // currentImageUrl: string =
@@ -444,6 +450,7 @@ export default class ProductView extends Vue {
     this.menuChildIndex = child;
   }
   handleClose() {}
+
   submit() {
     let myself = this;
     console.log('提交表单');
@@ -467,6 +474,7 @@ export default class ProductView extends Vue {
             interval: number;
             targetDate: Date;
             type: number;
+            relativePath: string;
           }) => {
             myself.tableData.push({
               name: temp.name,
@@ -474,11 +482,40 @@ export default class ProductView extends Vue {
               interval: temp.interval,
               date: temp.targetDate,
               type: temp.type,
+              relativePath: temp.relativePath,
             });
           }
         );
       }
     });
+  }
+
+  // TODO:[*] 20-02-26 获取对应的url地址
+  submitSelectFile() {
+    this.tableData.forEach(temp => {
+      this.tableDataPath.push(
+        [
+          this.rootPath,
+          this.getTypePath(temp.type.toString()),
+          temp.relativePath,
+          temp.name,
+        ].join('/')
+      );
+    });
+  }
+
+  // TODO:[-] 20-02-26 根据传入的type获取对应的typePath(中间的拼接字符串)
+  getTypePath(type: string): string | undefined {
+    let typePath: string | undefined;
+    const targetCategory = this.category.find(
+      (temp: { key: string; val: string }) => {
+        return temp.key === type;
+      }
+    );
+    if (targetCategory !== undefined) {
+      typePath = targetCategory.val;
+    }
+    return typePath;
   }
   mounted() {
     this.openList = ['1', '2'];
@@ -624,19 +661,22 @@ export default class ProductView extends Vue {
           // _that.currentImageUrl = res.data.imageUrl;
           _that.currentImgRelativePath = res.data.relativePath;
           _that.currentImgFileName = res.data.name;
-          /* 
-          TODO:[*] 19-12-15
+          /*
+          TODO:[-] 19-12-15
               此处新加入了通过页面加载时获取的 动态的（从数据库中读取的）types
               根据返回的type找到对应的types的 val，作为root_type
         */
-          const targetCategory = _that.category.find(
-            (temp: { key: string; val: string }) => {
-              return temp.key === res.data.type;
-            }
-          );
-          if (targetCategory !== undefined) {
-            _that.rootType = targetCategory.val;
-          }
+          // TODO:[-] 20-02-26 此处重新做了封装(-> getTypePath)，以下部分暂时注释掉
+          // const targetCategory = _that.category.find(
+          //   (temp: { key: string; val: string }) => {
+          //     return temp.key === res.data.type;
+          //   }
+          // );
+          // if (targetCategory !== undefined) {
+          //   _that.rootType = targetCategory.val;
+          // }
+          let rootPath = this.getTypePath(res.data.type);
+          this.rootType = rootPath != undefined ? rootPath : '';
         }
       }
     );

@@ -27,37 +27,31 @@
     <div class="content-introduce">
       <!-- 左侧导航栏 -->
       <ul>
-        <li>About NEAR-GOOS</li>
+        <li
+          :key="item.key"
+          v-for="item in tabContent"
+          @click="setTabIndex(item.key)"
+        >
+          {{ item.title }}
+        </li>
+        <!-- <li>About NEAR-GOOS</li>
         <li>First Phase Success</li>
         <li>Objectives Basis</li>
         <li>Activities</li>
         <li>Scientific Basis</li>
         <li>Principles</li>
-        <li>Data</li>
+        <li>Data</li> -->
       </ul>
       <!-- <div class='left-bar'>
         </div> -->
       <!-- 右侧具体内容 -->
+
       <div class="right-content">
-        <h4>
-          NEAR (North-East Asian Regional)-GOOS is a regional pilot project of
-          GOOS in the North-East Asian Region, implemented by China, Japan, the
-          Republic of Korea and the Russian Federation as one activity of IOC
-          Sub-Commission for the Western Pacific (WESTPAC). NEAR-GOOS was
-          conceived and initiated upon the formal adoption of the NEAR-GOOS
-          Implementation Plan and Operational Manual the Intergovernmental
-          Oceanographic Commission following a recommendation from the WESTPAC
-          Regional Sub commission of IOC earlier in the year. It became one of
-          the first regional pilot projects of GOOS. The primary aim of
-          NEAR-GOOS in its first phase was to facilitate the sharing of
-          oceanographic data gathered by agencies of the partner countries using
-          the internet, to support the daily mapping of conditions in the
-          marginal seas bordered by the partner countries. Although it was
-          anticipated that this should eventually lead to improvement in the
-          availability of information and ocean services for all kinds of
-          beneficial purposes, it is important to note that these flow-on
-          outcomes were not specific goals for the first phase.
-        </h4>
+        <transition name="tabcontent" mode="out-in">
+          <h4 class="item" :key="TabContent.key">
+            {{ TabContent.val }}
+          </h4>
+        </transition>
       </div>
     </div>
     <div class="content-2">
@@ -108,13 +102,68 @@
   </div>
 </template>
 <script scoped lang="ts">
-import { Component, Prop, Vue, Watch } from "vue-property-decorator";
+import { Component, Prop, Vue, Watch } from 'vue-property-decorator';
 @Component({})
 export default class OverView extends Vue {
   mydata: any = null;
+  tabIndex: number = 0;
+  tabContent: { key: number; title: string; val: string }[] = [
+    {
+      key: 0,
+      title: 'About NEAR-GOOS',
+      val:
+        'NEAR (North-East Asian Regional)-GOOS is a regional pilot project of GOOS in the North-East Asian Region, implemented by China, Japan, the Republic of Korea and the Russian Federation as one activity of IOC Sub-Commission for the Western Pacific (WESTPAC). NEAR-GOOS was conceived and initiated upon the formal adoption of the NEAR-GOOS Implementation Plan and Operational Manual the Intergovernmental Oceanographic Commission following a recommendation from the WESTPAC Regional Sub commission of IOC earlier in the year. It became one of the first regional pilot projects of GOOS. The primary aim of NEAR-GOOS in its first phase was to facilitate the sharing of oceanographic data gathered by agencies of the partner countries using the internet, to support the daily mapping of conditions in the marginal seas bordered by the partner countries. Although it was anticipated that this should eventually lead to improvement in the availability of information and ocean services for all kinds of beneficial purposes, it is important to note that these flow-on outcomes were not specific goals for the first phase.',
+    },
+    {
+      key: 1,
+      title: 'First Phase Success',
+      val: 'First Phase Success 内容',
+    },
+    {
+      key: 2,
+      title: 'Objectives Basis',
+      val: 'Objectives Basis 内容',
+    },
+    {
+      key: 3,
+      title: 'Activities',
+      val: 'Activities 内容',
+    },
+    {
+      key: 4,
+      title: 'Scientific Basis',
+      val: 'Scientific Basis 内容',
+    },
+    {
+      key: 5,
+      title: 'Principles',
+      val: 'Principles 内容',
+    },
+    {
+      key: 6,
+      title: 'Data',
+      val: 'Data 内容',
+    },
+  ];
   mounted() {}
+  setTabIndex(val: number) {
+    this.tabIndex = val;
+  }
   get computedTest() {
     return null;
+  }
+  @Watch('tabIndex')
+  onTabIndex(val: number) {}
+
+  get TabContent() {
+    const tempContent = this.tabContent.find(temp => {
+      if (temp.key === this.tabIndex) {
+        return temp;
+      }
+    });
+    if (tempContent != undefined) {
+      return tempContent;
+    }
   }
 }
 </script>
@@ -138,7 +187,7 @@ export default class OverView extends Vue {
   font-size: 18px;
 }
 .content-1 {
-  background: url("/images/background/home_1_1.jpg");
+  background: url('/images/background/home_1_1.jpg');
   .basecontent();
   flex-direction: column;
   .content-1-title {
@@ -171,7 +220,7 @@ export default class OverView extends Vue {
 .content-introduce {
   .basecontent();
   // display: flex;
-  background: url("/images/background/home_1_9.jpg");
+  background: url('/images/background/home_1_9.jpg');
   flex-direction: row;
   justify-content: center;
   align-items: center;
@@ -199,7 +248,7 @@ export default class OverView extends Vue {
 }
 // goals
 .content-2 {
-  background: url("/images/background/home_1_2.jpg");
+  background: url('/images/background/home_1_2.jpg');
   .basecontent();
   .content-1-title {
     display: flex;
@@ -227,7 +276,7 @@ export default class OverView extends Vue {
 // mission
 .content-3 {
   .basecontent();
-  background: url("/images/background/home_1_3.jpg");
+  background: url('/images/background/home_1_3.jpg');
   .content-1-title {
     display: flex;
     flex-direction: column;
@@ -254,7 +303,7 @@ export default class OverView extends Vue {
 }
 // area
 .content-4 {
-  background: url("/images/background/home_1_5.jpg");
+  background: url('/images/background/home_1_5.jpg');
   .basecontent();
   .content-1-title {
     display: flex;
@@ -286,4 +335,39 @@ export default class OverView extends Vue {
     }
   }
 }
+
+// 加入切换时的过度效果
+// .tabcontent-enter-active,
+// .tabcontent-leave-active {
+//   transition: all 1s;
+// }
+// .tabcontent-enter,
+// .tabcontent-leave-to {
+//   opacity: 0;
+//   transform: translateY(30px);
+// }
+
+.tabcontent-enter-active {
+  animation: tabFade 1s;
+}
+
+@keyframes tabFade {
+  0% {
+    // background-color: yellow;
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+// 0% {
+//   background: black;
+// }
+// 100% {
+//   background: red;
+//   // opacity: 0;
+//   // transform: translateY(30px);
+// }
 </style>
