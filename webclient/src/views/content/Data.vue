@@ -205,7 +205,7 @@
                  <div class="center-footer-card-body">
                    <!-- 表头内容 -->
                    <!-- <div class="table table-striped table-bordered"> -->
-                  <el-table class="result_table" :data="results_data" ref="multipleTable"> 
+                  <el-table class="result_table" :data="results_data" ref="multipleTable" @selection-change="handleSelectionChange"> 
                     <el-table-column type="selection"></el-table-column>
                     <el-table-column type="index" label="Index" width="80px"></el-table-column>
                     <el-table-column prop="id" label="Id" ></el-table-column>
@@ -215,7 +215,8 @@
                     <el-table-column prop="area" label="Area" ></el-table-column>
                     <el-table-column prop="source" label="Source" ></el-table-column>
                     <el-table-column prop="size" label="Size(Byte)" ></el-table-column>
-                    <el-table-column label="action">
+                    <!-- <el-table-column prop="url" label="url" ></el-table-column> -->
+                    <el-table-column label="Action">
 　　　　<template slot-scope="scope">
 　　　　　　<el-button type="info" class="btn_show" @click="showData('/'+ scope.row.url)">show data</el-button>
 　　　　</template>
@@ -251,6 +252,7 @@ export default class DataView extends Vue {
   endTime_selected :any = null;
   results_data: any =[];
   url:any = null;
+  multipleSelected_url: any = []
   // promises = []
   
 // lifecycle hook
@@ -260,7 +262,7 @@ mounted() {
         this.statistics_result = res.data;
 
       }else{
-        alert('数据统计请求失败');
+        alert('Data statistics failed');
       }
     })
     //获取全部区域
@@ -268,7 +270,7 @@ mounted() {
       if(res.status ===200){
           this.area_list = res.data;
       }else{
-        alert('区域获取请求失败');
+        alert('Area request failed');
       }
     })
        //获取全部数据类型
@@ -276,7 +278,7 @@ mounted() {
       if(res.status ===200){
           this.category_list = res.data;
       }else{
-        alert('区域获取请求失败');
+        alert('Category request failed');
       }
     })
     //获取全部数据源
@@ -284,7 +286,7 @@ mounted() {
       if(res.status ===200){
           this.source_list = res.data;
       }else{
-        alert('数据源获取请求失败')
+        alert('Source request failed')
       }
     })
 
@@ -300,7 +302,16 @@ mounted() {
   //批量打包下载
   // 批量下载
   async downloadByZip(){
-    const data_url = ['/STATION/XMD/2019/08/18/081818.XMD', '/STATION/ZFD/2019/08/18/081815.ZFD']
+    if(this.multipleSelected_url == null||this.multipleSelected_url.length<1){
+      alert('please search data first')
+      return
+    }
+    var data_url = new Array()
+    for(var i=0; i< this.multipleSelected_url.length;i++){
+      var url = '/'+ this.multipleSelected_url[i].url.replace(/\\/g,'/');
+      data_url.push(url)
+    }
+    // const data_url = ['/STATION/XMD/2019/08/18/081818.XMD', '/STATION/ZFD/2019/08/18/081815.ZFD']
     var file_name =''
     var data = '1'
     
@@ -311,11 +322,12 @@ mounted() {
     
    await data_url.forEach(item =>{
     const promise =  this.getFile(item).then(data=>{
-
-        alert(data)
+      //替换反斜杠
+        item = item.replace(/\\/g,'/');
         const arr_name = item.split('/')
         //获取文件名
         file_name = arr_name[arr_name.length - 1]
+        // alert(data)
         zip.file(file_name, data, {binary: true});
       })
         promises.push(promise)
@@ -335,7 +347,6 @@ mounted() {
   }
 //下载按钮事件
 download(){
-  
  this.downloadByZip()
 }
 
@@ -344,17 +355,21 @@ getFile(url:string){
  return new Promise((resolve, reject) => {
         axios({
           method: 'get',
-          url,
-          responseType: 'text'
-        }).then(data => {
-          resolve(data.data)
+          url: url,
+          responseType:'text'
+        }).then((res) => {
+           
+          // alert('axios' + '             '+ res.data)
+          resolve(res.data)
         }).catch(error => {
           reject(error.toString())
         })
       })
     }
-  
-
+  //获取选中的值
+  handleSelectionChange(val:any) {
+      this.multipleSelected_url = val;               //  this.multipleTable 选中的值
+  }
   submitForm(){
     // let formData = new FormData();
 //     let config = {
@@ -379,7 +394,7 @@ getFile(url:string){
   // formData.append('endTime', this.endTime_selected);
   
   axios.post(url,data).then(res=>{
-    alert(res.data);
+    // alert(res.data);
         if(res.data[0].state){
           this.results_data = res.data;
           // alert(this.results_data[0].url)
