@@ -219,9 +219,10 @@
 　　　　<template slot-scope="scope">
 　　　　　　<el-button type="info" class="btn_show" @click="showData('/'+ scope.row.url)">show data</el-button>
 　　　　</template>
+
 　　</el-table-column>
                   </el-table>
-                  <el-button type="success" class="btn_download" @click="download">Download Data</el-button>
+                  <el-button type="success" class="btn_download" @click="download()">Download Data</el-button>
 
                  <div>
                  </div>
@@ -250,6 +251,7 @@ export default class DataView extends Vue {
   endTime_selected :any = null;
   results_data: any =[];
   url:any = null;
+  // promises = []
   
 // lifecycle hook
 mounted() {
@@ -295,12 +297,63 @@ mounted() {
   }
 
   //methods
+  //批量打包下载
+  // 批量下载
+  async downloadByZip(){
+    const data_url = ['/STATION/XMD/2019/08/18/081818.XMD', '/STATION/ZFD/2019/08/18/081815.ZFD']
+    var file_name =''
+    var data = '1'
+    
+    var promises = new Array();
+      // 初始化一个zip打包对象
+    var zip = new JSZip();
+    // zip.file("Hello.txt", "Hello World\n");
+    
+   await data_url.forEach(item =>{
+    const promise =  this.getFile(item).then(data=>{
+
+        alert(data)
+        const arr_name = item.split('/')
+        //获取文件名
+        file_name = arr_name[arr_name.length - 1]
+        zip.file(file_name, data, {binary: true});
+      })
+        promises.push(promise)
+      })
+      Promise.all(promises).then(()=>{
+          zip.generateAsync({
+          type: "blob"
+        }).then((content:any) => { // 生成二进制流
+          FileSaver.saveAs(content, "data.zip") // 利用file-saver保存文件
+        })
+      })
+  }
+  //数据预览方法
   showData(showData_url:string){
     showData_url = showData_url.replace(/\\/g,'/');
     window.open(showData_url)
   }
+//下载按钮事件
+download(){
+  
+ this.downloadByZip()
+}
 
-
+//下载单个文件方法
+getFile(url:string){
+ return new Promise((resolve, reject) => {
+        axios({
+          method: 'get',
+          url,
+          responseType: 'text'
+        }).then(data => {
+          resolve(data.data)
+        }).catch(error => {
+          reject(error.toString())
+        })
+      })
+    }
+  
 
   submitForm(){
     // let formData = new FormData();
