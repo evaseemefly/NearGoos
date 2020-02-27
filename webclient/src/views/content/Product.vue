@@ -565,7 +565,7 @@ export default class ProductView extends Vue {
     // getAllArea().then((res: any) => {
     // });
     // 获取所有的area的字典
-    getAllArea().then((res: any) => {
+    let p1 = getAllArea().then((res: any) => {
       if (res.status === 200) {
         res.data.forEach((temp: { key: string; val: string }) => {
           myself.areaList.push({
@@ -575,7 +575,7 @@ export default class ProductView extends Vue {
         });
       }
     });
-    getAllTypesMenu().then((res: any) => {
+    let p2 = getAllTypesMenu().then((res: any) => {
       if (res.status === 200) {
         // console.log(res.data);
         // 将结果赋值给menuList
@@ -631,7 +631,7 @@ export default class ProductView extends Vue {
     });
 
     //TODO:[-] 19-12-15 每次加载页面统一从后台获取一次动态的types列表
-    getTypesByDb().then(res => {
+    let p3 = getTypesByDb().then(res => {
       if (res.status === 200) {
         // console.log(res.data);
         res.data.forEach((temp: any) => {
@@ -663,7 +663,17 @@ export default class ProductView extends Vue {
     //   console.log(res);
     // });
 
-    this.imgShow = true;
+    // TODO:[-] 20-02-27 首次进入product页面时需要手动加载最近的 1-1 图片
+    // 所有菜单及其他选项加载完之后，手动触发 loadProductImageUrl 方法，并传入 IntervalList
+    // 注意由于是异步操作，所以上面的异步操作可能还未进行完，此时若执行以下操作会出现取不到值得情况
+
+    Promise.all([p1, p2, p3]).then(res => {
+      console.log('所有异步已结束');
+      // TODO:[-] 20-02-27 由于监听的imgShow会调整图片的 宽高 ，顺序需要提前。注意！
+      this.imgShow = true;
+      const defaultIntervalItem = this.getIntervalList[0];
+      this.loadProductImageUrl(defaultIntervalItem);
+    });
   }
   areaConvert(val: string): string {
     const that = this;
@@ -724,6 +734,8 @@ export default class ProductView extends Vue {
   }
 
   get currentImgUrl(): string {
+    // TODO:[*] 20-02-27 bug:首次加载product页面时加载的图片地址为：http://localhost:8080/images/product/data/ftpdownload////
+
     return [
       this.rootPath,
       this.rootType,
