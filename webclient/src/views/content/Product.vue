@@ -349,6 +349,8 @@ import {
   getProductImageUrl,
   getTypesByDb,
 } from '@/api/index';
+import { IFileOption, DownLoad } from '@/common/download';
+import { BatchDownLoad } from '@/common/batchdownload';
 @Component({
   filters: {
     //TODO:[*] 19-12-09 注意在filters中无法使用this
@@ -360,7 +362,7 @@ import {
 export default class ProductView extends Vue {
   mydata: any = null;
   openList: string[] = [];
-  category: Array<{ key: string; val: string }> = [];
+  category: Array<{ key: number; val: string }> = [];
 
   menuList: Array<{
     key: string;
@@ -415,6 +417,7 @@ export default class ProductView extends Vue {
     relativePath: string;
   }> = [];
   // 用来存储选中的tableData对应的路径数组
+  // TODO:[*] 20-02-27 注意此处有一个需要注意的地方，因为最终部署文件可能不一定永远都放在public中，保险起见，加入域
   tableDataPath: string[] = [];
 
   // 选中的最近的图片的url
@@ -436,10 +439,31 @@ export default class ProductView extends Vue {
     console.log('选中改变');
   }
   // TODO:[*] 20-01-05 计算点击个数未实现
-  selectRow(selection: any, row: any) {
+  selectRow(
+    selection: Array<{
+      name: string;
+      area: number;
+      interval: number;
+      date: Date;
+      type: number;
+      relativePath: string;
+    }>,
+    row: any
+  ) {
     console.log(selection);
     console.log(row);
     this.countSelected = selection.length;
+    this.tableDataPath = [];
+    selection.forEach(temp => {
+      this.tableDataPath.push(
+        [
+          this.rootPath,
+          this.getTypePath(temp.type),
+          temp.relativePath,
+          temp.name,
+        ].join('/')
+      );
+    });
   }
   // TODO:[*] 19-12-09 此处加入了新的功能:根据选择的father和child加载对应的 interval list
   selectMenu(father: string, child: string) {
@@ -492,23 +516,40 @@ export default class ProductView extends Vue {
 
   // TODO:[*] 20-02-26 获取对应的url地址
   submitSelectFile() {
-    this.tableData.forEach(temp => {
-      this.tableDataPath.push(
-        [
-          this.rootPath,
-          this.getTypePath(temp.type.toString()),
-          temp.relativePath,
-          temp.name,
-        ].join('/')
-      );
-    });
+    // this.tableData.forEach(temp => {
+    //   this.tableDataPath.push(
+    //     [
+    //       this.rootPath,
+    //       this.getTypePath(temp.type.toString()),
+    //       temp.relativePath,
+    //       temp.name,
+    //     ].join('/')
+    //   );
+    // });
+
+    // TODO:[-] 20-02-27 加入下载远端图片的操作
+    // TODO:[-] 20-02-27 实现方式1；批量下载并不打包，使用第二种方式
+    // const download = new DownLoad([
+    //   {
+    //     url:
+    //       'http://localhost:8080/images/product/data/ftpdownload//wave/2019/12/13/coast08.png',
+    //     filename: 'coast08',
+    //     ext: '.png',
+    //   },
+    // ]);
+    // download.download();
+
+    // TODO:[*] 20-02-27 实现方式2：先批量加载(放在内存中)->压缩->存储
+    const batchDownload = new BatchDownLoad();
+    // TODO:[-] 20-02-27 注意此处最终不加入公共域，在方法中统一处理(只需要传递相对路径即可)
+    batchDownload.batchDownload(this.tableDataPath);
   }
 
   // TODO:[-] 20-02-26 根据传入的type获取对应的typePath(中间的拼接字符串)
-  getTypePath(type: string): string | undefined {
+  getTypePath(type: number): string | undefined {
     let typePath: string | undefined;
     const targetCategory = this.category.find(
-      (temp: { key: string; val: string }) => {
+      (temp: { key: number; val: string }) => {
         return temp.key === type;
       }
     );
@@ -652,7 +693,7 @@ export default class ProductView extends Vue {
         data: {
           name: string;
           relativePath: string;
-          type: string;
+          type: number;
         };
         status: number;
       }) => {
@@ -921,6 +962,7 @@ export default class ProductView extends Vue {
             interval: number;
             targetDate: Date;
             type: number;
+            relativePath: string;
           }) => {
             _that.tableData.push({
               name: temp.name,
@@ -928,6 +970,7 @@ export default class ProductView extends Vue {
               interval: temp.interval,
               date: temp.targetDate,
               type: temp.type,
+              relativePath: temp.relativePath,
             });
           }
         );
