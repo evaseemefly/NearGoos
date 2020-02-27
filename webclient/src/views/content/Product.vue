@@ -330,6 +330,17 @@
             </div>
           </div>
         </div>
+        <div class="product-images">
+          <transition-group name="imgfade">
+            <div
+              class="image"
+              :key="pathtemp"
+              v-for="pathtemp in tableDataPath"
+            >
+              <img :src="pathtemp" />
+            </div>
+          </transition-group>
+        </div>
       </div>
     </div>
   </div>
@@ -1052,6 +1063,20 @@ export default class ProductView extends Vue {
 @menu-child: {
   background: #0b6fb1;
 };
+
+.imgfade-enter-active {
+  animation: fadeUp 1s;
+}
+.imgfade-enter-active,
+.imgfade-leave-active {
+  transition: all 1s;
+}
+.imgfade-enter, .imgfade-leave-to
+/* .list-leave-active for below version 2.1.8 */ {
+  opacity: 0;
+  transform: translateY(30px);
+}
+
 // 中间的区域
 .center {
   flex: 1;
@@ -1390,6 +1415,25 @@ export default class ProductView extends Vue {
 
         .center-footer-card-body {
           background: white;
+        }
+      }
+    }
+    // 最下面的加载图片栏
+    .product-images {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      // flex-wrap: wrap;
+      span {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        flex-wrap: wrap;
+        .image {
+          img {
+            max-width: 500px;
+            max-height: 500px;
+          }
         }
       }
     }
