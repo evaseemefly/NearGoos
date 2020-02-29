@@ -70,7 +70,7 @@
                                 <span id="size_num">{{statistics_result[0].size}}</span>
                               </p>
                               <p class="text">
-                                <span id="size_text">total size(Byte)</span>
+                                <span id="size_text">total size(KB)</span>
                               </p>
                             </li>
                         </ul>
@@ -102,7 +102,7 @@
                                 <span id="size_num">{{statistics_result[1].size}}</span>
                               </p>
                               <p class="text">
-                                <span id="size_text">total size(Byte)</span>
+                                <span id="size_text">total size(KB)</span>
                               </p>
                             </li>
                         </ul>
@@ -133,7 +133,7 @@
                                 <span id="size_num">{{statistics_result[2].size}}</span>
                               </p>
                               <p class="text">
-                                <span id="size_text">total size(Byte)</span>
+                                <span id="size_text">total size(KB)</span>
                               </p>
                             </li>
                         </ul>
@@ -217,11 +217,10 @@
                     <el-table-column prop="size" label="Size(Byte)" ></el-table-column>
                     <!-- <el-table-column prop="url" label="url" ></el-table-column> -->
                     <el-table-column label="Action">
-　　　　<template slot-scope="scope">
-　　　　　　<el-button type="info" class="btn_show" @click="showData('/'+ scope.row.url)">show data</el-button>
-　　　　</template>
-
-　　</el-table-column>
+              　　　　<template slot-scope="scope">
+              　　　　　　<el-button type="info" class="btn_show" @click="showData('/'+ scope.row.url)">show data</el-button>
+              　　　　</template>
+　                　</el-table-column>
                   </el-table>
                   <el-button type="success" class="btn_download" @click="download()">Download Data</el-button>
 
@@ -260,7 +259,11 @@ mounted() {
       getStatisticsByCategory().then((res:any)=>{
       if(res.status ===200){
         this.statistics_result = res.data;
-
+        //换算为KB
+        for(var i = 0;i<this.statistics_result.length;i++){
+            this.statistics_result[i].size = Math.round(this.statistics_result[i].size/1024)
+        }
+        
       }else{
         alert('Data statistics failed');
       }
@@ -269,6 +272,7 @@ mounted() {
     getAllArea().then((res:any)=>{
       if(res.status ===200){
           this.area_list = res.data;
+          
       }else{
         alert('Area request failed');
       }
@@ -758,7 +762,7 @@ const searchData = () =>{
     // }
           .btn_show {
           display: flex;
-          margin:0 auto;
+          // margin:0 auto;
             @bluebackground();
             border:none
             // background-color: #2bbbad !important;
