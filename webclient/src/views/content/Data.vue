@@ -207,8 +207,8 @@
                    <!-- <div class="table table-striped table-bordered"> -->
                   <el-table class="result_table" :data="results_data" ref="multipleTable" @selection-change="handleSelectionChange"> 
                     <el-table-column type="selection"></el-table-column>
-                    <el-table-column type="index" label="Index" width="80px"></el-table-column>
-                    <el-table-column prop="id" label="Id" ></el-table-column>
+                    <el-table-column type="index"  label="Index" width="80px"></el-table-column>
+                    <el-table-column prop="id" v-if="show" label="Id" ></el-table-column>
                     <el-table-column prop="name" label="Filename" ></el-table-column>
                     <el-table-column prop="date" label="Date" ></el-table-column>
                     <el-table-column prop="category" label="Category" ></el-table-column>
