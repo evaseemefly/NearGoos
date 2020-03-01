@@ -233,6 +233,10 @@ export default class OverView extends Vue {
     .desfont();
     .deswhite();
     // justify-content: flex-start;
+    li {
+      // 取消光标效果改为箭头
+      cursor: default;
+    }
   }
   .right-content {
     display: flex;

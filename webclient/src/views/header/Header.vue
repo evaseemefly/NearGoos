@@ -16,7 +16,7 @@
       <ul>
         <li>
           <!-- <router-link :to="{ name: 'map', params: { kind: 'history' }}">船舶历史轨迹</router-link> -->
-          <router-link :to="{ path: 'content' }">Home</router-link>
+          <router-link :to="{ path: '/' }">Home</router-link>
         </li>
         <li>
           <router-link :to="{ path: '/content/overview' }"
@@ -38,16 +38,21 @@
         China Real-Time Data Base, run by National Marine Environmental
         Forecasting Center (NMEFC)
       </h4>
-      <button class="btn btn-default">Download Data</button>
+      <!-- <button class="btn btn-default">Download Data</button> -->
+      <button class="btn btn-default">
+        <router-link :to="{ path: '/content/data' }">Download Data</router-link>
+      </button>
     </div>
   </div>
 </template>
 <script lang="ts">
-import { Component, Vue } from "vue-property-decorator";
+import { Component, Vue } from 'vue-property-decorator';
 @Component({})
 export default class Header extends Vue {}
 </script>
 <style scoped lang="less">
+// @import '../styles/base.less';
+@import '../../styles/base.less';
 .my-root {
   background: rgb(138, 128, 114);
 }
@@ -58,7 +63,7 @@ export default class Header extends Vue {}
   // 上面url tab
   // 中间居中title
   // 下面一个button
-  background: url("/images/background/home_1_2.jpg");
+  background: url('/images/background/home_1_2.jpg');
   // height: 100px;
   display: flex;
   flex-direction: column;
@@ -105,6 +110,11 @@ export default class Header extends Vue {}
       background: rgba(212, 132, 28, 0.815);
       color: white;
       font-size: 20px;
+      a {
+        // text-decoration: none;
+        // color: white;
+        @alinkdefault();
+      }
     }
   }
 }

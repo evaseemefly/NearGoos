@@ -15,8 +15,14 @@
               >OverView</router-link
             >
           </li>
-          <li><router-link :to="{ path: 'content' }">Data</router-link></li>
-          <li><router-link :to="{ path: 'content' }">Product</router-link></li>
+          <li>
+            <router-link :to="{ path: '/content/data' }">Data</router-link>
+          </li>
+          <li>
+            <router-link :to="{ path: '/content/product' }"
+              >Product</router-link
+            >
+          </li>
         </ul>
       </div>
     </header>
@@ -28,7 +34,10 @@
           China Real-Time Data Base, run by National Marine Environmental
           Forecasting Center (NMEFC)
         </h4>
-        <button class="btn btn-default">Download Data</button>
+        <!-- <button class="btn btn-default">Download Data</button> -->
+        <button class="btn btn-default">
+          <router-link :to="{ path: 'content' }">Download Data</router-link>
+        </button>
       </div>
     </div>
     <footer>
@@ -89,6 +98,7 @@ export default {
 </script>
 
 <style scoped lang="less">
+@import '../styles/base.less';
 .my-root {
   background: url('/images/background/home_1_7.jpg');
   display: flex;
@@ -101,6 +111,13 @@ export default {
     // background: #7f9943;
     .minor-title {
       @minortitle();
+      button {
+        a {
+          // text-decoration: none;
+          // color: white;
+          @alinkdefault();
+        }
+      }
     }
   }
 }
