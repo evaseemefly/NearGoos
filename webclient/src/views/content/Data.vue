@@ -237,6 +237,7 @@ import { Component, Prop, Vue, Watch } from "vue-property-decorator";
 import axios from 'axios';
 import JSZip from 'jszip';
 import FileSaver from 'file-saver'
+import moment from 'moment'
 const host = 'http://localhost:8083'
 @Component({})
 export default class DataView extends Vue {
@@ -264,7 +265,10 @@ mounted() {
         for(var i = 0;i<this.statistics_result.length;i++){
             this.statistics_result[i].size = Math.round(this.statistics_result[i].size/1024)
         }
-        
+            for(var i = 0;i<this.statistics_result.length;i++){
+            this.statistics_result[i].beginTime = moment(this.statistics_result[i].beginTime).format('YYYY-MM-DD HH:mm:ss')
+            this.statistics_result[i].endTime = moment(this.statistics_result[i].endTime).format('YYYY-MM-DD HH:mm:ss')
+          }
       }else{
         alert('Data statistics failed');
       }
@@ -402,6 +406,9 @@ getFile(url:string){
     // alert(res.data);
         if(res.data[0].state){
           this.results_data = res.data;
+          for(var i = 0;i<this.results_data.length;i++){
+            this.results_data[i].date = moment(this.results_data[i].date).format('YYYY-MM-DD HH:mm:ss')
+          }
           // alert(this.results_data[0].url)
         }else{
           alert(res.data[0].msg)
@@ -425,7 +432,9 @@ getFile(url:string){
     // alert(res.data);
         if(res.data[0].state){
           this.results_data = res.data;
-          // alert(this.results_data[0].url)
+            for(var i = 0;i<this.results_data.length;i++){
+            this.results_data[i].date = moment(this.results_data[i].date).format('YYYY-MM-DD HH:mm:ss')
+          }
         }else{
           alert(res.data[0].msg)
         }
