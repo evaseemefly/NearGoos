@@ -219,6 +219,7 @@
                     <el-table-column label="Action">
               　　　　<template slot-scope="scope">
               　　　　　　<el-button type="info" class="btn_show" @click="showData('/'+ scope.row.url)">show data</el-button>
+              <!-- <a :href="'http://localhost:8080/'+ scope.row.url">show data</a> -->
               　　　　</template>
 　                　</el-table-column>
                   </el-table>
@@ -253,7 +254,7 @@ export default class DataView extends Vue {
   url:any = null;
   multipleSelected_url: any = []
   // promises = []
-  
+  tempdata : any=null
 // lifecycle hook
 mounted() {
       getStatisticsByCategory().then((res:any)=>{
@@ -294,6 +295,7 @@ mounted() {
       }
     })
 
+    this.reloadData()
 
   }
 
@@ -303,6 +305,14 @@ mounted() {
   }
 
   //methods
+  //预加载数据
+  reloadData(){
+      var now = new Date() 
+      var last_10_day = now.getTime() - 864000000
+      var startTime = last_10_day
+      var endTime = now.getTime()
+      this.reload(startTime,endTime)
+  }
   //批量打包下载
   // 批量下载
   async downloadByZip(){
@@ -347,7 +357,9 @@ mounted() {
   //数据预览方法
   showData(showData_url:string){
     showData_url = showData_url.replace(/\\/g,'/');
-    window.open(showData_url)
+    var page = window.open(showData_url, 'data','alwaysRaised=yes')
+    
+    
   }
 //下载按钮事件
 download(){
@@ -360,7 +372,8 @@ getFile(url:string){
         axios({
           method: 'get',
           url: url,
-          responseType:'text'
+          responseType:'blob',
+            
         }).then((res) => {
            
           // alert('axios' + '             '+ res.data)
@@ -375,15 +388,9 @@ getFile(url:string){
       this.multipleSelected_url = val;               //  this.multipleTable 选中的值
   }
   submitForm(){
-    // let formData = new FormData();
-//     let config = {
-//    headers: {
-//     'Content-Type': 'multipart/form-data;boundary = ' + new Date().getTime()
-//     } 
-// }
   let url = `${host}/data/getDataInfoResultsByQuery`
   //绑定数据
-
+  
   let data = {
     'categoryId': this.category_selected ,
     'areaId': this.area_selected,
@@ -391,12 +398,6 @@ getFile(url:string){
     'beginTime': this.startTime_selected,
     'endTime': this.endTime_selected
   }
-  // formData.append('categoryId', this.category_selected);
-  // formData.append('areaId', this.area_selected);
-  // formData.append('sourceId', this.source_selected);
-  // formData.append('beginTime', this.startTime_selected);
-  // formData.append('endTime', this.endTime_selected);
-  
   axios.post(url,data).then(res=>{
     // alert(res.data);
         if(res.data[0].state){
@@ -409,8 +410,29 @@ getFile(url:string){
   }).catch(err=>{
     alert('err');
   });
+  }
 
-
+//预加载数据
+  reload(startTime:any,endTime:any){
+  let url = `${host}/data/getDataInfoResultsByQuery`
+  //绑定数据
+  
+  let data = {
+    'beginTime': startTime,
+    'endTime': endTime
+  }
+  axios.post(url,data).then(res=>{
+    // alert(res.data);
+        if(res.data[0].state){
+          this.results_data = res.data;
+          // alert(this.results_data[0].url)
+        }else{
+          alert(res.data[0].msg)
+        }
+        
+  }).catch(err=>{
+    alert('err');
+  });
   }
 }
 
