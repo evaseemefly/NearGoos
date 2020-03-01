@@ -10,7 +10,7 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
-from background.byQY.core.FTPManager import FTPManager
+from byQY.core.FTPManager import FTPManager
 
 
 class BaseDao:
