@@ -59,7 +59,12 @@
                         <ul class="num-box">
                             <li>
                               <p class="num">
-                                <span id="num">{{statistics_result[0].fileNumber}}</span>
+                                <span id="num">
+                                  
+                                  <!-- {{statistics_result[0].fileNumber}} -->
+                                  <countTo :startVal='0' :endVal='statistics_result[0].fileNumber' :duration='10000' :autoplay=true></countTo>
+                                  
+                                  </span>
                               </p>
                              <p class="text">
                                 <span id="fileNumber_text">file numbers</span>
@@ -67,7 +72,7 @@
                             </li>
                             <li>
                               <p class="num">
-                                <span id="size_num">{{statistics_result[0].size}}</span>
+                                <span id="size_num"><countTo :startVal='0' :endVal='statistics_result[0].size' :duration='10000' :autoplay=true></countTo></span>
                               </p>
                               <p class="text">
                                 <span id="size_text">total size(KB)</span>
@@ -79,8 +84,8 @@
                               <!-- v-for循环没有成功,先遗留 -->
                                 <!-- <li>file numbers:<span>{{statistics_result[0].fileNumber}}</span></li>
                                 <li>total size(Byte): <span>{{statistics_result[0].size}}</span></li> -->
-                                <li>begin time: <span>{{statistics_result[0].endTime}}</span></li>
-                                <li>end time: <span>{{statistics_result[0].beginTime}}</span></li>
+                                <li>begin time: <span>{{statistics_result[0].beginTime}}</span></li>
+                                <li>end time: <span>{{statistics_result[0].endTime}}</span></li>
                                 <li>format: xml</li>
                             </ul>
                         </div>
@@ -91,7 +96,7 @@
                             <ul class="num-box">
                             <li>
                               <p class="num">
-                                <span id="num">{{statistics_result[1].fileNumber}}</span>
+                                <span id="num"><countTo :startVal='0' :endVal='statistics_result[1].fileNumber' :duration='10000' :autoplay=true></countTo></span>
                               </p>
                              <p class="text">
                                 <span id="fileNumber_text">file numbers</span>
@@ -99,7 +104,7 @@
                             </li>
                             <li>
                               <p class="num">
-                                <span id="size_num">{{statistics_result[1].size}}</span>
+                                <span id="size_num"><countTo :startVal='0' :endVal='statistics_result[1].size' :duration='10000' :autoplay=true></countTo></span>
                               </p>
                               <p class="text">
                                 <span id="size_text">total size(KB)</span>
@@ -110,8 +115,8 @@
                             <ul>
                                 <!-- <li>file numbers:<span>{{statistics_result[1].fileNumber}}</span></li>
                                 <li>total size(Byte): <span>{{statistics_result[1].size}}</span></li> -->
-                                <li>begin time: <span>{{statistics_result[1].endTime}}</span></li>
-                                <li>end time: <span>{{statistics_result[1].beginTime}}</span></li>
+                                <li>begin time: <span>{{statistics_result[1].beginTime}}</span></li>
+                                <li>end time: <span>{{statistics_result[1].endTime}}</span></li>
                                 <li>format: txt</li>
                             </ul>
                         </div>
@@ -122,7 +127,7 @@
                                            <ul class="num-box">
                             <li>
                               <p class="num">
-                                <span id="num">{{statistics_result[2].fileNumber}}</span>
+                                <span id="num"><countTo :startVal='0' :endVal='statistics_result[2].fileNumber' :duration='10000' :autoplay=true></countTo></span>
                               </p>
                              <p class="text">
                                 <span id="fileNumber_text">file numbers</span>
@@ -130,7 +135,7 @@
                             </li>
                             <li>
                               <p class="num">
-                                <span id="size_num">{{statistics_result[2].size}}</span>
+                                <span id="size_num"><countTo :startVal='0' :endVal='statistics_result[2].size' :duration='10000' :autoplay=true></countTo></span>
                               </p>
                               <p class="text">
                                 <span id="size_text">total size(KB)</span>
@@ -141,8 +146,8 @@
                             <ul>
                               <!-- <li>file numbers:<span>{{statistics_result[2].fileNumber}}</span></li>
                                 <li>total size(Byte): <span>{{statistics_result[2].size}}</span></li> -->
-                                <li>begin time: <span>{{statistics_result[2].endTime}}</span></li>
-                                <li>end time: <span>{{statistics_result[2].beginTime}}</span></li>
+                                <li>begin time: <span>{{statistics_result[2].beginTime}}</span></li>
+                                <li>end time: <span>{{statistics_result[2].endTime}}</span></li>
                                 <li>format: -</li>
                             </ul>
                         </div>
@@ -238,9 +243,13 @@ import axios from 'axios';
 import JSZip from 'jszip';
 import FileSaver from 'file-saver'
 import moment from 'moment'
+import countTo from 'vue-count-to';
 const host = 'http://localhost:8083'
-@Component({})
+@Component({
+  components:{countTo}
+})
 export default class DataView extends Vue {
+  
   mydata: any = null;
   statistics_result: any = [];
   area_list : any = [];
@@ -256,6 +265,8 @@ export default class DataView extends Vue {
   multipleSelected_url: any = []
   // promises = []
   tempdata : any=null
+  startVal = 0
+  endVal = 1111
 // lifecycle hook
 mounted() {
       getStatisticsByCategory().then((res:any)=>{

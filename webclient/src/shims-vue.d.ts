@@ -4,3 +4,4 @@ declare module '*.vue' {
 }
 declare module 'jszip';
 declare module 'file-saver';
+declare module 'vue-count-to';
