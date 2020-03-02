@@ -62,7 +62,7 @@
                                 <span id="num">
                                   
                                   <!-- {{statistics_result[0].fileNumber}} -->
-                                  <countTo :startVal='0' :endVal='statistics_result[0].fileNumber' :duration='10000' :autoplay=true></countTo>
+                                  <countTo :startVal='0' :endVal='statistics_result[0].fileNumber' :duration='7000' :autoplay=true></countTo>
                                   
                                   </span>
                               </p>
@@ -72,7 +72,7 @@
                             </li>
                             <li>
                               <p class="num">
-                                <span id="size_num"><countTo :startVal='0' :endVal='statistics_result[0].size' :duration='10000' :autoplay=true></countTo></span>
+                                <span id="size_num"><countTo :startVal='0' :endVal='statistics_result[0].size' :duration='7000' :autoplay=true></countTo></span>
                               </p>
                               <p class="text">
                                 <span id="size_text">total size(KB)</span>
@@ -96,7 +96,7 @@
                             <ul class="num-box">
                             <li>
                               <p class="num">
-                                <span id="num"><countTo :startVal='0' :endVal='statistics_result[1].fileNumber' :duration='10000' :autoplay=true></countTo></span>
+                                <span id="num"><countTo :startVal='0' :endVal='statistics_result[1].fileNumber' :duration='7000' :autoplay=true></countTo></span>
                               </p>
                              <p class="text">
                                 <span id="fileNumber_text">file numbers</span>
@@ -104,7 +104,7 @@
                             </li>
                             <li>
                               <p class="num">
-                                <span id="size_num"><countTo :startVal='0' :endVal='statistics_result[1].size' :duration='10000' :autoplay=true></countTo></span>
+                                <span id="size_num"><countTo :startVal='0' :endVal='statistics_result[1].size' :duration='7000' :autoplay=true></countTo></span>
                               </p>
                               <p class="text">
                                 <span id="size_text">total size(KB)</span>
@@ -127,7 +127,7 @@
                                            <ul class="num-box">
                             <li>
                               <p class="num">
-                                <span id="num"><countTo :startVal='0' :endVal='statistics_result[2].fileNumber' :duration='10000' :autoplay=true></countTo></span>
+                                <span id="num"><countTo :startVal='0' :endVal='statistics_result[2].fileNumber' :duration='7000' :autoplay=true></countTo></span>
                               </p>
                              <p class="text">
                                 <span id="fileNumber_text">file numbers</span>
@@ -135,7 +135,7 @@
                             </li>
                             <li>
                               <p class="num">
-                                <span id="size_num"><countTo :startVal='0' :endVal='statistics_result[2].size' :duration='10000' :autoplay=true></countTo></span>
+                                <span id="size_num"><countTo :startVal='0' :endVal='statistics_result[2].size' :duration='7000' :autoplay=true></countTo></span>
                               </p>
                               <p class="text">
                                 <span id="size_text">total size(KB)</span>
@@ -320,7 +320,7 @@ mounted() {
   }
 
   //methods
-  //预加载数据
+  //预加载数据（10天)
   reloadData(){
       var now = new Date() 
       var last_10_day = now.getTime() - 864000000
