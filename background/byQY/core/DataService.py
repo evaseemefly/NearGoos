@@ -100,10 +100,21 @@ class DataService:
                 # [to-do] 暂时只有一个浮标，以后增加时需要修改
                 extension = 'QD'
             elif folder_level1 == 'STATION':
+                str_year = str(datetime.datetime.now().year)
+                str_month = str(datetime.datetime.now().month)
+                str_day = str(datetime.datetime.now().day)
+
                 folder_level2 = self.ftp_Manager.getCreateTime('/' + file_info)
                 # folder_level2 = str(datetime.datetime.now().year)
+
                 folder_level3 = file_info[0:2]
                 folder_level4 = file_info[2:4]
+                # 如果大于当前日期，年份减1
+                str_ob_date = folder_level2 + '-' + folder_level3 + '-' + folder_level4
+                ob_date = datetime.datetime.strptime(str_ob_date, '%Y-%m-%d')
+                if ob_date > datetime.datetime.now():
+                    folder_level2 = str(int(folder_level2) - 1)
+                print(str(datetime.datetime.now()) + '获取时间:' + str(ob_date))
                 hour = file_info[4:6]
                 # # UTC时间和系统时间调整
                 # if folder_level3 == '12' and folder_level4 == '31' and hour > '16':

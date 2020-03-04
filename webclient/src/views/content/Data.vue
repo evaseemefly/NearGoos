@@ -55,14 +55,14 @@
                 <div class="statistics-form">
                     <!-- station -->
                     <div  class="card-form">
-                        <div class="title">Buoy</div>
+                        <div class="title">{{statistics_result_Buoy.name}}</div>
                         <ul class="num-box">
                             <li>
                               <p class="num">
                                 <span id="num">
                                   
                                   <!-- {{statistics_result[0].fileNumber}} -->
-                                  <countTo :startVal='0' :endVal='statistics_result[0].fileNumber' :duration='7000' :autoplay=true></countTo>
+                                  <countTo :startVal='0' :endVal='statistics_result_Buoy.fileNumber' :duration='6000' :autoplay=true></countTo>
                                   
                                   </span>
                               </p>
@@ -72,7 +72,7 @@
                             </li>
                             <li>
                               <p class="num">
-                                <span id="size_num"><countTo :startVal='0' :endVal='statistics_result[0].size' :duration='7000' :autoplay=true></countTo></span>
+                                <span id="size_num"><countTo :startVal='0' :endVal='statistics_result_Buoy.size' :duration='6000' :autoplay=true></countTo></span>
                               </p>
                               <p class="text">
                                 <span id="size_text">total size(KB)</span>
@@ -84,19 +84,19 @@
                               <!-- v-for循环没有成功,先遗留 -->
                                 <!-- <li>file numbers:<span>{{statistics_result[0].fileNumber}}</span></li>
                                 <li>total size(Byte): <span>{{statistics_result[0].size}}</span></li> -->
-                                <li>begin time: <span>{{statistics_result[0].beginTime}}</span></li>
-                                <li>end time: <span>{{statistics_result[0].endTime}}</span></li>
+                                <li>begin time: <span>{{statistics_result_Buoy.beginTime}}</span></li>
+                                <li>end time: <span>{{statistics_result_Buoy.endTime}}</span></li>
                                 <li>format: xml</li>
                             </ul>
                         </div>
                     </div>
-                    <!-- fub -->
+            
                     <div class="card-form">
-                        <div class="title">Station</div>
+                        <div class="title">{{statistics_result_Station.name}}</div>
                             <ul class="num-box">
                             <li>
                               <p class="num">
-                                <span id="num"><countTo :startVal='0' :endVal='statistics_result[1].fileNumber' :duration='7000' :autoplay=true></countTo></span>
+                                <span id="num"><countTo :startVal='0' :endVal='statistics_result_Station.fileNumber' :duration='6000' :autoplay=true></countTo></span>
                               </p>
                              <p class="text">
                                 <span id="fileNumber_text">file numbers</span>
@@ -104,7 +104,7 @@
                             </li>
                             <li>
                               <p class="num">
-                                <span id="size_num"><countTo :startVal='0' :endVal='statistics_result[1].size' :duration='7000' :autoplay=true></countTo></span>
+                                <span id="size_num"><countTo :startVal='0' :endVal='statistics_result_Station.size' :duration='6000' :autoplay=true></countTo></span>
                               </p>
                               <p class="text">
                                 <span id="size_text">total size(KB)</span>
@@ -115,19 +115,19 @@
                             <ul>
                                 <!-- <li>file numbers:<span>{{statistics_result[1].fileNumber}}</span></li>
                                 <li>total size(Byte): <span>{{statistics_result[1].size}}</span></li> -->
-                                <li>begin time: <span>{{statistics_result[1].beginTime}}</span></li>
-                                <li>end time: <span>{{statistics_result[1].endTime}}</span></li>
+                                <li>begin time: <span>{{statistics_result_Station.beginTime}}</span></li>
+                                <li>end time: <span>{{statistics_result_Station.endTime}}</span></li>
                                 <li>format: txt</li>
                             </ul>
                         </div>
                     </div> 
                     <!-- ship -->
                     <div class="card-form">
-                        <div class="title">Ship</div>
+                        <div class="title">{{statistics_result_Ship.name}}</div>
                                            <ul class="num-box">
                             <li>
                               <p class="num">
-                                <span id="num"><countTo :startVal='0' :endVal='statistics_result[2].fileNumber' :duration='7000' :autoplay=true></countTo></span>
+                                <span id="num"><countTo :startVal='0' :endVal='statistics_result_Ship.fileNumber' :duration='6000' :autoplay=true></countTo></span>
                               </p>
                              <p class="text">
                                 <span id="fileNumber_text">file numbers</span>
@@ -135,7 +135,7 @@
                             </li>
                             <li>
                               <p class="num">
-                                <span id="size_num"><countTo :startVal='0' :endVal='statistics_result[2].size' :duration='7000' :autoplay=true></countTo></span>
+                                <span id="size_num"><countTo :startVal='0' :endVal='statistics_result_Ship.size' :duration='6000' :autoplay=true></countTo></span>
                               </p>
                               <p class="text">
                                 <span id="size_text">total size(KB)</span>
@@ -146,8 +146,8 @@
                             <ul>
                               <!-- <li>file numbers:<span>{{statistics_result[2].fileNumber}}</span></li>
                                 <li>total size(Byte): <span>{{statistics_result[2].size}}</span></li> -->
-                                <li>begin time: <span>{{statistics_result[2].beginTime}}</span></li>
-                                <li>end time: <span>{{statistics_result[2].endTime}}</span></li>
+                                <li>begin time: <span>{{statistics_result_Ship.beginTime}}</span></li>
+                                <li>end time: <span>{{statistics_result_Ship.endTime}}</span></li>
                                 <li>format: -</li>
                             </ul>
                         </div>
@@ -266,25 +266,45 @@ export default class DataView extends Vue {
   multipleSelected_url: any = []
   // promises = []
   tempdata : any=null
-  startVal = 0
-  endVal = 1111
+
+  statistics_result_Buoy: any = null
+  statistics_result_Ship: any = null;
+  statistics_result_Station: any = null;
 // lifecycle hook
 mounted() {
       getStatisticsByCategory().then((res:any)=>{
       if(res.status ===200){
         this.statistics_result = res.data;
-        //换算为KB
+        
         for(var i = 0;i<this.statistics_result.length;i++){
+          //1.调整前端显示格式
+          if(null != this.statistics_result[i].size){
+            //换算为KB
             this.statistics_result[i].size = Math.round(this.statistics_result[i].size/1024)
-        }
-            for(var i = 0;i<this.statistics_result.length;i++){
+          }
+          if(null != this.statistics_result[i].beginTime){
             this.statistics_result[i].beginTime = moment(this.statistics_result[i].beginTime).format('YYYY-MM-DD HH:mm:ss')
+          }
+          if(null != this.statistics_result[i].endTime){
             this.statistics_result[i].endTime = moment(this.statistics_result[i].endTime).format('YYYY-MM-DD HH:mm:ss')
           }
+          //2.赋值
+          if("BUOY" == this.statistics_result[i].name){
+            this.statistics_result_Buoy = this.statistics_result[i]
+          }
+            if("SHIP" == this.statistics_result[i].name){
+            this.statistics_result_Ship = this.statistics_result[i]
+          }
+            if("STATION" == this.statistics_result[i].name){
+            this.statistics_result_Station = this.statistics_result[i]
+          }
+        }
+
       }else{
         alert('Data statistics failed');
       }
     })
+    this.reloadData()
     //获取全部区域
     getAllArea().then((res:any)=>{
       if(res.status ===200){
@@ -312,7 +332,7 @@ mounted() {
       }
     })
 
-    this.reloadData()
+    
 
   }
 

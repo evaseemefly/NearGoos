@@ -177,6 +177,7 @@ class FTPManager:
         # self.debug_print('上传: %s' % local_file + "成功!")
         print('上传成功')
 
+    # 获取年份
     def getCreateTime(self, remote_file):
        L = list(self.ftp.sendcmd('MDTM ' + remote_file))
        str = L[4]+L[5]+L[6]+L[7]
