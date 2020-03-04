@@ -40,7 +40,7 @@
                         <img src="/images/logo/SHIP_LOGO.png">
                         <div class="caption">
                             <h3>Volunteer Ship</h3>
-                            <p>Chinese volunteer ships hourly data including elements: ship name with longitude and latitude; year, month, date, hour (UTC); wind direction, wind speed; sea level air pressure, sea level air temperature; data file format .csv.
+                            <p>Chinese volunteer ships hourly data in the area of 15-42'N and 105-130'E including elements: ship name with longitude and latitude; year, month, date, hour (UTC); wind direction, wind speed; sea level air pressure, sea level air temperature; data file format .csv.
                             </p>
                         </div>
                     </div>
@@ -156,9 +156,9 @@
             </div>
             <div class="center-center-right default-bg">
                 <div class="search-title">
-                    Search XXX XXXXXXXXXXXXXXXXXXXXXXXXX...... 
+                  Choose data category, observation area, product period, start time and end time from the following list to start downloading your chosen observation data.
                     <div class="search-subtitle">
-                    From XXXXXXXXXXXXXXXXXXXXX...... 
+                     Please note maximum 31 days for downloading can be chosen at one time search.
                 </div>
                 </div><br>
                 
@@ -168,6 +168,7 @@
                         <el-form-item >
                             <el-select  v-model="category_selected" value-key="id" placeholder="select category">
                               <el-option v-for="item in category_list" :key="item.id" :label="item.name" :value="item.id"></el-option>
+                              
                             </el-select>
                         </el-form-item>
                     
@@ -297,6 +298,7 @@ mounted() {
     getAllCategory().then((res:any)=>{
       if(res.status ===200){
           this.category_list = res.data;
+          
       }else{
         alert('Category request failed');
       }
@@ -716,15 +718,15 @@ const searchData = () =>{
       .search-title {
         // @minortitle();
         text-align:left;
-        font-size: 2rem;
+        font-size: 1rem;
         color: black;
         padding-left:40px;
         // font-size: ;
       
       .search-subtitle {
         // @minortitle();
-        font-size: 1.5rem;
-
+        font-size: 0.8rem;
+        color: black;
 
       }
       }
