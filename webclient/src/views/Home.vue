@@ -96,7 +96,7 @@ export default {
 <style scoped lang="less">
 @import '../styles/base.less';
 .my-root {
-  background: url('/images/background/home_2.png');
+  background: url('/images/background/home_3.png');
   background-size:100% auto;
   display: flex;
   min-height: 100vh;
