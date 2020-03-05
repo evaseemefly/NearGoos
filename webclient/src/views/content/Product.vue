@@ -1039,6 +1039,9 @@ export default class ProductView extends Vue {
   color: #72e9e9;
   font-size: 1rem;
 };
+@contentshadow: {
+  box-shadow: 2px 2px 10px rgba(37, 34, 34, 0.75);
+};
 // 为二级标题加了一个左+上的间距
 @minortitle: {
   // 统计title加一个左+上的间距
@@ -1089,16 +1092,24 @@ export default class ProductView extends Vue {
     flex: 1;
     flex-direction: row;
     justify-content: space-around;
+    margin: 2rem;
 
     .product-show {
       display: flex;
+      width: 80%;
+      background: #1971c2;
+      @contentshadow();
+      // background: linear-gradient(#1970c2e1 80%, white);
+      padding: 1rem;
+      @borderradius();
       .center-header-left {
         //菜单栏
         display: flex;
         flex: 1;
         flex-direction: row;
         justify-content: flex-start;
-        margin-right: 3em;
+        margin-left: 5em;
+        margin-right: 10em;
 
         .elements-ul {
           display: flex;
@@ -1129,8 +1140,17 @@ export default class ProductView extends Vue {
         display: flex;
         flex: 3;
         flex-direction: row;
-        justify-content: flex-end;
-
+        justify-content: flex-start;
+        .product-exhibition {
+          .product-title {
+            margin-bottom: 1em;
+          }
+          .product-img {
+            img {
+              box-shadow: 2px 2px 10px rgba(37, 34, 34, 0.75);
+            }
+          }
+        }
         .title {
           font-size: 36px;
           line-height: 50px;
@@ -1192,6 +1212,7 @@ export default class ProductView extends Vue {
         @bluebackground();
         @margindefault();
         @borderradius();
+        @contentshadow();
         // 搜索栏的title
         .title {
           display: flex;
@@ -1365,6 +1386,7 @@ export default class ProductView extends Vue {
         // background: #b2c2cc;
         @bluebackground();
         @margindefault();
+        @contentshadow();
         .statistics-info {
           display: flex;
           align-items: center;
@@ -1405,6 +1427,7 @@ export default class ProductView extends Vue {
         flex-direction: column;
         @margindefault();
         @borderradius();
+        @contentshadow();
 
         .center-footer-card-header {
           display: flex;
@@ -1415,6 +1438,13 @@ export default class ProductView extends Vue {
 
         .center-footer-card-body {
           background: white;
+          border-radius: 1em;
+          // border-radius: 1em;
+          // @borderradius();
+          // @baseradius();
+          .el-table {
+            border-radius: 1em;
+          }
         }
       }
     }

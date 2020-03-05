@@ -1,6 +1,6 @@
 <template>
   <div class="my-content">
-    <div class="content-1">
+    <div class="content-1 fade-in-slow" @mouseenter="over">
       <div class="content-1-title">
         <h1>NEAR-GOOS China</h1>
         <h4>
@@ -24,7 +24,7 @@
         </h4>
       </div>
     </div>
-    <div class="content-introduce">
+    <div class="content-introduce isOpacity" @mouseenter="over">
       <!-- 左侧导航栏 -->
       <ul>
         <li
@@ -54,7 +54,7 @@
         </transition>
       </div>
     </div>
-    <div class="content-2">
+    <div class="content-2 isOpacity" @mouseenter="over">
       <div class="content-1-title">
         <h1>Goals</h1>
         <h4>
@@ -68,7 +68,7 @@
         </h4>
       </div>
     </div>
-    <div class="content-3">
+    <div class="content-3 isOpacity" @mouseenter="over">
       <div class="content-1-title">
         <h1>Missions</h1>
         <div class="minor_title">
@@ -85,7 +85,7 @@
         </div>
       </div>
     </div>
-    <div class="content-4">
+    <div class="content-4 isOpacity" @mouseenter="over">
       <div class="content-1-title">
         <h1>Area of NEAR-GOOS</h1>
         <div class="minor_title">
@@ -152,6 +152,28 @@ export default class OverView extends Vue {
   get computedTest() {
     return null;
   }
+
+  over(item: {
+    target: {
+      classList: any;
+    };
+  }) {
+    //为动态添加class使用
+    console.log('触发移入效果' + item);
+    // 先判断当前classlist中是否已经包含了fade-in-slow
+    // const isMatch = item.target.classList.filter(temp => {
+    //   return temp === 'fade-in-slow';
+    // });
+    let isMatch = false;
+    item.target.classList.forEach((temp: any) => {
+      if (temp === 'fade-in-slow') {
+        isMatch = true;
+      }
+    });
+    if (!isMatch) {
+      item.target.classList.add('fade-in-slow');
+    }
+  }
   @Watch('tabIndex')
   onTabIndex(val: number) {}
 
@@ -168,9 +190,38 @@ export default class OverView extends Vue {
 }
 </script>
 <style scoped lang="less">
+@basefontshadow: {
+  text-shadow: 2px 2px 10px #000;
+};
+@basebackgroundimage: {
+  // background-size: 100% auto;
+  background-size: 100% 100%;
+};
+
+.isOpacity {
+  // opacity: 0.1;
+}
+
+.fade-in-slow {
+  animation: 0.8s fade-in-slow;
+}
+@keyframes fade-in-slow {
+  0% {
+    // background-color: #001f3f;
+    opacity: 0.8;
+    transform: translateY(30px);
+    // transform: translateZ(-50px)
+  }
+  100% {
+    // background-color: #ff4136;
+    opacity: 1;
+    transform: translateY(-0px);
+    // transform: translateZ(0px);
+  }
+}
 // 含图片的背景
 .basecontent() {
-  height: 600px;
+  height: 900px;
   display: flex;
   font-family: Arial, Helvetica, sans-serif;
 }
@@ -184,10 +235,12 @@ export default class OverView extends Vue {
   font-size: 600;
 }
 .h4() {
-  font-size: 18px;
+  font-size: 20px;
+  @basefontshadow();
 }
 .content-1 {
-  background: url('/images/background/home_1_1.jpg');
+  background: url('/images/background/home_2_1.jpg');
+  @basebackgroundimage();
   .basecontent();
   flex-direction: column;
   .content-1-title {
@@ -197,11 +250,13 @@ export default class OverView extends Vue {
     flex-direction: column;
     align-items: center;
     h1 {
+      margin-top: 5rem;
       display: flex;
       justify-content: center;
       flex: 1;
       font-weight: 700;
       color: rgba(255, 255, 255, 0.849);
+      @basefontshadow();
     }
     h4 {
       display: flex;
@@ -220,7 +275,8 @@ export default class OverView extends Vue {
 .content-introduce {
   .basecontent();
   // display: flex;
-  background: url('/images/background/home_1_9.jpg');
+  // background: url('/images/background/home_1_9.jpg');
+  background: url('/images/background/home_2_2.jpg');
   flex-direction: row;
   justify-content: center;
   align-items: center;
@@ -250,9 +306,28 @@ export default class OverView extends Vue {
     }
   }
 }
+.content-introduce:fullscreen{
+  background: red;
+}
+@keyframes content-fade-in {
+  0% {
+    opacity: 0.8;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+// .fade-in-slow:hover {
+//   // transform: translateY(0) translateY(500px);
+//   // transition-duration: 1s;
+//   // transition-delay: 0.5s;
+//   // transition-timing-function: ease;
+//   animation: 2s content-fade-in;
+// }
 // goals
 .content-2 {
   background: url('/images/background/home_1_2.jpg');
+  @basebackgroundimage();
   .basecontent();
   .content-1-title {
     display: flex;
@@ -281,6 +356,7 @@ export default class OverView extends Vue {
 .content-3 {
   .basecontent();
   background: url('/images/background/home_1_3.jpg');
+  @basebackgroundimage();
   .content-1-title {
     display: flex;
     flex-direction: column;
@@ -308,6 +384,7 @@ export default class OverView extends Vue {
 // area
 .content-4 {
   background: url('/images/background/home_1_5.jpg');
+  @basebackgroundimage();
   .basecontent();
   .content-1-title {
     display: flex;

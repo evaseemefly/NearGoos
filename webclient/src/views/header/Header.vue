@@ -63,7 +63,8 @@ export default class Header extends Vue {}
   // 上面url tab
   // 中间居中title
   // 下面一个button
-  background: url('/images/background/home_1_2.jpg');
+  background: url('/images/background/header_1.png');
+  background-size: 100% 100%;
   // height: 100px;
   display: flex;
   flex-direction: column;
@@ -82,6 +83,7 @@ export default class Header extends Vue {}
     font-weight: 700;
     font-size: 30px;
     align-items: center;
+    @baseheader();
     ul {
       display: flex;
       flex-direction: row;
@@ -90,6 +92,9 @@ export default class Header extends Vue {}
         padding-right: 1em;
         // 去掉li的圆点
         list-style: none;
+        a {
+          color: white;
+        }
       }
     }
   }
@@ -102,7 +107,7 @@ export default class Header extends Vue {}
     align-items: center;
     font-size: 20px;
     font-size: 600;
-
+    margin: 0.5rem;
     h4 {
       width: 50%;
     }

@@ -49,7 +49,9 @@ export default class Footer extends Vue {}
 </script>
 <style scoped lang="less">
 #footer {
-  background: url("/images/background/home_1_2.jpg");
+  // background: url("/images/background/home_1_2.jpg");
+  background: url('/images/background/header_1.png');
+  background-size: 100% auto;
   display: flex;
   justify-content: space-around;
   align-items: center;
