@@ -48,8 +48,8 @@
 
       <div class="right-content">
         <transition name="tabcontent" mode="out-in">
-          <h4 class="item" :key="TabContent.key">
-            {{ TabContent.val }}
+          <h4 class="item" :key="TabContent.key" v-html="TabContent.val">
+            <!-- {{ TabContent.val }} -->
           </h4>
         </transition>
       </div>
@@ -110,39 +110,57 @@ export default class OverView extends Vue {
   tabContent: { key: number; title: string; val: string }[] = [
     {
       key: 0,
-      title: 'About NEAR-GOOS',
+      title: 'About Us',
       val:
-        'NEAR (North-East Asian Regional)-GOOS is a regional pilot project of GOOS in the North-East Asian Region, implemented by China, Japan, the Republic of Korea and the Russian Federation as one activity of IOC Sub-Commission for the Western Pacific (WESTPAC). NEAR-GOOS was conceived and initiated upon the formal adoption of the NEAR-GOOS Implementation Plan and Operational Manual the Intergovernmental Oceanographic Commission following a recommendation from the WESTPAC Regional Sub commission of IOC earlier in the year. It became one of the first regional pilot projects of GOOS. The primary aim of NEAR-GOOS in its first phase was to facilitate the sharing of oceanographic data gathered by agencies of the partner countries using the internet, to support the daily mapping of conditions in the marginal seas bordered by the partner countries. Although it was anticipated that this should eventually lead to improvement in the availability of information and ocean services for all kinds of beneficial purposes, it is important to note that these flow-on outcomes were not specific goals for the first phase.',
+        'China Real Time Data Base (RTDB) of North-East Asian Regional Global Ocean Observing System (NEAR-GOOS) is operated by National Marine Environmental Forecasting Center (NMEFC) of Ministry of Natural Resources of China. China RTDB of NEAR-GOOS provides real-time observation data and services to all users freely and openly through this website. Real-time observation data based on coastal observing stations, buoys and Volunteer ships are shared at their respectively fixed frequency every day. Services including forecasting products of wave, temperature, current and ice with different forecasting periods near to the coast of China or in Northwest of Pacific are also provided each day. ',
     },
     {
       key: 1,
-      title: 'First Phase Success',
-      val: 'First Phase Success 内容',
+      title: 'Activities',
+      val:
+        'The 18th Session of NEAR-GOOS Coordinating Committee Meeting was hosted by NMEFC in Fujian of China during 20-22 November 2017.The 8th Session of NEAR-GOOS Coordinating Committee Meeting was hosted in Beijing of China during 8-10 December of 2003.The 3rd session of NEAR-GOOS Coordinating Committee Meeting was hosted in Beijing of China during 3-6 August 1998.',
     },
     {
       key: 2,
-      title: 'Objectives Basis',
-      val: 'Objectives Basis 内容',
+      title: 'About NEAR-GOOS',
+      val:
+        'The North-East Asian Regional Global Ocean Observing System (NEAR-GOOS) is a regional pilot project of GOOS in the North-East Asian Region, implemented by China, Japan, the Republic of Korea and the Russian Federation as one activity of IOC Sub-Commission for the Western Pacific (WESTPAC).  NEAR-GOOS was conceived and initiated upon the formal adoption of the NEAR-GOOS Implementation Plan and Operational Manual the Intergovernmental Oceanographic Commission following a recommendation from the WESTPAC Regional Sub commission of IOC earlier in the year. It became one of the first regional pilot projects of GOOS.',
     },
     {
       key: 3,
-      title: 'Activities',
-      val: 'Activities 内容',
+      title: 'First Phase Success',
+      val:
+        'The most important success of NEAR-GOOS in its first phase were:<br>1. The consolidation of a functional two-mode distributed Internet-based database structure in the partner countries as a workable model for the enhancement and coordinated handing of oceanographic data at national level;<br>2. The linking of this structure with two Regional Databases that are responsible for the receipt and merging of data concerning the NEAR-GOOS region as a whole, thus creating a regional database system which is part of GOOS;<br>3. The adoption and practice of a free and open data exchange policy, predating the formulation of such a policy for GOOS as a whole;4. The implementation of coordinated and approved data exchange management training for regional participants.',
     },
     {
       key: 4,
-      title: 'Scientific Basis',
-      val: 'Scientific Basis 内容',
+      title: 'Objectives Basis',
+      val:
+        'The most important success of NEAR-GOOS in its first phase were:1. The consolidation of a functional two-mode distributed Internet-based database structure in the partner countries as a workable model for the enhancement and coordinated handing of oceanographic data at national level;2. The linking of this structure with two Regional Databases that are responsible for the receipt and merging of data concerning the NEAR-GOOS region as a whole, thus creating a regional database system which is part of GOOS;3. The adoption and practice of a free and open data exchange policy, predating the formulation of such a policy for GOOS as a whole;4. The implementation of coordinated and approved data exchange management training for regional participants.',
     },
     {
       key: 5,
-      title: 'Principles',
-      val: 'Principles 内容',
+      title: 'Scientific Basis',
+      val:
+        'The most important success of NEAR-GOOS in its first phase were:1. The consolidation of a functional two-mode distributed Internet-based database structure in the partner countries as a workable model for the enhancement and coordinated handing of oceanographic data at national level;2. The linking of this structure with two Regional Databases that are responsible for the receipt and merging of data concerning the NEAR-GOOS region as a whole, thus creating a regional database system which is part of GOOS;3. The adoption and practice of a free and open data exchange policy, predating the formulation of such a policy for GOOS as a whole;4. The implementation of coordinated and approved data exchange management training for regional participants.',
     },
     {
       key: 6,
+      title: 'Principles',
+      val:
+        'The most important success of NEAR-GOOS in its first phase were:1. The consolidation of a functional two-mode distributed Internet-based database structure in the partner countries as a workable model for the enhancement and coordinated handing of oceanographic data at national level;2. The linking of this structure with two Regional Databases that are responsible for the receipt and merging of data concerning the NEAR-GOOS region as a whole, thus creating a regional database system which is part of GOOS;3. The adoption and practice of a free and open data exchange policy, predating the formulation of such a policy for GOOS as a whole;4. The implementation of coordinated and approved data exchange management training for regional participants.',
+    },
+    {
+      key: 7,
       title: 'Data',
-      val: 'Data 内容',
+      val:
+        'The oceanographic data for NEAR-GOOS are temperature, currents, waves, sea-level, and other meteorological elements. Collection of observation data in real-time is very expensive. It also has limitation in space and time for the operational service, which can be overcome by means of in-directed method of data producing, such as numerical modeling. They are complementary to each other, and will enhance the operational capability. The NEAR-GOOS region is one of the most densely and frequently surveyed areas in the world. Observations by research vessels have taken place routinely along sections for more than 50 years. Human activities in the region are extensive; thus, the need for environmental monitoring is crucial. Ocean monitoring activities in the region include in situ data -by moored surface buoys, drifting buoys, towers, coastal stations, research vessels, and voluntary observation ships. The implementation of NEAR-GOOS will require the collection of oceanographic data, as well as marine meteorological and other data.',
+    },
+    {
+      key: 7,
+      title: 'Services',
+      val:
+        'Oceans covering almost 70% of the Earth’s surface are a major driver of the world’s weather and climate. Ocean foresting services play an important role in human and property safety at seas, coastal management, climate change, economic growth, etc. A series of marine forecasting services including numeric forecasting products of wave, temperature, current and ice with different forecasting periods near to the coast of China or in Northwest of Pacific are freely and openly provided every day',
     },
   ];
   mounted() {}
@@ -195,7 +213,7 @@ export default class OverView extends Vue {
 };
 @basebackgroundimage: {
   // background-size: 100% auto;
-  background-size: 100% 100%;
+  background-size:cover;
 };
 
 .isOpacity {
@@ -280,6 +298,7 @@ export default class OverView extends Vue {
   flex-direction: row;
   justify-content: center;
   align-items: center;
+  @basebackgroundimage();
   // width: 80%;
   ul {
     display: flex;
@@ -306,7 +325,7 @@ export default class OverView extends Vue {
     }
   }
 }
-.content-introduce:fullscreen{
+.content-introduce:fullscreen {
   background: red;
 }
 @keyframes content-fade-in {
@@ -326,7 +345,8 @@ export default class OverView extends Vue {
 // }
 // goals
 .content-2 {
-  background: url('/images/background/home_1_2.jpg');
+  // background: url('/images/background/home_1_2.jpg');
+  background: url('/images/background/home_2_3.jpg');
   @basebackgroundimage();
   .basecontent();
   .content-1-title {
@@ -383,7 +403,8 @@ export default class OverView extends Vue {
 }
 // area
 .content-4 {
-  background: url('/images/background/home_1_5.jpg');
+  // background: url('/images/background/home_1_5.jpg');
+  background: url('/images/background/home_2_4.jpg');
   @basebackgroundimage();
   .basecontent();
   .content-1-title {

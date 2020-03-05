@@ -98,8 +98,12 @@
           <div class="center-center">
             <div class="search-form">
               <div class="title">
-                <h2>多条件搜索</h2>
-                <h4>根据产品种类-> 产品区域 -> 对应时效 -> 起止时间</h4>
+                <h2>Search</h2>
+                <h4>
+                  Choose product categories, service application areas, product
+                  period, start date and end data from the following list to
+                  start downloading your chosen products.
+                </h4>
               </div>
               <!-- 搜索条件form -->
               <form @submit.prevent="submit">
@@ -263,8 +267,11 @@
               </form>
               <div class="search-footer">
                 <h4>查询符合条件的所有结果</h4>
-                <p>若结果没有你满意的结果请联系管理员</p>
-                <p>查询只能查询6个月之内的数据</p>
+                <p>
+                  Please note only products within the latest 6 months can be
+                  searched.
+                </p>
+                <p>If there is no product you need, please contact with us.</p>
               </div>
             </div>
           </div>
@@ -273,7 +280,7 @@
         <div class="product-statistics">
           <div class="center">
             <div class="statistics-info">
-              <h4>下载列表</h4>
+              <h4>Downloading list</h4>
               <p>{{ countSelected }}个文件</p>
             </div>
             <div class="statistics-btn">
@@ -281,7 +288,7 @@
                 class="btn btn-primary col-md-6"
                 @click="submitSelectFile"
               >
-                下载
+                Download
               </button>
             </div>
           </div>

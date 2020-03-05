@@ -24,7 +24,7 @@
     </div>
     <!-- 成员国 -->
     <div class="members">
-      <h4>NEAR-GOOS Members Countries</h4>
+      <h4>NEAR-GOOS Member Countries</h4>
       <div>
         <img src="/images/logo/chn.jpg" />
         <img src="/images/logo/jap.jpg" />
@@ -35,10 +35,8 @@
     <!-- 版权 -->
     <div class="copyright">
       <h4>
-        Copyright ©right;
+        All rights reserved by NMEFC
       </h4>
-      <h4>2013 National Marine Environment Forecasting Center(NMEFC)</h4>
-      <h4>All Rights Reserved</h4>
     </div>
   </div>
 </template>
