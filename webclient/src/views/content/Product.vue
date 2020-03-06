@@ -126,7 +126,7 @@
                         ></el-option>
                       </el-select>
                     </div>
-                    <figure>
+                    <!-- <figure>
                       <figcaption>
                         <font-awesome-icon
                           :icon="['far', 'list-alt']"
@@ -137,7 +137,7 @@
                           <p>包含各类产品XXXXXXXXXX</p>
                         </div>
                       </figcaption>
-                    </figure>
+                    </figure> -->
                   </div>
                   <!-- 产品区域 -->
                   <div class="form-group">
@@ -155,7 +155,7 @@
                         ></el-option>
                       </el-select>
                     </div>
-                    <figure>
+                    <!-- <figure>
                       <figcaption>
                         <font-awesome-icon
                           :icon="['fas', 'globe-americas']"
@@ -166,7 +166,7 @@
                           <p>共包含xxx区域，xxx区域</p>
                         </div>
                       </figcaption>
-                    </figure>
+                    </figure> -->
                   </div>
                   <!-- 产品时间间隔 -->
                   <div class="form-group">
@@ -181,7 +181,7 @@
                         ></el-option>
                       </el-select>
                     </div>
-                    <figure>
+                    <!-- <figure>
                       <figcaption>
                         <font-awesome-icon
                           :icon="['fas', 'history']"
@@ -192,7 +192,7 @@
                           <p>时效包括xxxxx,xxxxx,xxxxxx</p>
                         </div>
                       </figcaption>
-                    </figure>
+                    </figure> -->
                   </div>
                   <!-- 起始时间 -->
                   <div class="form-group">
@@ -204,7 +204,7 @@
                         placeholder="选择日期"
                       ></el-date-picker>
                     </div>
-                    <figure>
+                    <!-- <figure>
                       <figcaption>
                         <font-awesome-icon
                           :icon="['fas', 'calendar-check']"
@@ -215,7 +215,7 @@
                           <p>包含各类产品XXXXXXXXXX</p>
                         </div>
                       </figcaption>
-                    </figure>
+                    </figure> -->
                   </div>
                   <div class="form-group">
                     <div class="form-select">
@@ -226,7 +226,7 @@
                         placeholder="选择日期"
                       ></el-date-picker>
                     </div>
-                    <figure>
+                    <!-- <figure>
                       <figcaption>
                         <font-awesome-icon
                           :icon="['fas', 'calendar-week']"
@@ -237,7 +237,7 @@
                           <p>包含各类产品XXXXXXXXXX</p>
                         </div>
                       </figcaption>
-                    </figure>
+                    </figure> -->
                   </div>
                 </div>
                 <div class="form-content-btn">
@@ -935,7 +935,7 @@ export default class ProductView extends Vue {
       }
     }
 
-    return fatherRemark + childRemark;
+    return fatherRemark+' ' + childRemark;
   }
 
   @Watch('imgShow')
@@ -1105,6 +1105,7 @@ export default class ProductView extends Vue {
       display: flex;
       width: 80%;
       background: #1971c2;
+      
       @contentshadow();
       // background: linear-gradient(#1970c2e1 80%, white);
       padding: 1rem;
@@ -1136,7 +1137,9 @@ export default class ProductView extends Vue {
           .el-submenu {
             ul {
               li {
-                background-color: #0b6fb1 !important;
+                // background-color: #0b6fb1 !important;
+                background-color: #20aaca !important;
+                // 
               }
             }
           }

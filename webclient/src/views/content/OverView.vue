@@ -1,29 +1,5 @@
 <template>
   <div class="my-content">
-    <div class="content-1 fade-in-slow" @mouseenter="over">
-      <div class="content-1-title">
-        <h1>NEAR-GOOS China</h1>
-        <h4>
-          NEAR (North-East Asian Regional)-GOOS is a regional pilot project of
-          GOOS in the North-East Asian Region, implemented by China, Japan, the
-          Republic of Korea and the Russian Federation as one activity of IOC
-          Sub-Commission for the Western Pacific (WESTPAC). NEAR-GOOS was
-          conceived and initiated upon the formal adoption of the NEAR-GOOS
-          Implementation Plan and Operational Manual the Intergovernmental
-          Oceanographic Commission following a recommendation from the WESTPAC
-          Regional Sub commission of IOC earlier in the year. It became one of
-          the first regional pilot projects of GOOS. The primary aim of
-          NEAR-GOOS in its first phase was to facilitate the sharing of
-          oceanographic data gathered by agencies of the partner countries using
-          the internet, to support the daily mapping of conditions in the
-          marginal seas bordered by the partner countries. Although it was
-          anticipated that this should eventually lead to improvement in the
-          availability of information and ocean services for all kinds of
-          beneficial purposes, it is important to note that these flow-on
-          outcomes were not specific goals for the first phase.
-        </h4>
-      </div>
-    </div>
     <div class="content-introduce isOpacity" @mouseenter="over">
       <!-- 左侧导航栏 -->
       <ul>
@@ -54,6 +30,31 @@
         </transition>
       </div>
     </div>
+    <div class="content-1 fade-in-slow" @mouseenter="over">
+      <div class="content-1-title">
+        <h1>NEAR-GOOS</h1>
+        <h4>
+          NEAR (North-East Asian Regional)-GOOS is a regional pilot project of
+          GOOS in the North-East Asian Region, implemented by China, Japan, the
+          Republic of Korea and the Russian Federation as one activity of IOC
+          Sub-Commission for the Western Pacific (WESTPAC). NEAR-GOOS was
+          conceived and initiated upon the formal adoption of the NEAR-GOOS
+          Implementation Plan and Operational Manual the Intergovernmental
+          Oceanographic Commission following a recommendation from the WESTPAC
+          Regional Sub commission of IOC earlier in the year. It became one of
+          the first regional pilot projects of GOOS. The primary aim of
+          NEAR-GOOS in its first phase was to facilitate the sharing of
+          oceanographic data gathered by agencies of the partner countries using
+          the internet, to support the daily mapping of conditions in the
+          marginal seas bordered by the partner countries. Although it was
+          anticipated that this should eventually lead to improvement in the
+          availability of information and ocean services for all kinds of
+          beneficial purposes, it is important to note that these flow-on
+          outcomes were not specific goals for the first phase.
+        </h4>
+      </div>
+    </div>
+
     <div class="content-2 isOpacity" @mouseenter="over">
       <div class="content-1-title">
         <h1>Goals</h1>
@@ -208,9 +209,11 @@ export default class OverView extends Vue {
 }
 </script>
 <style scoped lang="less">
-@basefontshadow: {
-  text-shadow: 2px 2px 10px #000;
-};
+@import '../../styles/base.less';
+// TODO:[-] 20-03-06 统一放在base中了
+// @basefontshadow: {
+//   text-shadow: 2px 2px 10px #000;
+// };
 @basebackgroundimage: {
   // background-size: 100% auto;
   background-size: cover;
@@ -254,7 +257,7 @@ export default class OverView extends Vue {
   font-size: 600;
 }
 .h4() {
-  font-size: 23px;
+  font-size: 25px;
   text-align: justify;
   @basefontshadow();
 }
@@ -296,7 +299,7 @@ export default class OverView extends Vue {
   .basecontent();
   // display: flex;
   // background: url('/images/background/home_1_9.jpg');
-  background: url('/images/background/home_2_5.jpg');
+  background: url('/images/background/home_1_12.jpg');
   flex-direction: row;
   justify-content: center;
   align-items: center;
@@ -313,6 +316,7 @@ export default class OverView extends Vue {
     li {
       // 取消光标效果改为箭头
       cursor: default;
+      font-size: 30px;
     }
   }
   .right-content {
@@ -351,6 +355,8 @@ export default class OverView extends Vue {
   // background: url('/images/background/home_1_2.jpg');
   background: url('/images/background/home_2_3.jpg');
   @basebackgroundimage();
+  // TODO:[-] 20-03-06 里面嵌套了一层div了，在外侧的div使用副轴end对齐方式
+  align-items: flex-end;
   .basecontent();
   .content-1-title {
     display: flex;
@@ -361,10 +367,11 @@ export default class OverView extends Vue {
       justify-content: center;
       align-items: center;
       color: aliceblue;
+      @basefontshadow();
     }
     h4 {
       display: flex;
-      flex: 1;
+      flex: 2;
       align-items: center;
       color: aliceblue;
       width: 50%;
@@ -389,6 +396,7 @@ export default class OverView extends Vue {
       justify-content: center;
       color: aliceblue;
       align-items: center;
+      @basefontshadow();
     }
     .minor_title {
       display: flex;
@@ -407,7 +415,7 @@ export default class OverView extends Vue {
 // area
 .content-4 {
   // background: url('/images/background/home_1_5.jpg');
-  background: url('/images/background/home_2_4.jpg');
+  background: url('/images/background/home_2_4.png');
   @basebackgroundimage();
   .basecontent();
   .content-1-title {
@@ -420,6 +428,7 @@ export default class OverView extends Vue {
       align-items: center;
       order: 2;
       color: aliceblue;
+      @basefontshadow();
     }
     .minor_title {
       display: flex;
@@ -432,6 +441,7 @@ export default class OverView extends Vue {
         flex: 1;
         order: 1;
         color: aliceblue;
+        @basefontshadow();
         // TODO:[*] 19-11-11暂时先加内间距
         padding: 100px;
         .desfont();

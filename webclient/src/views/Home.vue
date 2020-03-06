@@ -12,7 +12,7 @@
           <li><router-link :to="{ path: '/' }">Home</router-link></li>
           <li>
             <router-link :to="{ path: 'content/overview' }"
-              >OverView</router-link
+              >Overview</router-link
             >
           </li>
           <li>
@@ -283,6 +283,7 @@ footer {
     h4 {
       color: white;
       @centered();
+      @basefontshadow();
     }
     .members-img {
       @centered();
@@ -298,6 +299,7 @@ footer {
     justify-content: center;
     h4 {
       color: white;
+      @basefontshadow();
     }
   }
 };

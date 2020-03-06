@@ -20,7 +20,7 @@
         </li>
         <li>
           <router-link :to="{ path: '/content/overview' }"
-            >OverView</router-link
+            >Overview</router-link
           >
         </li>
         <li>
@@ -108,6 +108,11 @@ export default class Header extends Vue {}
     font-size: 20px;
     font-size: 600;
     margin: 0.5rem;
+    h2 {
+      @basefontshadow();
+      @maintitlefont();
+      // @maintitlefont();
+    }
     h4 {
       width: 50%;
     }
