@@ -10,9 +10,9 @@
 # 连接FTP
 import datetime
 import os
-from background.byQY.core.BaseDao import BaseDao
-from background.byQY.core.FTPManager import FTPManager
-from background.byQY.model.DataModel import DataArea, DataDataInfo, DataCategory, DataSource
+from byQY.core.BaseDao import BaseDao
+from byQY.core.FTPManager import FTPManager
+from byQY.model.DataModel import DataArea, DataDataInfo, DataCategory, DataSource
 
 
 class DataService:
@@ -33,7 +33,7 @@ class DataService:
         :return: 数据类型
         """
         switcher = {
-            "xml": "FUB",
+            "xml": "BUOY",
             "bbx": "SHIP",
             "FUB": "IGNORE_DATA"
         }
@@ -52,6 +52,9 @@ class DataService:
         self.password = config.get(section_neargoos, 'password')
         target = config.get(section_neargoos, 'target')
         self.ftp_Manager.ftp_connect(host, self.username, self.password)
+
+        # 获取时间
+        # self.ftp_Manager.getCreateTime()
         file_infos = self.ftp_Manager.get_filename("", target)
 
         return file_infos
@@ -66,7 +69,7 @@ class DataService:
         # 1. 在遍历文件列表前先查出海区，类型，数据源对应ID
         # [to-do]暂时只要类型
         # 1.1 [to-do]得到对应的海区ID（暂时均为默认海区）
-        area_result = self.dao.find_by_name(DataArea, 'default')
+        area_result = self.dao.find_by_name(DataArea, 'China Sea')
         # 1.2 [to-do]得到数据源的ID（暂时均为中国）
         source_result = self.dao.find_by_name(DataSource, 'China')
         # 1.3 [to-do]得到数据类型的ID
@@ -86,7 +89,7 @@ class DataService:
             i = i + 1
             print(i)
 
-            if folder_level1 == 'FUB':
+            if folder_level1 == 'BUOY':
                 # 2.2 三级目录文件名（年）
                 folder_level2 = file_info[0:4]
                 # 2.3 四级目录文件名（月）
@@ -97,13 +100,25 @@ class DataService:
                 # [to-do] 暂时只有一个浮标，以后增加时需要修改
                 extension = 'QD'
             elif folder_level1 == 'STATION':
-                folder_level2 = str(datetime.datetime.now().year)
+                str_year = str(datetime.datetime.now().year)
+                str_month = str(datetime.datetime.now().month)
+                str_day = str(datetime.datetime.now().day)
+
+                folder_level2 = self.ftp_Manager.getCreateTime('/' + file_info)
+                # folder_level2 = str(datetime.datetime.now().year)
+
                 folder_level3 = file_info[0:2]
                 folder_level4 = file_info[2:4]
+                # 如果大于当前日期，年份减1
+                str_ob_date = folder_level2 + '-' + folder_level3 + '-' + folder_level4
+                ob_date = datetime.datetime.strptime(str_ob_date, '%Y-%m-%d')
+                if ob_date > datetime.datetime.now():
+                    folder_level2 = str(int(folder_level2) - 1)
+                print(str(datetime.datetime.now()) + '获取时间:' + str(ob_date))
                 hour = file_info[4:6]
-                # UTC时间和系统时间调整
-                if folder_level3 == '12' and folder_level4 == '31' and hour > 16:
-                    folder_level2 = str(int(folder_level2) + 1)
+                # # UTC时间和系统时间调整
+                # if folder_level3 == '12' and folder_level4 == '31' and hour > '16':
+                #     folder_level2 = str(int(folder_level2) + 1)
 
             elif folder_level1 == 'SHIP':
                 folder_level2 = str(datetime.datetime.now().year)
@@ -112,32 +127,35 @@ class DataService:
                 hour = file_info[6:8]
                 # [to-do] 暂时只有一个志愿船，以后增加时需要修改
                 extension = 'default'
-                # UTC时间和系统时间调整
-                if folder_level3 == '12' and folder_level4 == '31' and int(hour) > 16:
-                    folder_level2 = str(int(folder_level2) + 1)
+                # # UTC时间和系统时间调整
+                # if folder_level3 == '12' and folder_level4 == '31' and int(hour) > 16:
+                #     folder_level2 = str(int(folder_level2) + 1)
             elif folder_level1 == 'IGNORE_DATA':
                 print("FUB后缀文件不下载")
                 continue
             # 3.先将文件下载到本地
             # [to-do] Linux下需修改
-            local_path_dir = os.path.join('E:', r'\temp', folder_level1, extension, folder_level2, folder_level3,
+            local_path_dir = os.path.join('E:', r'\projects\pycharm\NearGoos\webclient\public', folder_level1, extension, folder_level2, folder_level3,
                                           folder_level4, "")
             remote_path_dir = '/'
             is_success = self.ftp_Manager.download_file(local_path_dir + file_info, remote_path_dir + file_info,
                                                         local_path_dir)
+
             if is_success:
-                print('下载数据成功')
+
                 date_str = folder_level2 + '-' + folder_level3 + '-' + folder_level4 + ' ' + hour + ':' + '00' + ':' + '00'
                 url = os.path.join(folder_level1, extension, folder_level2, folder_level3,
                                    folder_level4, file_info)
                 # 4.封装实体
-                if self.dao.find_by_url(DataDataInfo, file_info) is None:
-                    self.insert_data_info(file_info, folder_level1, extension, date_str, url, area_result, dict_category, source_result)
+                result = self.dao.find_by_url(DataDataInfo, url)
+                if result is None:
+                    self.insert_data_info(file_info, folder_level1, extension, date_str, url, area_result, dict_category, source_result,local_path_dir + file_info)
+                    print('向数据库存储成功')
                 else:
-                    print('该文件信息已在数据库中存在')
+                    print('!!!!!!该文件信息已在数据库中存在')
         self.ftp_Manager.close_connect()
 
-    def insert_data_info(self, file_info, folder_level1, extension, date_str, url, area_result, dict_category, source_result):
+    def insert_data_info(self, file_info, folder_level1, extension, date_str, url, area_result, dict_category, source_result,local_dir):
         """
         封装实体
         :param file_info:
@@ -148,7 +166,7 @@ class DataService:
         :return:
         """
         # # 4.1 [to-do]得到对应的海区ID（暂时均为默认海区）
-        # area_result = self.dao.find_by_name(DataArea, 'default')
+        # area_result = self.dao.find_by_name(DataArea, 'China Sea')
         # # 4.2 [to-do]得到数据源的ID（暂时均为中国）
         # source_result = self.dao.find_by_name(DataSource, 'China')
         # # 4.3 [to-do]得到数据类型的ID（暂时均为中国）
@@ -168,9 +186,13 @@ class DataService:
         info.source_id = source_result.id
         info.url = url
         # [to-do]暂时没有FTP文件的最新修改日期
-        info.size = self.ftp_Manager.ftp.size(file_info)
+        info.size = os.path.getsize(local_dir)
         info.location = extension
         self.dao.insert_one(info)
+
+
+    def getTime(self):
+        self.ftp_Manager.getCreateTime(self)
 
 config_path = r'E:\projects\pycharm\NearGoos\background\byQY\config\Config.ini'
 section_neargoos = 'neargoos'
@@ -179,8 +201,5 @@ data_service = DataService(config_path, section_neargoos, section_mysql)
 fileinfo = data_service.get_file_info()
 data_service.save_files(fileinfo)
 
-# ----------测试时间转换
-# date_str = '2019-2-2'
-# date = datetime.datetime.strptime(date_str, '%Y-%m-%d').date()
-# print(date, type(date))
+
 
