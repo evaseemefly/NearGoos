@@ -12,11 +12,17 @@
           <li><router-link :to="{ path: '/' }">Home</router-link></li>
           <li>
             <router-link :to="{ path: 'content/overview' }"
-              >OverView</router-link
+              >Overview</router-link
             >
           </li>
-          <li><router-link :to="{ path: 'content' }">Data</router-link></li>
-          <li><router-link :to="{ path: 'content' }">Product</router-link></li>
+          <li>
+            <router-link :to="{ path: '/content/data' }">Data</router-link>
+          </li>
+          <li>
+            <router-link :to="{ path: '/content/product' }"
+              >Services</router-link
+            >
+          </li>
         </ul>
       </div>
     </header>
@@ -28,7 +34,10 @@
           China Real-Time Data Base, run by National Marine Environmental
           Forecasting Center (NMEFC)
         </h4>
-        <button class="btn btn-default">Download Data</button>
+        <!-- <button class="btn btn-default">Download Data</button> -->
+        <button class="btn btn-default">
+          <router-link :to="{ path: 'content' }">Download Data</router-link>
+        </button>
       </div>
     </div>
     <footer>
@@ -56,7 +65,7 @@
       </div>
       <!-- 成员国 -->
       <div class="members">
-        <h4>NEAR-GOOS Members Countries</h4>
+        <h4>NEAR-GOOS Member Countries</h4>
         <div class="members-img">
           <img src="/images/logo/chn.jpg" />
           <img src="/images/logo/jap.jpg" />
@@ -65,12 +74,8 @@
         </div>
       </div>
       <!-- 版权 -->
-      <div class="copyright">
-        <h4>
-          Copyright ©right;
-        </h4>
-        <h4>2013 National Marine Environment Forecasting Center(NMEFC)</h4>
-        <h4>All Rights Reserved</h4>
+      <div class="copyright">        
+        <h4>All rights reserved by NMEFC</h4>
       </div>
     </footer>
   </div>
@@ -89,8 +94,10 @@ export default {
 </script>
 
 <style scoped lang="less">
+@import '../styles/base.less';
 .my-root {
-  background: url('/images/background/home_1_7.jpg');
+  background: url('/images/background/home_3.png');
+  background-size:100% auto;
   display: flex;
   min-height: 100vh;
   flex-direction: column;
@@ -101,6 +108,16 @@ export default {
     // background: #7f9943;
     .minor-title {
       @minortitle();
+      h4 {
+        font-size: 1.7rem;
+      }
+      button {
+        a {
+          // text-decoration: none;
+          // color: white;
+          @alinkdefault();
+        }
+      }
     }
   }
 }
@@ -193,7 +210,7 @@ footer {
   }
   button {
     // background: rgba(212, 132, 28, 0.815);
-    background: rgba(27, 144, 125, 0.815);
+    background: rgba(27, 107, 199, 0.815);
     color: white;
     font-size: 20px;
     transform: translate3d(0, 0, 0) translate3d(0, 0, 0);
@@ -227,6 +244,9 @@ footer {
     font-weight: 700;
     font-size: 30px;
     align-items: center;
+    // background: rgba(0, 0, 0, 0.1);
+    // background: red;
+    @baseheader();
     ul {
       display: flex;
       flex-direction: row;
@@ -235,6 +255,9 @@ footer {
         padding-right: 1em;
         // 去掉li的圆点
         list-style: none;
+        a {
+          color: white;
+        }
       }
     }
   }
@@ -260,6 +283,7 @@ footer {
     h4 {
       color: white;
       @centered();
+      @basefontshadow();
     }
     .members-img {
       @centered();
@@ -275,6 +299,7 @@ footer {
     justify-content: center;
     h4 {
       color: white;
+      @basefontshadow();
     }
   }
 };
