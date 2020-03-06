@@ -1047,7 +1047,6 @@ export default class ProductView extends Vue {
   font-size: 1rem;
 };
 @contentshadow: {
-  box-shadow: 2px 2px 10px rgba(37, 34, 34, 0.75);
 };
 // 为二级标题加了一个左+上的间距
 @minortitle: {
