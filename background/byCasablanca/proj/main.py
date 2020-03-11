@@ -1,6 +1,6 @@
 import sys
 import os
-# from apscheduler.schedulers.background import BackgroundScheduler,BlockingScheduler
+from apscheduler.schedulers.background import BackgroundScheduler, BlockingScheduler
 # 自己的package
 from common.enum import Area, ProductType
 from conf import setting
@@ -14,21 +14,33 @@ root_path = os.path.split(cur_path)[0]
 sys.path.append(root_path)
 
 
-def main():
-    # todo:[*] 19-10-31 引入定时任务 以下暂时注释掉
+def job():
+    '''
+        新添加的每日定时job
+    :return:
+    '''
     list_products = init_type()
     ftp = Ftp(setting._FTP_HOST, setting._FTP_USER, setting._FTP_PASSWORD)
     product = ProductFile(ftp)
     product.run(list_products)
 
+
+def main():
+    # todo:[*] 19-10-31 引入定时任务 以下暂时注释掉
+    # list_products = init_type()
+    # ftp = Ftp(setting._FTP_HOST, setting._FTP_USER, setting._FTP_PASSWORD)
+    # product = ProductFile(ftp)
+    # product.run(list_products)
+
+    # TODO:[-] 20-03-11 启用了定时任务
     # 方式1：
-    # scheduler = BlockingScheduler()
-    # scheduler.add_job(tick, 'interval', seconds=3)
+    # scheduler = BackgroundScheduler()
+    # scheduler.add_job(job, 'cron', hour=11, minute=14)
     # scheduler.start()
-    # start()
+    start()
     # 方式2：
     # todo:[-] 19-12-12 注意启动时提示找不到apscheduler包的提示，删除再重装试一下
-    print('定时任务启动')
+    # print('定时任务启动')
     pass
 
 
