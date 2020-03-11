@@ -910,6 +910,7 @@ export default class ProductView extends Vue {
 @bluebackground: {
   // background: rgba(39, 216, 216, 0.377);
   // background: #1d95aa;
+  // background: #33cccc;
   background: #0b6fb1;
   // background: #1971c2;
   // background: #0b6fb1;
