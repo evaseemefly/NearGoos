@@ -16,11 +16,11 @@
       <ul>
         <li>
           <!-- <router-link :to="{ name: 'map', params: { kind: 'history' }}">船舶历史轨迹</router-link> -->
-          <router-link :to="{ path: 'content' }">Home</router-link>
+          <router-link :to="{ path: '/' }">Home</router-link>
         </li>
         <li>
           <router-link :to="{ path: '/content/overview' }"
-            >OverView</router-link
+            >Overview</router-link
           >
         </li>
         <li>
@@ -38,16 +38,21 @@
         China Real-Time Data Base, run by National Marine Environmental
         Forecasting Center (NMEFC)
       </h4>
-      <button class="btn btn-default">Download Data</button>
+      <!-- <button class="btn btn-default">Download Data</button> -->
+      <button class="btn btn-default">
+        <router-link :to="{ path: '/content/data' }">Download Data</router-link>
+      </button>
     </div>
   </div>
 </template>
 <script lang="ts">
-import { Component, Vue } from "vue-property-decorator";
+import { Component, Vue } from 'vue-property-decorator';
 @Component({})
 export default class Header extends Vue {}
 </script>
 <style scoped lang="less">
+// @import '../styles/base.less';
+@import '../../styles/base.less';
 .my-root {
   background: rgb(138, 128, 114);
 }
@@ -58,7 +63,8 @@ export default class Header extends Vue {}
   // 上面url tab
   // 中间居中title
   // 下面一个button
-  background: url("/images/background/home_1_2.jpg");
+  background: url('/images/background/header_1.png');
+  background-size: 100% 100%;
   // height: 100px;
   display: flex;
   flex-direction: column;
@@ -77,6 +83,7 @@ export default class Header extends Vue {}
     font-weight: 700;
     font-size: 30px;
     align-items: center;
+    @baseheader();
     ul {
       display: flex;
       flex-direction: row;
@@ -85,6 +92,9 @@ export default class Header extends Vue {}
         padding-right: 1em;
         // 去掉li的圆点
         list-style: none;
+        a {
+          color: white;
+        }
       }
     }
   }
@@ -97,7 +107,12 @@ export default class Header extends Vue {}
     align-items: center;
     font-size: 20px;
     font-size: 600;
-
+    margin: 0.5rem;
+    h2 {
+      @basefontshadow();
+      @maintitlefont();
+      // @maintitlefont();
+    }
     h4 {
       width: 50%;
     }
@@ -105,6 +120,11 @@ export default class Header extends Vue {}
       background: rgba(212, 132, 28, 0.815);
       color: white;
       font-size: 20px;
+      a {
+        // text-decoration: none;
+        // color: white;
+        @alinkdefault();
+      }
     }
   }
 }

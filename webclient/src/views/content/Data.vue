@@ -40,7 +40,7 @@
                         <img src="/images/logo/SHIP_LOGO.png">
                         <div class="caption">
                             <h3>Volunteer Ship</h3>
-                            <p>Chinese volunteer ships hourly data including elements: ship name with longitude and latitude; year, month, date, hour (UTC); wind direction, wind speed; sea level air pressure, sea level air temperature; data file format .csv.
+                            <p>Chinese volunteer ships hourly data in the area of 15-42'N and 105-130'E including elements: ship name with longitude and latitude; year, month, date, hour (UTC); wind direction, wind speed; sea level air pressure, sea level air temperature; data file format .csv.
                             </p>
                         </div>
                     </div>
@@ -55,11 +55,16 @@
                 <div class="statistics-form">
                     <!-- station -->
                     <div  class="card-form">
-                        <div class="title">Buoy</div>
+                        <div class="title">{{statistics_result_Buoy.name}}</div>
                         <ul class="num-box">
                             <li>
                               <p class="num">
-                                <span id="num">{{statistics_result[0].fileNumber}}</span>
+                                <span id="num">
+                                  
+                                  <!-- {{statistics_result[0].fileNumber}} -->
+                                  <countTo :startVal='0' :endVal='statistics_result_Buoy.fileNumber' :duration='6000' :autoplay=true></countTo>
+                                  
+                                  </span>
                               </p>
                              <p class="text">
                                 <span id="fileNumber_text">file numbers</span>
@@ -67,10 +72,10 @@
                             </li>
                             <li>
                               <p class="num">
-                                <span id="size_num">{{statistics_result[0].size}}</span>
+                                <span id="size_num"><countTo :startVal='0' :endVal='statistics_result_Buoy.size' :duration='6000' :autoplay=true></countTo></span>
                               </p>
                               <p class="text">
-                                <span id="size_text">total size(Byte)</span>
+                                <span id="size_text">total size(KB)</span>
                               </p>
                             </li>
                         </ul>
@@ -79,19 +84,19 @@
                               <!-- v-for循环没有成功,先遗留 -->
                                 <!-- <li>file numbers:<span>{{statistics_result[0].fileNumber}}</span></li>
                                 <li>total size(Byte): <span>{{statistics_result[0].size}}</span></li> -->
-                                <li>begin time: <span>{{statistics_result[0].endTime}}</span></li>
-                                <li>end time: <span>{{statistics_result[0].beginTime}}</span></li>
+                                <li>begin time: <span>{{statistics_result_Buoy.beginTime}}</span></li>
+                                <li>end time: <span>{{statistics_result_Buoy.endTime}}</span></li>
                                 <li>format: xml</li>
                             </ul>
                         </div>
                     </div>
-                    <!-- fub -->
+            
                     <div class="card-form">
-                        <div class="title">Station</div>
+                        <div class="title">{{statistics_result_Station.name}}</div>
                             <ul class="num-box">
                             <li>
                               <p class="num">
-                                <span id="num">{{statistics_result[1].fileNumber}}</span>
+                                <span id="num"><countTo :startVal='0' :endVal='statistics_result_Station.fileNumber' :duration='6000' :autoplay=true></countTo></span>
                               </p>
                              <p class="text">
                                 <span id="fileNumber_text">file numbers</span>
@@ -99,10 +104,10 @@
                             </li>
                             <li>
                               <p class="num">
-                                <span id="size_num">{{statistics_result[1].size}}</span>
+                                <span id="size_num"><countTo :startVal='0' :endVal='statistics_result_Station.size' :duration='6000' :autoplay=true></countTo></span>
                               </p>
                               <p class="text">
-                                <span id="size_text">total size(Byte)</span>
+                                <span id="size_text">total size(KB)</span>
                               </p>
                             </li>
                         </ul>
@@ -110,19 +115,19 @@
                             <ul>
                                 <!-- <li>file numbers:<span>{{statistics_result[1].fileNumber}}</span></li>
                                 <li>total size(Byte): <span>{{statistics_result[1].size}}</span></li> -->
-                                <li>begin time: <span>{{statistics_result[1].endTime}}</span></li>
-                                <li>end time: <span>{{statistics_result[1].beginTime}}</span></li>
+                                <li>begin time: <span>{{statistics_result_Station.beginTime}}</span></li>
+                                <li>end time: <span>{{statistics_result_Station.endTime}}</span></li>
                                 <li>format: txt</li>
                             </ul>
                         </div>
                     </div> 
                     <!-- ship -->
                     <div class="card-form">
-                        <div class="title">Ship</div>
+                        <div class="title">{{statistics_result_Ship.name}}</div>
                                            <ul class="num-box">
                             <li>
                               <p class="num">
-                                <span id="num">{{statistics_result[2].fileNumber}}</span>
+                                <span id="num"><countTo :startVal='0' :endVal='statistics_result_Ship.fileNumber' :duration='6000' :autoplay=true></countTo></span>
                               </p>
                              <p class="text">
                                 <span id="fileNumber_text">file numbers</span>
@@ -130,10 +135,10 @@
                             </li>
                             <li>
                               <p class="num">
-                                <span id="size_num">{{statistics_result[2].size}}</span>
+                                <span id="size_num"><countTo :startVal='0' :endVal='statistics_result_Ship.size' :duration='6000' :autoplay=true></countTo></span>
                               </p>
                               <p class="text">
-                                <span id="size_text">total size(Byte)</span>
+                                <span id="size_text">total size(KB)</span>
                               </p>
                             </li>
                         </ul>
@@ -141,8 +146,8 @@
                             <ul>
                               <!-- <li>file numbers:<span>{{statistics_result[2].fileNumber}}</span></li>
                                 <li>total size(Byte): <span>{{statistics_result[2].size}}</span></li> -->
-                                <li>begin time: <span>{{statistics_result[2].endTime}}</span></li>
-                                <li>end time: <span>{{statistics_result[2].beginTime}}</span></li>
+                                <li>begin time: <span>{{statistics_result_Ship.beginTime}}</span></li>
+                                <li>end time: <span>{{statistics_result_Ship.endTime}}</span></li>
                                 <li>format: -</li>
                             </ul>
                         </div>
@@ -151,9 +156,9 @@
             </div>
             <div class="center-center-right default-bg">
                 <div class="search-title">
-                    Search XXX XXXXXXXXXXXXXXXXXXXXXXXXX...... 
+                  Choose data category, observation area, product period, start time and end time from the following list to start downloading your chosen observation data.
                     <div class="search-subtitle">
-                    From XXXXXXXXXXXXXXXXXXXXX...... 
+                     Please note maximum 31 days for downloading can be chosen at one time search.
                 </div>
                 </div><br>
                 
@@ -163,6 +168,7 @@
                         <el-form-item >
                             <el-select  v-model="category_selected" value-key="id" placeholder="select category">
                               <el-option v-for="item in category_list" :key="item.id" :label="item.name" :value="item.id"></el-option>
+                              
                             </el-select>
                         </el-form-item>
                     
@@ -205,18 +211,25 @@
                  <div class="center-footer-card-body">
                    <!-- 表头内容 -->
                    <!-- <div class="table table-striped table-bordered"> -->
-                  <el-table class="result_table" :data="results_data" ref="multipleTable"> 
+                  <el-table class="result_table" :data="results_data" ref="multipleTable" @selection-change="handleSelectionChange"> 
                     <el-table-column type="selection"></el-table-column>
-                    <el-table-column type="index" label="Index" width="80px"></el-table-column>
-                    <el-table-column prop="id" label="Id" ></el-table-column>
+                    <el-table-column type="index"  label="Index" width="80px"></el-table-column>
+                    <el-table-column prop="id" v-if="show" label="Id" ></el-table-column>
                     <el-table-column prop="name" label="Filename" ></el-table-column>
                     <el-table-column prop="date" label="Date" ></el-table-column>
                     <el-table-column prop="category" label="Category" ></el-table-column>
                     <el-table-column prop="area" label="Area" ></el-table-column>
                     <el-table-column prop="source" label="Source" ></el-table-column>
                     <el-table-column prop="size" label="Size(Byte)" ></el-table-column>
+                    <!-- <el-table-column prop="url" label="url" ></el-table-column> -->
+                    <el-table-column label="Action">
+              　　　　<template slot-scope="scope">
+              　　　　　　<el-button type="info" class="btn_show" @click="showData('/'+ scope.row.url)">show data</el-button>
+              <!-- <a :href="'http://localhost:8080/'+ scope.row.url">show data</a> -->
+              　　　　</template>
+　                　</el-table-column>
                   </el-table>
-                  <el-button type="success" class="btn_download" @click="submitForm">Download Data</el-button>
+                  <el-button type="success" class="btn_download" @click="download()">Download Data</el-button>
 
                  <div>
                  </div>
@@ -228,9 +241,16 @@
 <script lang="ts">
 import { Component, Prop, Vue, Watch } from "vue-property-decorator";
 import axios from 'axios';
+import JSZip from 'jszip';
+import FileSaver from 'file-saver'
+import moment from 'moment'
+import countTo from 'vue-count-to';
 const host = 'http://localhost:8083'
-@Component({})
+@Component({
+  components:{countTo}
+})
 export default class DataView extends Vue {
+  
   mydata: any = null;
   statistics_result: any = [];
   area_list : any = [];
@@ -242,31 +262,65 @@ export default class DataView extends Vue {
   startTime_selected :any = null; 
   endTime_selected :any = null;
   results_data: any =[];
-  
+  url:any = null;
+  multipleSelected_url: any = []
+  // promises = []
+  tempdata : any=null
+
+  statistics_result_Buoy: any = null
+  statistics_result_Ship: any = null;
+  statistics_result_Station: any = null;
 // lifecycle hook
 mounted() {
       getStatisticsByCategory().then((res:any)=>{
       if(res.status ===200){
         this.statistics_result = res.data;
+        
+        for(var i = 0;i<this.statistics_result.length;i++){
+          //1.调整前端显示格式
+          if(null != this.statistics_result[i].size){
+            //换算为KB
+            this.statistics_result[i].size = Math.round(this.statistics_result[i].size/1024)
+          }
+          if(null != this.statistics_result[i].beginTime){
+            this.statistics_result[i].beginTime = moment(this.statistics_result[i].beginTime).format('YYYY-MM-DD HH:mm:ss')
+          }
+          if(null != this.statistics_result[i].endTime){
+            this.statistics_result[i].endTime = moment(this.statistics_result[i].endTime).format('YYYY-MM-DD HH:mm:ss')
+          }
+          //2.赋值
+          if("BUOY" == this.statistics_result[i].name){
+            this.statistics_result_Buoy = this.statistics_result[i]
+          }
+            if("SHIP" == this.statistics_result[i].name){
+            this.statistics_result_Ship = this.statistics_result[i]
+          }
+            if("STATION" == this.statistics_result[i].name){
+            this.statistics_result_Station = this.statistics_result[i]
+          }
+        }
 
       }else{
-        alert('数据统计请求失败');
+        alert('Data statistics failed');
       }
     })
+    this.reloadData()
     //获取全部区域
     getAllArea().then((res:any)=>{
       if(res.status ===200){
           this.area_list = res.data;
+          
       }else{
-        alert('区域获取请求失败');
+        alert('Area request failed');
       }
     })
        //获取全部数据类型
     getAllCategory().then((res:any)=>{
       if(res.status ===200){
           this.category_list = res.data;
+          
       }else{
-        alert('区域获取请求失败');
+        alert('Category request failed');
       }
     })
     //获取全部数据源
@@ -274,10 +328,11 @@ mounted() {
       if(res.status ===200){
           this.source_list = res.data;
       }else{
-        alert('数据源获取请求失败')
+        alert('Source request failed')
       }
     })
 
+    
 
   }
 
@@ -287,17 +342,92 @@ mounted() {
   }
 
   //methods
+  //预加载数据（10天)
+  reloadData(){
+      var now = new Date() 
+      var last_10_day = now.getTime() - 864000000
+      var startTime = last_10_day
+      var endTime = now.getTime()
+      this.reload(startTime,endTime)
+  }
+  //批量打包下载
+  // 批量下载
+  async downloadByZip(){
+    if(this.multipleSelected_url == null||this.multipleSelected_url.length<1){
+      alert('please search data first')
+      return
+    }
+    var data_url = new Array()
+    for(var i=0; i< this.multipleSelected_url.length;i++){
+      var url = '/'+ this.multipleSelected_url[i].url.replace(/\\/g,'/');
+      data_url.push(url)
+    }
+    // const data_url = ['/STATION/XMD/2019/08/18/081818.XMD', '/STATION/ZFD/2019/08/18/081815.ZFD']
+    var file_name =''
+    var data = '1'
+    
+    var promises = new Array();
+      // 初始化一个zip打包对象
+    var zip = new JSZip();
+    // zip.file("Hello.txt", "Hello World\n");
+    
+   await data_url.forEach(item =>{
+    const promise =  this.getFile(item).then(data=>{
+      //替换反斜杠
+        item = item.replace(/\\/g,'/');
+        const arr_name = item.split('/')
+        //获取文件名
+        file_name = arr_name[arr_name.length - 1]
+        // alert(data)
+        zip.file(file_name, data, {binary: true});
+      })
+        promises.push(promise)
+      })
+      Promise.all(promises).then(()=>{
+          zip.generateAsync({
+          type: "blob"
+        }).then((content:any) => { // 生成二进制流
+          FileSaver.saveAs(content, "data.zip") // 利用file-saver保存文件
+        })
+      })
+  }
+  //数据预览方法
+  showData(showData_url:string){
+    showData_url = showData_url.replace(/\\/g,'/');
+    var page = window.open(showData_url, 'data','alwaysRaised=yes')
+    
+    
+  }
+//下载按钮事件
+download(){
+ this.downloadByZip()
+}
+
+//下载单个文件方法
+getFile(url:string){
+ return new Promise((resolve, reject) => {
+        axios({
+          method: 'get',
+          url: url,
+          responseType:'blob',
+            
+        }).then((res) => {
+           
+          // alert('axios' + '             '+ res.data)
+          resolve(res.data)
+        }).catch(error => {
+          reject(error.toString())
+        })
+      })
+    }
+  //获取选中的值
+  handleSelectionChange(val:any) {
+      this.multipleSelected_url = val;               //  this.multipleTable 选中的值
+  }
   submitForm(){
-    alert('dd')
-    // let formData = new FormData();
-//     let config = {
-//    headers: {
-//     'Content-Type': 'multipart/form-data;boundary = ' + new Date().getTime()
-//     } 
-// }
   let url = `${host}/data/getDataInfoResultsByQuery`
   //绑定数据
-
+  
   let data = {
     'categoryId': this.category_selected ,
     'areaId': this.area_selected,
@@ -305,20 +435,46 @@ mounted() {
     'beginTime': this.startTime_selected,
     'endTime': this.endTime_selected
   }
-  // formData.append('categoryId', this.category_selected);
-  // formData.append('areaId', this.area_selected);
-  // formData.append('sourceId', this.source_selected);
-  // formData.append('beginTime', this.startTime_selected);
-  // formData.append('endTime', this.endTime_selected);
-  
   axios.post(url,data).then(res=>{
-    alert(res.data);
-        this.results_data = res.data;
+    // alert(res.data);
+        if(res.data[0].state){
+          this.results_data = res.data;
+          for(var i = 0;i<this.results_data.length;i++){
+            this.results_data[i].date = moment(this.results_data[i].date).format('YYYY-MM-DD HH:mm:ss')
+          }
+          // alert(this.results_data[0].url)
+        }else{
+          alert(res.data[0].msg)
+        }
+        
   }).catch(err=>{
     alert('err');
   });
+  }
 
-
+//预加载数据
+  reload(startTime:any,endTime:any){
+  let url = `${host}/data/getDataInfoResultsByQuery`
+  //绑定数据
+  
+  let data = {
+    'beginTime': startTime,
+    'endTime': endTime
+  }
+  axios.post(url,data).then(res=>{
+    // alert(res.data);
+        if(res.data[0].state){
+          this.results_data = res.data;
+            for(var i = 0;i<this.results_data.length;i++){
+            this.results_data[i].date = moment(this.results_data[i].date).format('YYYY-MM-DD HH:mm:ss')
+          }
+        }else{
+          alert(res.data[0].msg)
+        }
+        
+  }).catch(err=>{
+    alert('err');
+  });
   }
 }
 
@@ -387,17 +543,7 @@ const searchData = () =>{
 
 }
 
-//测试回显
 
-// var getStatictisByCategory = new Vue({
-//   el:'#statistics',
-//   data:{
-//     answer:'222'
-//     },
-//   mounted:function(){
-
-//   }
-// })
 </script>
 <style scoped lang="less">
 @import "../styles/base.less";
@@ -592,15 +738,15 @@ const searchData = () =>{
       .search-title {
         // @minortitle();
         text-align:left;
-        font-size: 2rem;
+        font-size: 1rem;
         color: black;
         padding-left:40px;
         // font-size: ;
       
       .search-subtitle {
         // @minortitle();
-        font-size: 1.5rem;
-
+        font-size: 0.8rem;
+        color: black;
 
       }
       }
@@ -678,6 +824,14 @@ const searchData = () =>{
     //     border-radius: 2px;
     //     background: rgba(0,0,0,0.4);
     // }
+          .btn_show {
+          display: flex;
+          // margin:0 auto;
+            @bluebackground();
+            border:none
+            // background-color: #2bbbad !important;
+          
+        }
         .btn_download {
           display: flex;
           justify-content: center;
