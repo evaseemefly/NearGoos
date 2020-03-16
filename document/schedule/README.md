@@ -103,3 +103,11 @@
 19-11-27
 - [x] 1. 完成vue 项目的搭建，完成了首页`home`
 - [x] 2. 实现了页面路由跳转 
+
+---
+20-01-05  
+- [x] 1.首页加入了部分过渡效果  
+![alt home_data](../img/readme/TIM截图20200106145312.png)
+![alt home_data](../img/readme/TIM截图20200106145325.png)
+- [x] 2.product页面多条件搜索样式v1版本  
+![alt home_data](../img/readme/TIM截图20200106145000.png)

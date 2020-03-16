@@ -58,6 +58,15 @@ npm run serve
 
 vue + vuex + vue-router+webpack+es6+less
 
+- 新加入了打包下载功能，主要包含打包下载页面的页面有 `data` 与 `product`  
+  目前考虑的实现方式：  
+  1- 先下载文件  
+  2- zip压缩  
+  3- 生成最终的文件    
+  
+[参考的文章](https://www.mmxiaowu.com/article/59b23f5d5b06a403cf687ed6)
+
+
 ### 引用的一些组件
 
 使用了`vue-property-decorator`

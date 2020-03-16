@@ -43,7 +43,7 @@
     </div>
     <!-- 成员国 -->
     <div class="members">
-      <h4>NEAR-GOOS Members Countries</h4>
+      <h4>NEAR-GOOS Member Countries</h4>
       <div>
         <img src="/images/logo/chn.jpg" />
         <img src="/images/logo/jap.jpg" />
@@ -53,10 +53,9 @@
     </div>
     <!-- 版权 -->
     <div class="copyright">
-      <h4>LEGAL</h4>
-      <h5>Copyright ©right;</h5>
-      <h5>2019 National Marine Environment Forecasting Center(NMEFC)</h5>
-      <h5>All Rights Reserved</h5>
+      <h4>
+        All rights reserved by NMEFC
+      </h4>
     </div>
   </div>
 </template>
@@ -67,7 +66,9 @@ export default class Footer extends Vue {}
 </script>
 <style scoped lang="less">
 #footer {
-  background: url("/images/background/home_1_2.jpg");
+  // background: url("/images/background/home_1_2.jpg");
+  background: url('/images/background/header_1.png');
+  background-size: 100% auto;
   display: flex;
   justify-content: space-around;
   align-items: center;
