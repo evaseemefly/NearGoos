@@ -39,7 +39,7 @@
                     >
                       <template slot="title">
                         <i class></i>
-                        <span>{{ father.val }}</span>
+                        <span>{{ father.remark }}</span>
                       </template>
                       <el-menu-item
                         :index="child.key"
@@ -306,6 +306,7 @@
                 style="width: 100%"
                 @selection-change="handleSelectionChange"
                 @select="selectRow"
+                @select-all="selectAllRow"
               >
                 <el-table-column type="selection" width="55"></el-table-column>
                 <el-table-column label="date" show-overflow-tooltip>
@@ -438,6 +439,8 @@ export default class ProductView extends Vue {
   // TODO:[*] 20-02-27 注意此处有一个需要注意的地方，因为最终部署文件可能不一定永远都放在public中，保险起见，加入域
   tableDataPath: string[] = [];
 
+  isAllSelect: boolean = false;
+
   // 选中的最近的图片的url
   // currentImageUrl: string =
   // '/images/product/data/ftpdownload/wave/2019/10/30/coast04.png';
@@ -455,6 +458,10 @@ export default class ProductView extends Vue {
 
   handleSelectionChange() {
     console.log('选中改变');
+  }
+  clearAllSelectedRow() {
+    // this.isAllSelect=false;
+    this.tableDataPath = [];
   }
   // TODO:[*] 20-01-05 计算点击个数未实现
   selectRow(
@@ -482,6 +489,31 @@ export default class ProductView extends Vue {
         ].join('/')
       );
     });
+    if (this.tableDataPath.length < this.tableData.length) {
+      this.isAllSelect = false;
+    }
+  }
+
+  selectAllRow() {
+    console.log('全选');
+    this.isAllSelect = !this.isAllSelect;
+    if (this.isAllSelect) {
+      // 注意先清除
+      this.clearAllSelectedRow();
+      this.tableData.forEach(temp => {
+        this.tableDataPath.push(
+          [
+            this.rootPath,
+            this.getTypePath(temp.type),
+            temp.relativePath,
+            temp.name,
+          ].join('/')
+        );
+      });
+    } else {
+      this.isAllSelect = false;
+      this.clearAllSelectedRow();
+    }
   }
   // TODO:[*] 19-12-09 此处加入了新的功能:根据选择的father和child加载对应的 interval list
   selectMenu(father: string, child: string) {
@@ -496,6 +528,9 @@ export default class ProductView extends Vue {
   submit() {
     let myself = this;
     console.log('提交表单');
+    // TODO:[-] 20-03-19 提交表单时先清除一下
+    this.isAllSelect = false;
+    this.clearAllSelectedRow();
     // 1 获取提交的数据
     let params = new SearchCondition(
       myself.optionCategoryVal,
@@ -866,6 +901,12 @@ export default class ProductView extends Vue {
         });
       }
     }
+    // TODO:[-] 20-03-19 加入设置当前的 时间间隔，每次更新时,触发 loadProductImageUrl
+    if (res.length > 0) {
+      // this.menuChildIndex=res[0]
+      // 直接触发 loadProductImageUrl
+      this.loadProductImageUrl(res[0]);
+    }
     return res;
   }
 
@@ -935,7 +976,7 @@ export default class ProductView extends Vue {
       }
     }
 
-    return fatherRemark+' ' + childRemark;
+    return fatherRemark + ' ' + childRemark;
   }
 
   @Watch('imgShow')
@@ -1106,7 +1147,7 @@ export default class ProductView extends Vue {
       display: flex;
       width: 80%;
       background: #1971c2;
-      
+
       @contentshadow();
       // background: linear-gradient(#1970c2e1 80%, white);
       padding: 1rem;
@@ -1140,7 +1181,7 @@ export default class ProductView extends Vue {
               li {
                 // background-color: #0b6fb1 !important;
                 background-color: #20aaca !important;
-                // 
+                //
               }
             }
           }
