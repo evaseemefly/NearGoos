@@ -54,9 +54,19 @@ export class BatchDownLoad {
       const promise = this.getFile(item).then(data => {
         // 下载文件, 并存成ArrayBuffer对象
         const urlTemp = item.split('/');
+        // xxx.png
         const fileName = urlTemp[urlTemp.length - 1]; // 获取文件名
-        zip.file(fileName, data, { binary: true }); // 逐个添加文件
-        cache[fileName] = data;
+        // TODO:[-] 20-03-21 由于下载同一种类不同日期的文件会出现同名的问题，创建文件时会出现覆盖的问题，建议加上时间戳
+        // 时间戳精确到毫秒
+        const timestamp = new Date().valueOf();
+        const filesplitnames = fileName.split('.');
+        filesplitnames.splice(1, 0, '_');
+        filesplitnames.splice(2, 0, timestamp.toString());
+        filesplitnames.splice(3, 0, '.');
+        const fileSaveName = filesplitnames.join('');
+        console.log(timestamp);
+        zip.file(fileSaveName, data, { binary: true }); // 逐个添加文件
+        cache[fileSaveName] = data;
       });
       promises.push(promise);
     });

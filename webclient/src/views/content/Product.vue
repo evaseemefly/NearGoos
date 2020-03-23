@@ -172,7 +172,7 @@
                   <div class="form-group">
                     <div class="form-select">
                       <label for>Period</label>
-                      <el-select v-model="optionPeriodVal" placeholder="请选择">
+                      <el-select v-model="optionPeriodVal" placeholder="please select">
                         <el-option
                           v-for="item in optionsPeriod"
                           :key="item.key"
@@ -266,7 +266,7 @@
                 </div>
               </form>
               <div class="search-footer">
-                <h4>查询符合条件的所有结果</h4>
+                <h4>Query for all results that meet the criteria</h4>
                 <p>
                   Please note only products within the latest 6 months can be
                   searched.
@@ -281,7 +281,7 @@
           <div class="center">
             <div class="statistics-info">
               <h4>Downloading list</h4>
-              <p>{{ countSelected }}个文件</p>
+              <p>{{ countSelected }} files</p>
             </div>
             <div class="statistics-btn">
               <button
@@ -309,16 +309,12 @@
                 @select-all="selectAllRow"
               >
                 <el-table-column type="selection" width="55"></el-table-column>
-                <el-table-column label="date" show-overflow-tooltip>
+                <el-table-column label="date" width="160" show-overflow-tooltip>
                   <template slot-scope="scope">{{
                     scope.row.date | formatDate2HM
                   }}</template>
                 </el-table-column>
-                <el-table-column
-                  prop="name"
-                  label="name"
-                  width="120"
-                ></el-table-column>
+                <el-table-column prop="name" label="name"></el-table-column>
                 <el-table-column prop="area" width="120" label="area">
                   <template slot-scope="scope">{{
                     areaConvert(scope.row.area)
@@ -329,11 +325,16 @@
                   label="interval"
                   width="120"
                 ></el-table-column>
-                <el-table-column
+                <!-- <el-table-column
                   prop="type"
                   label="type"
                   width="120"
-                ></el-table-column>
+                ></el-table-column> -->
+                <el-table-column width="120" label="type" show-overflow-tooltip>
+                  <template slot-scope="scope">{{
+                    scope.row.type | fortmatType
+                  }}</template>
+                </el-table-column>
               </el-table>
             </div>
           </div>
@@ -375,6 +376,34 @@ import { BatchDownLoad } from '@/common/batchdownload';
     //TODO:[*] 19-12-09 注意在filters中无法使用this
     formatDate2HM(val: Date): string {
       return moment(val).format('YYYY-MM-DD hh:mm');
+    },
+    fortmatType(val: number): string {
+      let typeDicts = [
+        {
+          key: 1,
+          val: 'wave',
+        },
+        {
+          key: 2,
+          val: 'current',
+        },
+        {
+          key: 3,
+          val: 'ice',
+        },
+        {
+          key: 4,
+          val: 'template',
+        },
+        {
+          key: 4,
+          val: 'height',
+        },
+      ];
+      let typeVal = typeDicts.filter(temp => {
+        return temp.key == val;
+      });
+      return typeVal.length > 0 ? typeVal[0].val : 'no type';
     },
   },
 })
