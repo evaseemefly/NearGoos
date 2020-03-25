@@ -34,6 +34,7 @@ const getProductResByConCondition = (params: any) => {
       period: params.period,
       start: params.start,
       end: params.end,
+      brevity: params.brevity,
     },
   });
 };
@@ -65,7 +66,7 @@ const getTypesByDb = () => {
   return axios.get(url, {
     params: {},
   });
-}
+};
 
 export {
   getAllArea,

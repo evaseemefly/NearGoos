@@ -172,7 +172,10 @@
                   <div class="form-group">
                     <div class="form-select">
                       <label for>Period</label>
-                      <el-select v-model="optionPeriodVal" placeholder="please select">
+                      <el-select
+                        v-model="optionPeriodVal"
+                        placeholder="please select"
+                      >
                         <el-option
                           v-for="item in optionsPeriod"
                           :key="item.key"
@@ -297,7 +300,12 @@
         <div class="product-result">
           <!-- 结果部分 -->
           <div class="center-footer">
-            <div class="center-footer-card-header">Result</div>
+            <div class="center-footer-card-header">
+              <h4>Result</h4>
+              <p v-show="!isSearched">
+                Show the last 20 data
+              </p>
+            </div>
             <div class="center-footer-card-body">
               <el-table
                 ref="multipleTable"
@@ -411,7 +419,7 @@ export default class ProductView extends Vue {
   mydata: any = null;
   openList: string[] = [];
   category: Array<{ key: number; val: string }> = [];
-
+  isSearched: boolean = false;
   menuList: Array<{
     key: string;
     val: string;
@@ -556,7 +564,9 @@ export default class ProductView extends Vue {
 
   submit() {
     let myself = this;
-    console.log('提交表单');
+    // console.log('提交表单');
+    // TODO:[-] 20-03-25 只有提交表单后才将 isSearched赋值为true
+    this.isSearched = true;
     // TODO:[-] 20-03-19 提交表单时先清除一下
     this.isAllSelect = false;
     this.clearAllSelectedRow();
@@ -1050,6 +1060,7 @@ export default class ProductView extends Vue {
       category: cateogryTemp,
       area: areaTemp,
       start: now,
+      brevity: this.isSearched ? 'NORMAL' : 'SHORT',
     };
 
     getProductResByConCondition(params).then(res => {
@@ -1225,6 +1236,13 @@ export default class ProductView extends Vue {
         .product-exhibition {
           .product-title {
             margin-bottom: 1em;
+            div {
+              ul {
+                li {
+                  cursor: pointer;
+                }
+              }
+            }
           }
           .product-img {
             img {
@@ -1513,13 +1531,22 @@ export default class ProductView extends Vue {
         .center-footer-card-header {
           display: flex;
           justify-content: flex-start;
+          align-items: center;
           padding: 1rem;
-          @minortitle();
+          h4 {
+            @minortitle();
+          }
+          p {
+            @searchminortitle();
+          }
         }
 
         .center-footer-card-body {
           background: white;
           border-radius: 1em;
+          // TODO:[-] + 20-03-25 新加入最大高度超出部分显示滚动条
+          max-height: 600px;
+          overflow-y: scroll;
           // border-radius: 1em;
           // @borderradius();
           // @baseradius();

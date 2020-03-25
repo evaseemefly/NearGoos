@@ -119,7 +119,7 @@ export default class OverView extends Vue {
       key: 1,
       title: 'Activities',
       val:
-        'The 18th Session of NEAR-GOOS Coordinating Committee Meeting was hosted by NMEFC in Fujian of China during 20-22 November 2017.The 8th Session of NEAR-GOOS Coordinating Committee Meeting was hosted in Beijing of China during 8-10 December of 2003.The 3rd session of NEAR-GOOS Coordinating Committee Meeting was hosted in Beijing of China during 3-6 August 1998.',
+        'The 18th Session of NEAR-GOOS Coordinating Committee Meeting was hosted by NMEFC in Fujian of China during 20-22 November 2017.<br>The 8th Session of NEAR-GOOS Coordinating Committee Meeting was hosted in Beijing of China during 8-10 December of 2003.<br>The 3rd session of NEAR-GOOS Coordinating Committee Meeting was hosted in Beijing of China during 3-6 August 1998.',
     },
     {
       key: 2,
@@ -315,7 +315,7 @@ export default class OverView extends Vue {
     // justify-content: flex-start;
     li {
       // 取消光标效果改为箭头
-      cursor: default;
+      cursor: pointer;
       font-size: 30px;
     }
   }
