@@ -36,7 +36,7 @@
         </h4>
         <!-- <button class="btn btn-default">Download Data</button> -->
         <button class="btn btn-default">
-          <router-link :to="{ path: 'content' }">Download Data</router-link>
+          <router-link :to="{ path: '/content/data' }">Download Data</router-link>
         </button>
       </div>
     </div>

@@ -460,7 +460,7 @@ export default class ProductView extends Vue {
   menuFatherIndex: string = '1';
   menuChildIndex: string = '1';
   // 选中的result的行
-  countSelected: number = 0;
+  // countSelected: number = 0;
   // 时间搜索框绑定的data
   startDate: Date = new Date();
   finishDate: Date = new Date();
@@ -514,7 +514,7 @@ export default class ProductView extends Vue {
   ) {
     console.log(selection);
     console.log(row);
-    this.countSelected = selection.length;
+    // this.countSelected = selection.length;
     this.tableDataPath = [];
     selection.forEach(temp => {
       this.tableDataPath.push(
@@ -861,6 +861,11 @@ export default class ProductView extends Vue {
     } else {
       return [];
     }
+  }
+
+  // TODO:[-] 20-03-26 获取选中的数量,修改为computed的方式
+  get countSelected(): number {
+    return this.tableDataPath.length;
   }
 
   // 产品时间间隔的下拉选项
