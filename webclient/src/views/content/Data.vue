@@ -211,7 +211,10 @@
                  <div class="center-footer-card-body">
                    <!-- 表头内容 -->
                    <!-- <div class="table table-striped table-bordered"> -->
-                  <el-table class="result_table" :data="results_data" ref="multipleTable" @selection-change="handleSelectionChange"> 
+                  <el-table class="result_table" :data="results_data" ref="multipleTable" @selection-change="handleSelectionChange" v-loading = "pictLoading"
+                  element-loading-background = "rgba(0, 0, 0, 0.5)"
+                 element-loading-text = "Loading..........."
+                  element-loading-spinner = "el-icon-loading">
                     <el-table-column type="selection"></el-table-column>
                     <el-table-column type="index"  label="Index" width="80px"></el-table-column>
                     <el-table-column prop="id" v-if="show" label="Id" ></el-table-column>
@@ -229,6 +232,7 @@
               　　　　</template>
 　                　</el-table-column>
                   </el-table>
+                 <div class="result_table_tips">default load 20 data up to date</div>
                   <el-button type="success" class="btn_download" @click="download()">Download Data</el-button>
 
                  <div>
@@ -266,7 +270,7 @@ export default class DataView extends Vue {
   multipleSelected_url: any = []
   // promises = []
   tempdata : any=null
-
+  pictLoading = false
   statistics_result_Buoy: any = null
   statistics_result_Ship: any = null;
   statistics_result_Station: any = null;
@@ -342,13 +346,15 @@ mounted() {
   }
 
   //methods
-  //预加载数据（10天)
+  //预加载数据（10天)，由最近10天改为最近20条，方法暂时不删
   reloadData(){
-      var now = new Date() 
-      var last_10_day = now.getTime() - 864000000
-      var startTime = last_10_day
-      var endTime = now.getTime()
-      this.reload(startTime,endTime)
+    this.pictLoading = true
+      // var now = new Date() 
+      // var last_10_day = now.getTime() - 864000000
+      // var startTime = last_10_day
+      // var endTime = now.getTime()
+      this.reload()
+      this.pictLoading = false
   }
   //批量打包下载
   // 批量下载
@@ -425,6 +431,7 @@ getFile(url:string){
       this.multipleSelected_url = val;               //  this.multipleTable 选中的值
   }
   submitForm(){
+  this.pictLoading = true
   let url = `${host}/data/getDataInfoResultsByQuery`
   //绑定数据
   
@@ -448,18 +455,19 @@ getFile(url:string){
         }
         
   }).catch(err=>{
-    alert('err');
+    alert('error, please contact administrator');
   });
+  this.pictLoading = false
   }
 
-//预加载数据
-  reload(startTime:any,endTime:any){
+//预加载数据(20条数据)
+  reload(){
   let url = `${host}/data/getDataInfoResultsByQuery`
   //绑定数据
   
   let data = {
-    'beginTime': startTime,
-    'endTime': endTime
+    'page': 0,
+    'size': 20
   }
   axios.post(url,data).then(res=>{
     // alert(res.data);
@@ -471,7 +479,7 @@ getFile(url:string){
         }else{
           alert(res.data[0].msg)
         }
-        
+         
   }).catch(err=>{
     alert('err');
   });
@@ -762,7 +770,7 @@ const searchData = () =>{
           flex: 1;
           justify-content: center;
           font-size: 1.5rem;
-          width:300px;
+          width:250px;
           // border:40px #33CCCC;
           //已取消label
           label {
@@ -831,6 +839,11 @@ const searchData = () =>{
             border:none
             // background-color: #2bbbad !important;
           
+        }
+        .result_table_tips{
+          display: flex;
+          justify-content: left;
+          font: 1rem;
         }
         .btn_download {
           display: flex;

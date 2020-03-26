@@ -77,7 +77,8 @@ class DataService:
         dict_category = dict()
         for obj in category_result:
             dict_category[obj.name] = obj.id
-
+        num_database = 0
+        num_savefile = 0
         # 2.遍历文件名称列表
         print(file_infos)
         i = 0
@@ -142,6 +143,7 @@ class DataService:
                                                         local_path_dir)
 
             if is_success:
+                num_savefile += 1
 
                 date_str = folder_level2 + '-' + folder_level3 + '-' + folder_level4 + ' ' + hour + ':' + '00' + ':' + '00'
                 url = os.path.join(folder_level1, extension, folder_level2, folder_level3,
@@ -151,10 +153,13 @@ class DataService:
                 if result is None:
                     self.insert_data_info(file_info, folder_level1, extension, date_str, url, area_result, dict_category, source_result,local_path_dir + file_info)
                     print('向数据库存储成功')
+                    num_database += 1
+
                 else:
                     print('!!!!!!该文件信息已在数据库中存在')
         self.ftp_Manager.close_connect()
-
+        print('静态文件总共存储了' + str(num_savefile))
+        print('数据库总共存储了' + str(num_database))
     def insert_data_info(self, file_info, folder_level1, extension, date_str, url, area_result, dict_category, source_result,local_dir):
         """
         封装实体
