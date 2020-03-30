@@ -36,7 +36,9 @@
         </h4>
         <!-- <button class="btn btn-default">Download Data</button> -->
         <button class="btn btn-default">
-          <router-link :to="{ path: '/content/data' }">Download Data</router-link>
+          <router-link :to="{ path: '/content/data' }"
+            >Download Data</router-link
+          >
         </button>
       </div>
     </div>
@@ -55,11 +57,43 @@
             Database
             <span class="caret"></span>
           </button>
-          <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-            <li><a href="#">China</a></li>
-            <li><a href="#">Japan</a></li>
-            <li><a href="#">Korea</a></li>
-            <li><a href="#">Russia</a></li>
+          <ul class="dropdown-menu">
+            <li>
+              <a href="http://near-goos.nmdis.org.cn/catalog/home"
+                >China National Delay-mode Database</a
+              >
+            </li>
+            <li>
+              <a href="https://ds.data.jma.go.jp/gmd/goos/data/database.html"
+                >Japan Regional Real Time Database</a
+              >
+            </li>
+            <li>
+              <a
+                href="http://sms.khoa.go.kr/koofs/eng/observation/obs_real_map.asp"
+                >Korea National Real Time Database</a
+              >
+            </li>
+            <li>
+              <a href="http://rus.ferhri.ru/esimo/Projects/Neargoos/"
+                >Russia National Real Time Database</a
+              >
+            </li>
+            <li>
+              <a href="https://near-goos1.jodc.go.jp/"
+                >Japan Regional Delay-mode Database</a
+              >
+            </li>
+            <li>
+              <a href="http://kodc.nfrdi.re.kr/page?id=eng_index"
+                >Korea National Delay-mode Database</a
+              >
+            </li>
+            <li>
+              <a href="http://www.pacificinfo.ru"
+                >Russia National Delay-mode Database</a
+              >
+            </li>
           </ul>
         </div>
       </div>
@@ -74,7 +108,7 @@
         </div>
       </div>
       <!-- 版权 -->
-      <div class="copyright">        
+      <div class="copyright">
         <h4>All rights reserved by NMEFC</h4>
       </div>
     </footer>
@@ -97,7 +131,7 @@ export default {
 @import '../styles/base.less';
 .my-root {
   background: url('/images/background/home_3.png');
-  background-size:100% auto;
+  background-size: 100% auto;
   display: flex;
   min-height: 100vh;
   flex-direction: column;
@@ -274,6 +308,32 @@ footer {
     display: flex;
     flex: 1;
     @centered();
+    .btn {
+      border-radius: 8px;
+      background-color: white;
+
+      border: none;
+      color: black;
+      padding: 1px 32px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px;
+      margin: 4px 2px;
+      cursor: pointer;
+    }
+    .dropdown-menu a {
+      color: black;
+      font-size: 16px;
+      text-decoration: none;
+      display: block;
+      width: 300px;
+      text-align: center;
+    }
+    // 鼠标悬停更改下拉框颜色
+    .dropdown-menu a:hover {
+      background-color: rgba(215, 215, 215, 0.7);
+    }
   }
   .members {
     display: flex;
