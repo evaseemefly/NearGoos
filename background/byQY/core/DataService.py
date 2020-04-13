@@ -13,7 +13,7 @@ import os
 from byQY.core.BaseDao import BaseDao
 from byQY.core.FTPManager import FTPManager
 from byQY.model.DataModel import DataArea, DataDataInfo, DataCategory, DataSource
-
+from apscheduler.schedulers.blocking import BlockingScheduler
 
 class DataService:
     def __init__(self, config_path, section_neargoos, section_mysql):
@@ -199,12 +199,31 @@ class DataService:
     def getTime(self):
         self.ftp_Manager.getCreateTime(self)
 
-config_path = r'E:\projects\pycharm\NearGoos\background\byQY\config\Config.ini'
+
+
+
+#主任务
+def task():
+    data_service = DataService(config_path, section_neargoos, section_mysql)
+    fileinfo = data_service.get_file_info()
+    data_service.save_files(fileinfo)
+
+# 定时任务
+def scheduleTask():
+    times = 0;
+    # 创建调度器：BlockingScheduler
+    scheduler = BlockingScheduler()
+    scheduler.add_job(task, 'interval', seconds=3600, id='task1')
+    scheduler.start()
+
+
+config_path = r'byQY/config/Config.ini'
 section_neargoos = 'neargoos'
 section_mysql = 'mysql'
-data_service = DataService(config_path, section_neargoos, section_mysql)
-fileinfo = data_service.get_file_info()
-data_service.save_files(fileinfo)
+scheduleTask()
+
+
+
 
 
 
