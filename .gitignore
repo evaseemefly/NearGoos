@@ -30,3 +30,6 @@
 /webclient/public/images/background/home_2_4.png
 /webclient/public/images/background/home_3.png
 /webclient/public/Data
+config
+/background/byQY/config/Config.ini
+/background/byQY/config/*.ini
