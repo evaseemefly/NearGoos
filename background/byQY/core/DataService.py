@@ -10,9 +10,9 @@
 # 连接FTP
 import datetime
 import os
-from byQY.core.BaseDao import BaseDao
-from byQY.core.FTPManager import FTPManager
-from byQY.model.DataModel import DataArea, DataDataInfo, DataCategory, DataSource
+import BaseDao
+import FTPManager
+import DataModel
 from apscheduler.schedulers.blocking import BlockingScheduler
 global config_path
 config_path = r'E:\projects\pycharm\NearGoos\background\byQY\config\Config.ini'
@@ -22,13 +22,13 @@ global section_mysql
 section_mysql = 'mysql'
 class DataService:
     def __init__(self, config_path, section_neargoos, section_mysql):
-        self.ftp_Manager = FTPManager(config_path, section_neargoos)
+        self.ftp_Manager = FTPManager.FTPManager(config_path, section_neargoos)
         self.username = ""
         self.password = ""
         self.config_path = config_path
         self.section_neargoos = section_neargoos
         self.section_mysql = section_mysql
-        self.dao = BaseDao(config_path, section_mysql)
+        self.dao = BaseDao.BaseDao(config_path, section_mysql)
 
     @staticmethod
     def switch_category(value):
@@ -74,11 +74,11 @@ class DataService:
         # 1. 在遍历文件列表前先查出海区，类型，数据源对应ID
         # [to-do]暂时只要类型
         # 1.1 [to-do]得到对应的海区ID（暂时均为默认海区）
-        area_result = self.dao.find_by_name(DataArea, 'China Sea')
+        area_result = self.dao.find_by_name(DataModel.DataArea, 'China Sea')
         # 1.2 [to-do]得到数据源的ID（暂时均为中国）
-        source_result = self.dao.find_by_name(DataSource, 'China')
+        source_result = self.dao.find_by_name(DataModel.DataSource, 'China')
         # 1.3 [to-do]得到数据类型的ID
-        category_result = self.dao.find_all(DataCategory)
+        category_result = self.dao.find_all(DataModel.DataCategory)
         dict_category = dict()
         for obj in category_result:
             dict_category[obj.name] = obj.id
@@ -154,7 +154,7 @@ class DataService:
                 url = os.path.join(folder_level1, extension, folder_level2, folder_level3,
                                    folder_level4, file_info)
                 # 4.封装实体
-                result = self.dao.find_by_url(DataDataInfo, url)
+                result = self.dao.find_by_url(DataModel.DataDataInfo, url)
                 if result is None:
                     self.insert_data_info(file_info, folder_level1, extension, date_str, url, area_result, dict_category, source_result,local_path_dir + file_info)
                     print('向数据库存储成功')
@@ -181,8 +181,8 @@ class DataService:
         # source_result = self.dao.find_by_name(DataSource, 'China')
         # # 4.3 [to-do]得到数据类型的ID（暂时均为中国）
         # category_result = self.dao.find_by_name(DataCategory, folder_level1)
-        datainfoModel = DataDataInfo()
-        info = DataDataInfo()
+        datainfoModel = DataModel.DataDataInfo()
+        info = DataModel.DataDataInfo()
         info.is_delete = 0
         info.gmt_create = datetime.datetime.now()
         info.gmt_modified = datetime.datetime.now()
@@ -218,7 +218,7 @@ def scheduleTask():
     times = 0;
     # 创建调度器：BlockingScheduler
     scheduler = BlockingScheduler()
-    scheduler.add_job(task, 'interval', seconds=600, id='task1')
+    scheduler.add_job(task, 'interval', seconds=60, id='task1')
     scheduler.start()
 
 

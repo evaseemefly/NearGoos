@@ -10,7 +10,7 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
-from byQY.core.FTPManager import FTPManager
+import FTPManager
 
 
 class BaseDao:
@@ -18,7 +18,7 @@ class BaseDao:
     def __init__(self, config_path, section):
         self.config_path = config_path
         self.section = section
-        self.ftp_manager = FTPManager(config_path, section)
+        self.ftp_manager = FTPManager.FTPManager(config_path, section)
         self.config = self.ftp_manager.get_config()
         self.engine = create_engine(
             "mysql+pymysql://" + self.config.get(self.section, 'username') + ":" + self.config.get(self.section,
