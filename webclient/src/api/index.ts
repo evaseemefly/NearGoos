@@ -2,7 +2,8 @@ import axios from 'axios';
 import { ProductImageCondition } from '@/middle_model/product.ts';
 // 后端的请求地址及端口
 //
-export const host = 'http://localhost:8083';
+// export const host = 'http://localhost:8083';
+export const host = 'http://128.5.6.6:8083';
 axios.defaults.withCredentials = true;
 axios.defaults.headers = {};
 /**

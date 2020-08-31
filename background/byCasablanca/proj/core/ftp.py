@@ -44,14 +44,16 @@ class Ftp:
                     print(self.ftp.getwelcome())
                     # msg=self.ftp.retrlines('LIST xb*')
                 except(socket.error, socket.gaierror):
-                    print(f"连接错误:{self.host, self.port}")
+                    # TODO:[-] 20-08-31 由于部署环境是 py3.4 不支持 format f的这种写法
+                    # print(f"连接错误:{self.host, self.port}")
+                    print("连接错误:"+self.host+self.port)
                     self.ftp = None
                 except error_perm:
                     # 认证错误
                     print("认证错误，请检查用户名及密码")
                     self.ftp = None
                 except Exception as e:
-                    print(f"其他未知错误{e}")
+                    print("其他未知错误"+e)
                     self.ftp = None
 
     # todo:[-] 19-10-30 放在product file中

@@ -7,7 +7,9 @@ from conf import setting
 
 
 class DBFactory:
-    session: sessionmaker = None
+    # TODO:[-] 20-08-31 py3.4 不支持此种写法，注释掉
+    # session: sessionmaker = None
+    session = None
 
     def __init__(self):
         self.host = setting.DB_HOST
@@ -17,7 +19,10 @@ class DBFactory:
         self.db_name = setting.DB_NAME
         # self.engine_str = f'mysql+mysqlconnector://{self.user}:{self.pwd}@{self.host}:{self.port}/{self.db_name}'
         # TODO:[-] 19-12-12 ModuleNotFoundError: No module named 'mysql' 切换 mysqlconnector->mysqldb
-        self.engine_str = f'mysql+mysqldb://{self.user}:{self.pwd}@{self.host}:{self.port}/{self.db_name}'
+        # TODO:[-] 20-08-31 py3.4 不支持此种写法，注释掉
+        # self.engine_str = f'mysql+mysqldb://{self.user}:{self.pwd}@{self.host}:{self.port}/{self.db_name}'
+        self.engine_str = 'mysql+mysqldb://' + self.user + ':'
+        self.pwd = '@' + self.host + ':' + self.port + '/' + self.db_name
 
         pass
 

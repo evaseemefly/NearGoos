@@ -12,6 +12,7 @@ from job.jobDownload import start
 cur_path = os.path.abspath(os.path.dirname(__file__))
 root_path = os.path.split(cur_path)[0]
 sys.path.append(root_path)
+print('已经当前路径'+root_path+'添加至sys.path中')
 
 
 def job():
