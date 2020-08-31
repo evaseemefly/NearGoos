@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="GB2312"?>
+<OceanObservatingDataFile>
+  <BuoyInfo id="QF106" Type="是" Name="的" NO="QF106" Kind="都多">
+    <Location longitude="都多" latitude="3都多" />
+  </BuoyInfo>
+  <DateTime DT="201909121000" />
+  <BuoyData WS="6.2" WD="182" WSM="7.1" AT="22.8" BP="1018.6" />
+</OceanObservatingDataFile>
