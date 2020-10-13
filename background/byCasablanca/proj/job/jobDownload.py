@@ -34,12 +34,12 @@ def start():
 
 # @sched.scheduled_job('interval', id='my_product_id', seconds=5)
 # @sched.scheduled_job('cron', id='my_product_id', hour=9, minute=0, jobstore='mongo')
-@sched.scheduled_job('cron', id='my_product_id', hour=9, minute=48, jobstore='default')
+@sched.scheduled_job('cron', id='my_product_id', hour=11, minute=36, jobstore='default')
 def product_job():
     # todo:[*] 19-10-31 main中的product相关方法放置此处
     # TODO:[-] 20-08-31 py3.4 不支持此种写法，注释掉
     # print(f'执行每日定时任务! The time is: {datetime.now()}')
-    print('执行每日定时任务! The time is: '+datetime.now())
+    print('执行每日定时任务! The time is: ' + str(datetime.now()))
     list_products = init_type()
     ftp = Ftp(setting._FTP_HOST, setting._FTP_USER, setting._FTP_PASSWORD)
     product = ProductFile(ftp)

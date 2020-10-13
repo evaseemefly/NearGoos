@@ -21,13 +21,16 @@ class DBFactory:
         # TODO:[-] 19-12-12 ModuleNotFoundError: No module named 'mysql' 切换 mysqlconnector->mysqldb
         # TODO:[-] 20-08-31 py3.4 不支持此种写法，注释掉
         # self.engine_str = f'mysql+mysqldb://{self.user}:{self.pwd}@{self.host}:{self.port}/{self.db_name}'
-        self.engine_str = 'mysql+mysqldb://' + self.user + ':'
-        self.pwd = '@' + self.host + ':' + self.port + '/' + self.db_name
-
+        # 'mysql+mysqldb://root:123456@localhost:3306/neargoos'
+        # 注意此处修改 为 pymysql 之前为 [mysqldb]
+        self.engine_str = 'mysql+pymysql://' + self.user + ':' + self.pwd + '@' + self.host + ':' + str(
+            self.port) + '/' + self.db_name
         pass
 
     def _init_session(self):
         if self.session is None:
+            # TODO:[*] 20-10-13 py3.4 出现以下错误
+            # ImportError: No module named 'MySQLdb'
             engine = create_engine(self.engine_str, echo=True, encoding='utf-8')
             Base.metadata.create_all(engine)
             self.session = sessionmaker(bind=engine)
