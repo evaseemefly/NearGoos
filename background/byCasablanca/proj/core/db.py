@@ -25,8 +25,11 @@ class DBFactory:
         # 注意此处修改 为 pymysql 之前为 [mysqldb]
         # 使用 mysqldb 还是会报错，切换为 mysqlconnector 之前为 [pymysql]
         # conda install -c conda-forge mysql-connector-python
-        # 在本地测试时 连接引擎 暂时修改为 mysqldb 实际线上使用 mysqlconnector|pymysql
-        self.engine_str = 'mysql+mysqldb://' + self.user + ':' + self.pwd + '@' + self.host + ':' + str(
+        # TODO:[-] 20-10-13 数据库连接引擎由于py版本的问题，使用的引擎不同
+        # 在本地测试时 连接引擎 暂时修改为 mysqldb 实际线上使用 [x] mysqlconnector| [-] pymysql
+        # 本地测试使用 mysqldb mysal8.0 py3.7
+        # 线上使用 pymysql  mysql5.6 py3.4
+        self.engine_str = 'mysql+pymysql://' + self.user + ':' + self.pwd + '@' + self.host + ':' + str(
             self.port) + '/' + self.db_name
         pass
 
