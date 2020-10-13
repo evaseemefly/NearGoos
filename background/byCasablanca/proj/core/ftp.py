@@ -14,8 +14,8 @@ from core.db import DBFactory
 #
 from common.enum import Area, ProductType
 
-
 from core.product import ProductFactory
+
 
 class Ftp:
     ftp = None
@@ -46,14 +46,14 @@ class Ftp:
                 except(socket.error, socket.gaierror):
                     # TODO:[-] 20-08-31 由于部署环境是 py3.4 不支持 format f的这种写法
                     # print(f"连接错误:{self.host, self.port}")
-                    print("连接错误:"+self.host+self.port)
+                    print("连接错误:" + self.host + self.port)
                     self.ftp = None
                 except error_perm:
                     # 认证错误
                     print("认证错误，请检查用户名及密码")
                     self.ftp = None
                 except Exception as e:
-                    print("其他未知错误"+e)
+                    print("其他未知错误" + e)
                     self.ftp = None
 
     # todo:[-] 19-10-30 放在product file中
@@ -177,6 +177,7 @@ class ProductFile:
                         product_instance = factory.create_product(
                             ''.join([str(product.producttype.name), area_temp.area.name]))()
                         interval_index = product_instance.get_interval_str(file_temp);
+                        now = datetime.utcnow()
                         db.insert_to_db(name=file_temp,
                                         area=area_temp.area,
                                         interval=interval_index,
@@ -185,7 +186,9 @@ class ProductFile:
                                         type=product.producttype,
                                         root_path=root_path,
                                         relative_path=relative_path,
-                                        file_name=file_temp)
+                                        file_name=file_temp,
+                                        create=now,
+                                        modified=now)
 
                         # todo:[*] 19-10-30 暂时不执行ftp删除操作，暂时注释掉
                         # self.ftp.delete_file(file_temp)
@@ -218,5 +221,3 @@ class ProductFile:
                                    interval=int(kwargs.get('interval')), image_url=kwargs.get('image_url'),
                                    target_date=kwargs.get('target_date'), gmt_create=kwargs.get('create'),
                                    gmt_modified=kwargs.get('modified'), type=kwargs.get('type'))
-
-

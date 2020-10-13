@@ -23,7 +23,10 @@ class DBFactory:
         # self.engine_str = f'mysql+mysqldb://{self.user}:{self.pwd}@{self.host}:{self.port}/{self.db_name}'
         # 'mysql+mysqldb://root:123456@localhost:3306/neargoos'
         # 注意此处修改 为 pymysql 之前为 [mysqldb]
-        self.engine_str = 'mysql+pymysql://' + self.user + ':' + self.pwd + '@' + self.host + ':' + str(
+        # 使用 mysqldb 还是会报错，切换为 mysqlconnector 之前为 [pymysql]
+        # conda install -c conda-forge mysql-connector-python
+        # 在本地测试时 连接引擎 暂时修改为 mysqldb 实际线上使用 mysqlconnector|pymysql
+        self.engine_str = 'mysql+mysqldb://' + self.user + ':' + self.pwd + '@' + self.host + ':' + str(
             self.port) + '/' + self.db_name
         pass
 
@@ -31,8 +34,10 @@ class DBFactory:
         if self.session is None:
             # TODO:[*] 20-10-13 py3.4 出现以下错误
             # ImportError: No module named 'MySQLdb'
+            # 数据库连接引擎修改为 pymysql 之前为 [mysqldb]
             engine = create_engine(self.engine_str, echo=True, encoding='utf-8')
-            Base.metadata.create_all(engine)
+            # TODO:[*] 20-10-13 此处会报错 KeyError: 255 暂时注释掉
+            # Base.metadata.create_all(engine)
             self.session = sessionmaker(bind=engine)
             return self.session
         else:
@@ -58,7 +63,19 @@ class DBFactory:
         # 'sessionmaker' object has no attribute 'add'
         # 注意sessionmaker创建的，需要实例化！
         session.add(product)
+        # TODO:[*] 20-10-13 提交时出错
+        # error1: 替换为 pymysql 时出错
+        # sqlalchemy.util.queue.Empty
+        # During handling of the above exception, another exception occurred:
+        # error2: 替换为 mysqlconnector 时出错
+        # sqlalchemy.exc.DatabaseError: (mysql.connector.errors.DatabaseError) 1193 (HY000): Unknown system variable 'tx_isolation'
+        # -> mysql.connector.errors.DatabaseError: 1193 (HY000): Unknown system variable 'tx_isolation'
+        # mysql 5.6 及以前版本 用的是tx_isolation
+        # mysql8，现在更名为 transaction_isolation
+        # 而 mysql-connection 对于 5.7 以后的版本没有支持
+        # 目前在本地测试时由于使用的 mysql8.0 暂时修改为 mysqldb
         session.commit()
+        pass
 
     def commit(self):
         session = self.session()
