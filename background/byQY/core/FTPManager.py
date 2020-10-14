@@ -9,8 +9,6 @@
 # @Software: PyCharm
 import os
 import socket
-
-import ftputil
 import configparser
 import time
 from ftplib import FTP

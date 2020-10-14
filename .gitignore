@@ -33,3 +33,13 @@
 /webclient/public/BUOY
 /webclient/public/STATION
 /webclient/public/images/product
+config
+/background/byQY/config/Config.ini
+/background/byQY/config/*.ini
+/.idea
+/background/byQY/venv
+/background/venv
+/webclient/public/STATION
+/webclient/public/BUOY
+/background/.idea
+/background/.vscode

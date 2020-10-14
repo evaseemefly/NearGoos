@@ -211,7 +211,7 @@
                  <div class="center-footer-card-body">
                    <!-- 表头内容 -->
                    <!-- <div class="table table-striped table-bordered"> -->
-                  <el-table class="result_table" :data="results_data" ref="multipleTable" @selection-change="handleSelectionChange" v-loading = "pictLoading"
+                  <el-table class="result_table" :data="results_data" ref="multipleTable" @selection-change="handleSelectionChange" v-loading = this.pictLoading
                   element-loading-background = "rgba(0, 0, 0, 0.5)"
                  element-loading-text = "Loading..........."
                   element-loading-spinner = "el-icon-loading">
@@ -227,13 +227,14 @@
                     <!-- <el-table-column prop="url" label="url" ></el-table-column> -->
                     <el-table-column label="Action">
               　　　　<template slot-scope="scope">
-              　　　　　　<el-button type="info" class="btn_show" @click="showData('/'+ scope.row.url)">show data</el-button>
+              　　　　　　<el-button type="info" class="btn_show"  @click="showData('/'+ scope.row.url)">show data</el-button>
               <!-- <a :href="'http://localhost:8080/'+ scope.row.url">show data</a> -->
               　　　　</template>
 　                　</el-table-column>
                   </el-table>
                  <div class="result_table_tips">default load 20 data up to date</div>
-                  <el-button type="success" class="btn_download" @click="download()">Download Data</el-button>
+                  <el-button type="success" class="btn_download" @click="download()" :loading=this.loadingBtn>
+		              {{loadingBtn?'Loading....':'Download Data'}}</el-button>
 
                  <div>
                  </div>
@@ -274,6 +275,7 @@ export default class DataView extends Vue {
   statistics_result_Buoy: any = null
   statistics_result_Ship: any = null;
   statistics_result_Station: any = null;
+  loadingBtn = false
 // lifecycle hook
 mounted() {
       getStatisticsByCategory().then((res:any)=>{
@@ -360,9 +362,11 @@ mounted() {
   // 批量下载
   async downloadByZip(){
     if(this.multipleSelected_url == null||this.multipleSelected_url.length<1){
-      alert('please search data first')
+      alert('please select data first')
       return
     }
+    //改变按钮样式
+    this.loadingBtn = true
     var data_url = new Array()
     for(var i=0; i< this.multipleSelected_url.length;i++){
       var url = '/'+ this.multipleSelected_url[i].url.replace(/\\/g,'/');
@@ -394,8 +398,11 @@ mounted() {
           type: "blob"
         }).then((content:any) => { // 生成二进制流
           FileSaver.saveAs(content, "data.zip") // 利用file-saver保存文件
+          //改变按钮样式
+          this.loadingBtn = false
         })
       })
+
   }
   //数据预览方法
   showData(showData_url:string){
@@ -445,19 +452,23 @@ getFile(url:string){
   axios.post(url,data).then(res=>{
     // alert(res.data);
         if(res.data[0].state){
+          
           this.results_data = res.data;
           for(var i = 0;i<this.results_data.length;i++){
             this.results_data[i].date = moment(this.results_data[i].date).format('YYYY-MM-DD HH:mm:ss')
           }
           // alert(this.results_data[0].url)
+        this.pictLoading = false
         }else{
           alert(res.data[0].msg)
+          this.pictLoading = false
         }
         
   }).catch(err=>{
     alert('error, please contact administrator');
+    this.pictLoading = false
   });
-  this.pictLoading = false
+  // 
   }
 
 //预加载数据(20条数据)
