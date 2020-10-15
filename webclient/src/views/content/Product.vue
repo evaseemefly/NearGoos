@@ -101,7 +101,7 @@
                 <h2>Search</h2>
                 <h4>
                   Choose product categories, service application areas, product
-                  period, start date and end data from the following list to
+                  period, start date and end date from the following list to
                   start downloading your chosen products.
                 </h4>
               </div>

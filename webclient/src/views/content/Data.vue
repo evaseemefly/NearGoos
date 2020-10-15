@@ -250,7 +250,7 @@ import JSZip from 'jszip';
 import FileSaver from 'file-saver'
 import moment from 'moment'
 import countTo from 'vue-count-to';
-const host = 'http://128.5.6.6:8083';
+const host = 'http://neargoos.nmefc.cn:8083';
 @Component({
   components:{countTo}
 })
