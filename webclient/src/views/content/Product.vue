@@ -654,8 +654,12 @@ export default class ProductView extends Vue {
   mounted() {
     const isIE = isIEClient();
     if (isIE) {
-      this.$router.push({ path: 'home' });
+      alert('Please use a non-IE browser');
+      this.$router.push({ path: '/' });
     }
+    // if (isIE) {
+    //   this.$router.push({ path: 'home' });
+    // }
     this.openList = ['1', '2'];
     let myself = this;
     // 之前测试使用，现去掉

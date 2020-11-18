@@ -250,6 +250,7 @@ import JSZip from 'jszip';
 import FileSaver from 'file-saver'
 import moment from 'moment'
 import countTo from 'vue-count-to';
+import { isIEClient } from './common';
 const host = 'http://neargoos.nmefc.cn:8083';
 @Component({
   components:{countTo}
@@ -278,6 +279,11 @@ export default class DataView extends Vue {
   loadingBtn = false
 // lifecycle hook
 mounted() {
+      const isIE = isIEClient();
+      if (isIE) {
+        alert('Please use a non-IE browser');
+        this.$router.push({ path: '/' });
+      }
       getStatisticsByCategory().then((res:any)=>{
       if(res.status ===200){
         this.statistics_result = res.data;
